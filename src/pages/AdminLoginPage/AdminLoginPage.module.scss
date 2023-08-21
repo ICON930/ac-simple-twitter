@@ -1,0 +1,17 @@
+@use "src/assets/styles/color" as color;
+
+.link {
+  display: flex;
+  justify-content: right;
+  height: 18px;
+  margin: 22px 0;
+
+  .span {
+    margin: 0 12px;
+    border-bottom: 1px solid color.$primary-color;
+    color: color.$primary-color;
+    font-size: 16px;
+    cursor: pointer;
+  }
+}
+

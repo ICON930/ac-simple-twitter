@@ -1,0 +1,77 @@
+@use "src/assets/styles/color" as color;
+
+.container {
+  display: flex;
+  align-items: center;
+  margin: 4px 0;
+  width: 100%;
+  color: black;
+  cursor: pointer;
+
+  &:hover .iconHome {
+    content: url("../../assets/icons/homepage-Icon-active.svg");
+  }
+
+  &:hover .iconUser {
+    content: url("../../assets/icons/profile-Icon-active.svg");
+  }
+
+  &:hover .iconSetting {
+    content: url("../../assets/icons/setting-Icon-active.svg");
+  }
+
+  &:hover .title {
+    color: color.$brand-color;
+  }
+
+  .iconStyle {
+    margin: 16px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .title {
+    font-size: 16px;
+    font-weight: 700;
+
+    &.activeTitle {
+      color: color.$brand-color;
+    }
+  }
+
+  .iconHome {
+    content: url("../../assets/icons/homepage-Icon.svg");
+    height: 100%;
+    display: block;
+    cursor: pointer;
+
+    &.activeIcon {
+      content: url("../../assets/icons/homepage-Icon-active.svg");
+    }
+  }
+
+  .iconUser {
+    content: url("../../assets/icons/profile-Icon.svg");
+    height: 100%;
+    display: block;
+    cursor: pointer;
+
+    &.activeIcon {
+      content: url("../../assets/icons/profile-Icon-active.svg");
+    }
+  }
+
+  .iconSetting {
+    content: url("../../assets/icons/setting-Icon.svg");
+    height: 100%;
+    display: block;
+    cursor: pointer;
+
+    &.activeIcon {
+      content: url("../../assets/icons/setting-Icon-active.svg");
+    }
+  }
+}
+
+
+

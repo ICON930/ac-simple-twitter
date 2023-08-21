@@ -1,0 +1,70 @@
+@use "src/assets/styles/color" as color;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 54px;
+  width: 100%;
+  border-radius: 2px;
+  background-color: #f5f8fa;
+
+  .label {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 10px;
+    font-size: 14px;
+    color: color.$gray-8;
+  }
+
+  .input {
+    border: none;
+    height: 100%;
+    padding: 0 10px;
+    border-radius: 2px;
+    border-bottom: 2px solid #657786;
+    font-size: 16px;
+    outline: none;
+    background-color: #f5f8fa;
+
+    &:focus,
+    &:hover {
+      border-color: color.$assistant-blue;
+    }
+
+    &.active {
+      border-color: color.$error-color;
+    }
+  }
+}
+
+.noteBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 24px;
+  
+  .notification {
+      visibility: hidden;
+      align-items: center;
+      font-size: 10px;
+      &.active {
+        visibility: visible;
+        color: color.$error-color;
+      }
+    }
+  
+  .count {
+    display: none;
+    align-items: center;
+    font-size: 10px;
+    color: color.$gray-8;
+    &.active {
+      display: flex;
+    }
+  }
+}
+
+
+

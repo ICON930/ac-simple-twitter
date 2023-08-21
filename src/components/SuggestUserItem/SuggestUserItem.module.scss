@@ -1,0 +1,64 @@
+@use "src/assets/styles/color" as color;
+
+.container {
+  display: flex;
+  width: 273px;
+  height: 82px;
+  display: flex;
+  align-items: center;
+  position: relative;
+   
+  padding: 16px;
+
+  .avatarContainer {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 8px;
+    overflow: hidden;
+
+    .userAvatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 84px;
+
+    .userInfoName {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      height: 26px;
+      line-height: 26px;
+      width: 100%;
+      width: 71px;
+      font-size: 16px;
+      font-weight: 700;
+      color: color.$gray-10;
+    }
+
+    .userInfoAccount {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 71px;
+      height: 22px;
+      line-height: 22px;
+      font-size: 14px;
+      font-weight: 500;
+      color: color.$gray-7;
+    }
+  }
+
+  .btnFollow {
+    position: absolute;
+    top: 21px;
+    right: 16px;
+  }
+}

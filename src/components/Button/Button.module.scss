@@ -1,0 +1,51 @@
+@use "src/assets/styles/color" as color;
+
+.button {
+  height: 40px;
+  padding: 6px 0;
+  border-radius: 50px;
+  border: 1px solid color.$brand-color;
+  line-height: 100%;
+  font-size: 16px;
+  color: color.$brand-color;
+  background-color: color.$gray-1;
+  font-family: "Noto Sans TC", sans-serif;
+  cursor: pointer;
+}
+
+.small {
+  width: 64px;
+}
+
+.middle {
+  width: 96px;
+}
+
+.navTweet {
+  margin-top: 4px;
+  height: 46px;
+  width: 178px;
+  font-size: 20px;
+}
+
+.large {
+  margin-top:16px;
+  height: 46px;
+  width: 356px;
+  font-size: 20px;
+}
+
+.action {
+  border: none;
+  color: color.$gray-1;
+  background-color: color.$brand-color;
+}
+
+.edit {
+  border: none;
+  height: 40px;
+  width: 128px;
+  color: color.$brand-color;
+  background-color: color.$gray-1;
+  border: 1px solid color.$brand-color;
+}

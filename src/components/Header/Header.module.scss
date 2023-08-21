@@ -1,0 +1,36 @@
+@use "src/assets/styles/color" as color;
+
+.container {
+  border-bottom: 1px solid color.$assistant-gray;
+  padding: 17px 24px;
+
+  .headerContainer {
+    display: flex;
+    align-items: center;
+
+    .arrow {
+      display: inline-flex;
+      height: 24px;
+      width: 24px;
+      margin-right: 19px;
+      padding: 4px;
+    }
+
+    .smallTitle {
+      align-items: center;
+      height: 24px;
+    }
+
+    .tweetCount {
+      align-items: center;
+      height: 18px;
+      font-size: 13px;
+      color: color.$secondary-color;
+    }
+  }
+}
+
+
+
+
+

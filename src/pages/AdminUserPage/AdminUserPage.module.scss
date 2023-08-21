@@ -1,0 +1,25 @@
+@use "src/assets/styles/color" as color;
+
+.container {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+
+  .cardContainer {
+    width: 100%;
+    border-left: 1px solid color.$assistant-gray; 
+
+    .card {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 16px;
+      height: 100vh;
+      overflow-y: scroll;
+    }
+  }
+}
+
+
+

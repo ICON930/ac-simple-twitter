@@ -1,0 +1,25 @@
+@use "src/assets/styles/color" as color;
+
+.container {
+  display: flex;
+  justify-content: center;
+  margin-right: 130px;
+  height: 100vh;
+  overflow: hidden;
+  
+  .listContainer {
+    width: 100%;
+    border-left: 1px solid color.$assistant-gray;
+
+    .list {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow-y: scroll;
+        padding-bottom: 60px;
+      }
+  }
+}
+
+
+

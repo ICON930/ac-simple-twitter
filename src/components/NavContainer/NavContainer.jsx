@@ -7,7 +7,7 @@ import logoutImg from "../../assets/icons/logout-Icon.svg";
 
 import styles from "./NavContainer.module.scss";
 
-export default function NavContainer({page}) {
+export default function NavContainer({ page }) {
   return (
     <div className={styles.container}>
       <img className={styles.logoImg} src={logo} alt="logo" />
@@ -16,13 +16,21 @@ export default function NavContainer({page}) {
           <>
             <div className={styles.menu}>
               <NavLink to="/main">
-                  <NavItem iconStyle={"iconHome"} altName="main" title="首頁" />
+                <NavItem iconStyle={"iconHome"} altName="main" title="首頁" />
               </NavLink>
               <NavLink to="/user/:UserId/tweet" className={styles.btnLink}>
-                  <NavItem iconStyle={"iconUser"} altName="user" title="個人資料" />
+                <NavItem
+                  iconStyle={"iconUser"}
+                  altName="user"
+                  title="個人資料"
+                />
               </NavLink>
               <NavLink to="/setting" className={styles.btnLink}>
-                  <NavItem iconStyle={"iconSetting"} altName="setting" title="個人資料" />
+                <NavItem
+                  iconStyle={"iconSetting"}
+                  altName="setting"
+                  title="設定"
+                />
               </NavLink>
             </div>
             <div className={styles.btn}>
@@ -33,10 +41,14 @@ export default function NavContainer({page}) {
         {page === "admin" && (
           <div className={styles.menu}>
             <NavLink to="/admin/main">
-                <NavItem iconStyle={"iconHome"} altName="main" title="推文清單" />
+              <NavItem iconStyle={"iconHome"} altName="main" title="推文清單" />
             </NavLink>
             <NavLink to="/admin/users">
-                <NavItem iconStyle={"iconUser"} altName="user" title="使用者列表"/>
+              <NavItem
+                iconStyle={"iconUser"}
+                altName="user"
+                title="使用者列表"
+              />
             </NavLink>
           </div>
         )}

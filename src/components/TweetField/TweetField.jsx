@@ -32,7 +32,7 @@ export default function TweetField() {
         </div>
       </div>
       {description.length === 140 && (
-        <div className={styles.errorMessage}>字數不可超過140字!</div>
+        <div className={styles.errorMessage}>字數超出上限!</div>
       )}
       <div className={styles.tweetButton}>
         <Button size="small" title="推文" isAction></Button>

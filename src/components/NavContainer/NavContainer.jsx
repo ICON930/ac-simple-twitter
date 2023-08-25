@@ -1,13 +1,24 @@
 import { NavLink } from "react-router-dom";
-
+import { useState } from "react";
 import NavItem from "../NavItem/NavItem.jsx";
 import Button from "../Button/Button.jsx";
+import TweetModal from "../Modal/TweetModal.jsx";
+
 import logo from "../../assets/icons/logo-Icon.svg";
 import logoutImg from "../../assets/icons/logout-Icon.svg";
 
 import styles from "./NavContainer.module.scss";
 
 export default function NavContainer({ page }) {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const openModal = () => {
+    setIsOpenModal(true);
+  };
+  const closeModal = () => {
+    setIsOpenModal(false);
+  };
+
   return (
     <div className={styles.container}>
       <img className={styles.logoImg} src={logo} alt="logo" />
@@ -34,7 +45,9 @@ export default function NavContainer({ page }) {
               </NavLink>
             </div>
             <div className={styles.btn}>
-              <Button title="推文" size="navTweet" isAction></Button>
+              <Button title="推文" size="navTweet" onClick={openModal} isAction>
+                <TweetModal isOpen={isOpenModal} onClose={closeModal} />
+              </Button>
             </div>
           </>
         )}

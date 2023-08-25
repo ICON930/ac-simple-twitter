@@ -1,7 +1,11 @@
 //components
 import Header from "../../components/Header/Header";
 import TweetField from "components/TweetField/TweetField";
-import UserTweetItem from "components/UserTweetItem/UserTweetItem";
+import {
+  UserTweetItem,
+  UserReplyItem,
+  UserLikeItem,
+} from "components/UserTweetItem/UserTweetItem";
 import NavContainer from "components/NavContainer/NavContainer";
 import SuggestUserContainer from "components/SuggestUserContainer/SuggestUserContainer";
 
@@ -26,6 +30,12 @@ export default function MainPage() {
           </div>
           <div className={styles.userTweetItem}>
             <UserTweetItem />
+          </div>
+          <div className={styles.userTweetItem}>
+            <UserReplyItem />
+          </div>
+          <div className={styles.userTweetItem}>
+            <UserLikeItem />
           </div>
         </div>
         <div className={styles.sugContainer}>

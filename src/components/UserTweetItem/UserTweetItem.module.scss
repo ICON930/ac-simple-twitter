@@ -1,5 +1,6 @@
 @import "../../assets/styles/base.scss";
 
+
 .container{
   min-height: 118px;
   display: flex;
@@ -87,4 +88,10 @@
         color: #6C757D;
       }
     }
+
+//新增Count們的margin
+.replyCount,
+.likeCount {
+  margin-left: 5px;
 }
+

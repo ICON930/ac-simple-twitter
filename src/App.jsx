@@ -12,6 +12,7 @@ import UserPage from "./pages/UserPage/UserPage";
 import SettingPage from "./pages/SettingPage/SettingPage";
 import ReplyTweetPage from "./pages/ReplyTweetPage/ReplyTweetPage";
 import FollowerPage from "./pages/FollowerPage/FollowerPage";
+
 function App() {
   return (
     <div className="app">
@@ -25,13 +26,12 @@ function App() {
           <Route path="admin/users" element={<AdminUserPage />} />
           <Route path="main" element={<MainPage />} />
           <Route path="user" element={<UserPage />} />
-          <Route path="user/reply" element={<UserPage />} />
-          <Route path="user/like" element={<UserPage />} />
+          <Route path="user/:tab" element={<UserPage />} />
+          {/* :tab = "reply" or "like" */}
           <Route path="setting" element={<SettingPage />} />
           <Route path="replytweet" element={<ReplyTweetPage />} />
           <Route path="follower" element={<FollowerPage />} />
           <Route path="following" element={<FollowerPage />} />
-          <Route path="replytweet" element={<ReplyTweetPage />} />
         </Routes>
       </BrowserRouter>
     </div>

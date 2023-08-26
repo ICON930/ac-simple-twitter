@@ -1,41 +1,39 @@
 import styles from "./AdminUserCard.module.scss";
 
-import admin_background from "../../assets/icons/catShockPhoto.svg";
-import logo from "../../assets/icons/default-avatar.svg";
 import admin_reply from "../../assets/icons/tweet-Icon.svg";
 import admin_like from "../../assets/icons/like-icon.svg";
 
-export default function AdminUserCard () {
+export default function AdminUserCard (avatar, name, coverPhoto, account, followerCount, followingCount, tweetCount, likeCount) {
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>
         <img
           className={styles.coverImg}
-          src={admin_background}
+          src={coverPhoto}
           alt="Cover img"
         />
         <div className={styles.avatarContainer}>
           <img
             className={styles.avatar}
-            src={logo}
+            src={avatar}
             alt="Avatar"
           />
         </div>
       </div>
       <div className={styles.infoContainer}>
-        <h5 className={styles.name}>Apple</h5>
-        <h5 className={styles.account}>@apple</h5>
+        <h5 className={styles.name}>{name}</h5>
+        <h5 className={styles.account}>{account}</h5>
         <div className={styles.counts}>
           <img className={styles.icon} src={admin_reply} alt="reply"/>
-          <span className={styles.number}>1.5k</span>
+          <span className={styles.number}>{tweetCount}</span>
           <img className={styles.icon} src={admin_like} alt="like"/>
-          <span className={styles.number}>20k</span>
+          <span className={styles.number}>{likeCount}</span>
         </div>
         <div className={styles.follows}>
-          <span className={styles.followCount}>34個</span>
+          <span className={styles.followCount}>{followingCount}</span>
           <span className={styles.followInfo}>跟隨中</span>
           <span className={styles.break}></span>
-          <span className={styles.followCount}>59位</span>
+          <span className={styles.followCount}>{followerCount}</span>
           <span className={styles.followInfo}>跟隨者</span>
         </div>
       </div>

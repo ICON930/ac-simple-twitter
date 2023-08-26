@@ -1,4 +1,5 @@
 import { useState } from "react";
+import clsx from "clsx";
 
 import styles from "./TweetField.module.scss";
 import Button from "../Button/Button";
@@ -12,7 +13,10 @@ export default function TweetField() {
   const haneleDescription = (e) => {
     setDescription(e.target.value);
   };
-
+  const isMaxLength = description.length > 140;
+  const errorMessageClassName = clsx(styles.errorMassge, {
+    [styles.showError]: isMaxLength,
+  });
   return (
     <div className={styles.fieldContainer}>
       <div className={styles.tweetContainer}>
@@ -25,14 +29,13 @@ export default function TweetField() {
           <textarea
             className={styles.textarea}
             placeholder="有什麼新鮮事"
-            maxLength="140"
             value={description}
             onChange={haneleDescription}
           ></textarea>
         </div>
       </div>
-      {description.length === 140 && (
-        <div className={styles.errorMessage}>字數超出上限!</div>
+      {isMaxLength && (
+        <div className={errorMessageClassName}>字數超出上限!</div>
       )}
       <div className={styles.tweetButton}>
         <Button size="small" title="推文" isAction></Button>

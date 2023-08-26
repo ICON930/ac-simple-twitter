@@ -11,8 +11,8 @@ import MainPage from "./pages/MainPage/MainPage";
 import UserPage from "./pages/UserPage/UserPage";
 import SettingPage from "./pages/SettingPage/SettingPage";
 import ReplyTweetPage from "./pages/ReplyTweetPage/ReplyTweetPage";
-import FollowerPage from "./pages/FollowerPage/FollowerPage"
-import { AuthProvider } from './contexts/AuthContext.jsx';
+import FollowerPage from "./pages/FollowerPage/FollowerPage";
+import { AuthProvider } from "./contexts/AuthContext.jsx";
 
 function App() {
   return (
@@ -33,7 +33,7 @@ function App() {
             <Route path="setting" element={<SettingPage />} />
             <Route path="replytweet" element={<ReplyTweetPage />} />
             <Route path="follower" element={<FollowerPage />} />
-            <Route path="following" element={<FollowerPage />} /?
+            <Route path="following" element={<FollowerPage />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

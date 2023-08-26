@@ -9,8 +9,8 @@ import { ReactComponent as LikeIcon } from "../../assets/icons/like-icon.svg";
 import { ReactComponent as UnLikeIcon } from "../../assets/icons/like-active.svg";
 //mainPage UserPage的推文欄位
 export function UserTweetItem() {
-  //回推文MODAL功能
-  //   const [modalOpen, setModalOpen] = useState("false");
+  //回推文MODAL功能;
+  //   const [modalOpen, setModalOpen] = useState(false);
   //   const openModal = () => {
   //     setmodalOpen(true);
   //   };
@@ -35,7 +35,7 @@ export function UserTweetItem() {
               className={`${styles.replyIcon}cursor-point`}
               width="1em"
               height="1em"
-              //   onClick={handleReply}
+              //onClick={replyModal}
             />
             <h6 className={styles.replyCount}>123</h6>
           </div>

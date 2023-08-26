@@ -13,6 +13,7 @@ export default function NavContainer({ page }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const openModal = () => {
+    console.log("Modal is opening");
     setIsOpenModal(true);
   };
   const closeModal = () => {
@@ -45,9 +46,15 @@ export default function NavContainer({ page }) {
               </NavLink>
             </div>
             <div className={styles.btn}>
-              <Button title="推文" size="navTweet" onClick={openModal} isAction>
+              <Button
+                onClick={openModal}
+                title="推文"
+                size="navTweet"
+                isAction
+              />
+              {isOpenModal && (
                 <TweetModal isOpen={isOpenModal} onClose={closeModal} />
-              </Button>
+              )}
             </div>
           </>
         )}

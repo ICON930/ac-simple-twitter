@@ -7,13 +7,12 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage.jsx";
 import AdminLoginPage from "./pages/AdminLoginPage/AdminLoginPage.jsx";
 import AdminMainPage from "./pages/AdminMainPage/AdminMainPage.jsx";
 import AdminUserPage from "./pages/AdminUserPage/AdminUserPage.jsx";
-import { AuthProvider } from './contexts/AuthContext.jsx';
-
+從'./contexts/AuthContext.jsx'導入{ AuthProvider } ； 
 function App() {
   return (
     <div className="app">
-      <BrowserRouter >
-        <AuthProvider>
+      <瀏覽器路由器> 
+        <驗證提供者> 
           <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="login" element={<LoginPage />} />

@@ -1,0 +1,23 @@
+
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+.mainContainer{
+    display: flex;
+
+}
+.middleContainer{
+    top: 0;
+    width:639px;
+    border-left: 1px solid #E6ECF0;
+    border-right: 1px solid #E6ECF0;
+
+}
+.header{
+    border-bottom: 1px solid#E6ECF0;
+}
+.tweetField{
+    border-bottom: 10px solid #E6ECF0;
+}

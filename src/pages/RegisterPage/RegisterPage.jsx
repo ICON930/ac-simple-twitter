@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
+import { useAuth } from '../../contexts/AuthContext';
+import Swal from 'sweetalert2';
+
 import AuthInput from "../../components/AuthInput/AuthInput.jsx";
 import AuthPageContainer from "../../components/AuthPageContainer/AuthPageContainer.jsx";
 import Button from "../../components/Button/Button.jsx";
@@ -13,6 +16,43 @@ export default function RegisterPage () {
   const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
   const [ checkPassword, setCheckPassword ] = useState("");
+
+   const { register } = useAuth();
+
+  const handleClick = async () => {
+    if (account.length === 0) {
+	    return;
+	  }
+	  if (password.length === 0) {
+	    return;
+	  }
+	  if (email.length === 0) {
+	    return;
+	  }
+
+    const success = await register({
+      account,
+      email,
+      password,
+    });
+    if (success) {
+      Swal.fire({
+        position: 'top',
+        title: '註冊成功！',
+        timer: 1000,
+        icon: 'success',
+        showConfirmButton: false,
+      });
+      return;
+    }
+    Swal.fire({
+      position: 'top',
+      title: '註冊失敗！',
+      timer: 1000,
+      icon: 'error',
+      showConfirmButton: false,
+    });
+  };
 
   return (
     <AuthPageContainer title="建立你的帳號">
@@ -31,7 +71,7 @@ export default function RegisterPage () {
       <AuthInput label="密碼確認" value={checkPassword} placeholder="請再次輸入密碼" onChange={(checkPasswordInputValue) => setCheckPassword(checkPasswordInputValue)}
       notification="字數超出上限!" wordsLimit={20}
       />
-      <Button title="登入" size="large" isAction></Button>
+      <Button title="登入" size="large" isAction onClick={handleClick}></Button>
       <div className={styles.link}>
         <NavLink to={"/login"}>
           <span className={styles.span}>取消</span>

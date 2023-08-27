@@ -1,0 +1,48 @@
+.container{
+    width: 639px;
+    height: 150px;
+    border: 1px solid#E6ECF0;
+}
+.content{
+    height: 126px;
+    width: 100%;
+}
+.top{
+    display: flex;
+    height: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    align-items: center;
+}
+.avatar{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    img{
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+    }
+}
+.followerName{
+font-family: Noto Sans TC;
+font-size: 16px;
+font-weight: 700;
+line-height: 26px;
+letter-spacing: 0px;
+text-align: left;
+padding-left: 8px;
+}
+.button{
+    width: 96px;
+    height: 40px;
+    padding-left: 385px;
+}
+.introduction{ 
+    margin-left: 79px;
+    margin-top: 10px;
+    width: 528px;
+    height: 79px;
+    word-wrap: break-word;
+}

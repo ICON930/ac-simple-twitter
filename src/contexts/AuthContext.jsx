@@ -1,8 +1,8 @@
-import { createContext, useState, useEffect, useContext } from 'react';
+import { createContext, useState, useContext } from "react";
 
-import { login, register } from '../api/auth';
-import { adminLogin } from '../api/admin';
-import * as jwt from 'jsonwebtoken';
+import { login, register } from "../api/auth";
+import { adminLogin } from "../api/admin";
+import * as jwt from "jsonwebtoken";
 
 const defaultAuthContext = {
   isAuthenticated: false,
@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
           if (tempPayload) {
             setPayload(tempPayload);
             setIsAuthenticated(true);
-            localStorage.setItem('token', token);
+            localStorage.setItem("token", token);
           } else {
             setPayload(null);
             setIsAuthenticated(false);
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
           return success;
         },
         login: async (data) => {
-          const loginFunc = data.role === "admin" ? adminLogin : login
+          const loginFunc = data.role === "admin" ? adminLogin : login;
           const { success, token } = await loginFunc({
             account: data.account,
             password: data.password,
@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
           if (tempPayload) {
             setPayload(tempPayload);
             setIsAuthenticated(true);
-            localStorage.setItem('token', token);
+            localStorage.setItem("token", token);
           } else {
             setPayload(null);
             setIsAuthenticated(false);
@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
           return success;
         },
         logout: () => {
-          localStorage.removeItem('authToken');
+          localStorage.removeItem("authToken");
           setPayload(null);
           setIsAuthenticated(false);
         },

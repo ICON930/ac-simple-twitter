@@ -8,26 +8,40 @@ import { ReactComponent as ReplyIcon } from "../../assets/icons/reply-icon.svg";
 import { ReactComponent as LikeIcon } from "../../assets/icons/like-icon.svg";
 import { ReactComponent as UnLikeIcon } from "../../assets/icons/like-active.svg";
 //mainPage UserPage的推文欄位
-export function UserTweetItem() {
-  //回推文MODAL功能;
-  //   const [modalOpen, setModalOpen] = useState(false);
-  //   const openModal = () => {
-  //     setmodalOpen(true);
-  //   };
+export function UserTweetItem({
+  name,
+  account,
+  avatar,
+  description,
+  createdAt,
+  repliedAmount,
+  likedAmount,
+}) {
+  console.log("UserTweetItem Props:", {
+    name,
+    account,
+    avatar,
+    description,
+    createdAt,
+    repliedAmount,
+    likedAmount,
+  });
   return (
     <div className={styles.container}>
       {/* 頭像 */}
       <div className={styles.avatar}>
-        <img className="cursor-point" src={Avatar} alt="avatar" />
+        <img className="cursor-point" src={avatar} alt="avatar" />
       </div>
       <div className={styles.userPanel}>
         {/* 使用者帳號名字時間 */}
         <div className={styles.accountInfo}>
-          <h6 className={styles.name}>name</h6>
-          <h6 className={styles.accountAndTime}>@account．time</h6>
+          <h6 className={styles.name}>{name}</h6>
+          <h6 className={styles.accountAndTime}>
+            @{account}．{createdAt}
+          </h6>
         </div>
         {/* 推文內容 */}
-        <div className={styles.tweetContainer}>description</div>
+        <div className={styles.tweetContainer}>{description}</div>
         {/* 回覆及愛心功能 */}
         <div className={styles.iconEffect}>
           <div className={styles.replyEffect}>
@@ -37,7 +51,7 @@ export function UserTweetItem() {
               height="1em"
               //onClick={replyModal}
             />
-            <h6 className={styles.replyCount}>123</h6>
+            <h6 className={styles.replyCount}>{repliedAmount}</h6>
           </div>
           <div className={styles.likeEffect}>
             <LikeIcon
@@ -46,7 +60,7 @@ export function UserTweetItem() {
               height="1em"
               //   onClick={handlelike}
             />
-            <h6 className={styles.likeCount}>123</h6>
+            <h6 className={styles.likeCount}>{likedAmount}</h6>
           </div>
         </div>
       </div>

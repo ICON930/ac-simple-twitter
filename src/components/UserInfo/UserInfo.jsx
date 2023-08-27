@@ -1,40 +1,54 @@
 //components 
 import Button from "components/Button/Button"
 
+//hook
+import { useState } from "react"
+
 //scss
 import styles from "./UserInfo.module.scss"
 
 //icon
 import Banner from "../../assets/icons/default-banner.svg"
 import Avatar from "../../assets/icons/default-avatar.svg"
+import EditModal from "components/Modal/EditModal"
 
 export default function UserInfo() {
-  const handleClick = () => {
+
+  const [isOpenModal, setIsOpenModal] = useState(false)
+
+  const openModal = () => {
+    setIsOpenModal(true)
   }
 
+  const closeModal = () => {
+    setIsOpenModal(false)
+  }
+
+
   return (
-    <div className={styles.container}>
+    <div className={styles.userInfoContainer}>
       <img className={styles.banner} src={Banner} alt="default-banner" /> 
       <img className={styles.avatar} src={Avatar} alt="default-avatar" />
-      <div className={styles.button}>
+      <div className={styles.buttonContainer}>
         <Button 
           title="編輯個人資料"
           size="edit"
-          onClick={handleClick}
+          onClick={openModal}
           isAction
         />
       </div>
+        <EditModal isOpen={isOpenModal} isClose={closeModal}/>
       <div>
         <div className={styles.nameContainer}>
-          <p>John Doe</p>
-          <p>@heyjohn</p>
+          <p>name</p>
+          <p>@account</p>
         </div>
         <div className={styles.introContainer}>
-          <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.</p>
+          <p>description</p>
         </div>
         <div className={styles.followerContainer}>
-          <span className={styles.number}>34 個</span><span className={styles.label}>跟隨中</span>
-          <span className={styles.number}>59 位</span><span className={styles.label}>跟隨者</span>
+          <span className={styles.number}>count 個</span><span className={styles.label}>跟隨中</span>
+          <span className={styles.number}>count 位</span><span className={styles.label}>跟隨者</span>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 @use "../../assets/styles/color" as color;
 
-.container {
+.userInfoContainer {
   height: 378px;
   position: relative;
 }
@@ -19,7 +19,7 @@
   border-radius: 50%;
 }
 
-.button Button{
+.buttonContainer {
   position: absolute;
   width: 128px;
   height: 40px;

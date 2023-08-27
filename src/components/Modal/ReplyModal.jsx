@@ -34,6 +34,7 @@ export default function ReplyModal({ isOpen, onClose }) {
           </div>
         </div>
         <div className={styles.userArticle}>description</div>
+        <div>回覆給@name</div>
       </div>
     </div>
   );

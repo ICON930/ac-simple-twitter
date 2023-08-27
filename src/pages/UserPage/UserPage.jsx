@@ -36,8 +36,7 @@ export default function UserPage() {
       </div>
       <div className={styles.middleContainer}> 
         <Header 
-          className={styles.header}
-          title="John Doe" 
+          title="name" 
           arrow 
           tweetCount 
         />

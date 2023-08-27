@@ -37,4 +37,8 @@ li {
       border-bottom: 2px solid color.$brand-color;
       color: color.$brand-color;
     }
+    &:active{
+      border-bottom: 2px solid color.$brand-color;
+      color: color.$brand-color;
+    }
 }

@@ -14,7 +14,7 @@ export default function TweetField() {
     setDescription(e.target.value);
   };
   const isMaxLength = description.length > 140;
-  const errorMessageClassName = clsx(styles.errorMassge, {
+  const errorMessageClassName = clsx(styles.errorMessage, {
     [styles.showError]: isMaxLength,
   });
   return (
@@ -28,17 +28,19 @@ export default function TweetField() {
         <div className={styles.textAreaContainer}>
           <textarea
             className={styles.textarea}
-            placeholder="有什麼新鮮事"
+            placeholder="有什麼新鮮事?"
             value={description}
             onChange={haneleDescription}
           ></textarea>
         </div>
       </div>
-      {isMaxLength && (
-        <div className={errorMessageClassName}>字數超出上限!</div>
-      )}
-      <div className={styles.tweetButton}>
-        <Button size="small" title="推文" isAction></Button>
+      <div className={styles.buttonAndMessage}>
+        {isMaxLength && (
+          <div className={errorMessageClassName}>字數超出上限!</div>
+        )}
+        <div className={styles.tweetButton}>
+          <Button size="small" title="推文" isAction></Button>
+        </div>
       </div>
     </div>
   );

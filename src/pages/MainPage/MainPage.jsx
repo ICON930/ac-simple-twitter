@@ -31,12 +31,6 @@ export default function MainPage() {
           <div className={styles.userTweetItem}>
             <UserTweetItem />
           </div>
-          <div className={styles.userTweetItem}>
-            <UserReplyItem />
-          </div>
-          <div className={styles.userTweetItem}>
-            <UserLikeItem />
-          </div>
         </div>
         <div className={styles.sugContainer}>
           <SuggestUserContainer />

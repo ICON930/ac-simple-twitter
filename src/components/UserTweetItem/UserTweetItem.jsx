@@ -17,15 +17,6 @@ export function UserTweetItem({
   repliedAmount,
   likedAmount,
 }) {
-  console.log("UserTweetItem Props:", {
-    name,
-    account,
-    avatar,
-    description,
-    createdAt,
-    repliedAmount,
-    likedAmount,
-  });
   return (
     <div className={styles.container}>
       {/* 頭像 */}

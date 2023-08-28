@@ -20,8 +20,9 @@ export default function NavContainer({ page }) {
   const closeModal = () => {
     setIsOpenModal(false);
   };
-  const handleLogout = async () => {
-    await logout();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("currentUserId");
     navigate("/login");
   };
 

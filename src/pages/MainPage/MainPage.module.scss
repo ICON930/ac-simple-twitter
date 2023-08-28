@@ -21,3 +21,7 @@
 .tweetField{
     border-bottom: 10px solid #E6ECF0;
 }
+.userTweetItem{
+    max-height: calc(100vh - 60px); /* 設定最大高度，減去頭部和 TweetField 的高度 */
+    overflow-y: auto; /* 垂直滾動條 */
+}

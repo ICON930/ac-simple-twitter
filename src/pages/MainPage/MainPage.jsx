@@ -23,8 +23,8 @@ export default function MainPage() {
     if (isAuthenticated) {
       const fetchTweets = async () => {
         try {
-          const tweetsData = await getTweets(token);
-          setTweets(tweetsData.tweets);
+          const tweets = await getTweets(token);
+          setTweets(tweets);
         } catch (error) {
           console.log("fetch tweets is Fail", error);
           setTweets([]);
@@ -48,23 +48,19 @@ export default function MainPage() {
             <TweetField />
           </div>
           <div className={styles.userTweetItem}>
-            {tweets ? (
-              tweets.length > 0 ? (
-                tweets.map((tweetData) => (
-                  <UserTweetItem
-                    key={tweetData.id}
-                    name={tweetData.User.name}
-                    account={tweetData.User.account}
-                    avatar={tweetData.User.avatar}
-                    description={tweetData.description}
-                    createdAt={tweetData.createdAt}
-                    repliedAmount={tweetData.repliedAmount}
-                    likedAmount={tweetData.likedAmount}
-                  />
-                ))
-              ) : (
-                <p>No tweets available.</p>
-              )
+            {tweets.length > 0 ? (
+              tweets.map((tweet) => (
+                <UserTweetItem
+                  key={tweet.id}
+                  name={tweet.User.name}
+                  account={tweet.User.account}
+                  avatar={tweet.User.avatar}
+                  description={tweet.description}
+                  createdAt={tweet.createdAt}
+                  repliedAmount={tweet.repliedAmount}
+                  likedAmount={tweet.likedAmount}
+                />
+              ))
             ) : (
               <p>Loading...</p>
             )}

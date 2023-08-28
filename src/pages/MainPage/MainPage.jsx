@@ -19,7 +19,6 @@ export default function MainPage() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    console.log("isAuthenticatad", isAuthenticated);
     if (isAuthenticated) {
       const fetchTweets = async () => {
         try {

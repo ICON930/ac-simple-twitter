@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 
 import { login, register } from "../api/auth";
 import { adminLogin } from "../api/admin";
@@ -17,6 +17,18 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [payload, setPayload] = useState(null);
+
+  //儲存TOKEN不讓頁面在重新整理時讀不到
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const tempPayload = jwt.decode(token);
+      if (tempPayload) {
+        setPayload(tempPayload);
+        setIsAuthenticated(true);
+      }
+    }
+  }, []);
 
   return (
     <AuthContext.Provider

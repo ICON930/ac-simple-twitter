@@ -50,7 +50,7 @@
 
 .introContainer {
   position: absolute;
-  left: 16px;
+  margin-left: 16px;
   width: 604px;
   height: 22px;
   top: 326px;
@@ -58,6 +58,9 @@
     color: color.$gray-10;
     font-size: 14px;
     line-height: 22px;
+    word-wrap: break-word; // 斷字換行
+    overflow-wrap: break-word; // 斷字換行
+    white-space: normal; // 允許換行和空白折疊
   }
 }
 
@@ -66,7 +69,7 @@
   width: 180px;
   left: 16px;
   height: 22px;
-  top: 356px;
+  top: 372px;
   display: flex;
   gap: 20px;
   white-space: nowrap;
@@ -82,4 +85,17 @@
   .label {
     color: color.$secondary-color;
   }
+}
+
+.ballStyle {
+  margin-left: 415px;
+  margin-top: 16px;
+}
+
+.ballStyleTwo {
+  margin-left: 16px;
+}
+
+.buttonClass {
+  margin-left: 32px;
 }

@@ -39,24 +39,3 @@ export const settingPage = async(token,id, {account ,name, email, password,passw
         return{success:false}
     }
 }
-
-//重新編輯個人資料
-export const editPage = async(token,id, {name, bio, avatar, cover}) => {
-    try {
-        const response = await axios.put(`${authURL}/users/${id}`, {
-            name,
-            bio,
-            avatar,
-            cover
-        },
-        {
-            headers: {
-                Authorization: "Bearer " + token,
-            },
-        })
-        const data = response.data;
-        return data
-    } catch (error) {
-        console.log("editChange is Fail", error);
-    }
-}

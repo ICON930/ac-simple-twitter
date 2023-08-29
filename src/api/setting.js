@@ -4,11 +4,11 @@ const authURL = "https://thawing-beach-07124-5fd4697aa480.herokuapp.com/api";
 
 
 //取得ID資料
-export const getUserInfo =async(token, id)=>{
+export const getUserInfo = async (token, id) => {
     try{
         const response = await axios.get(`${authURL}/users/${id}`,{
             headers:{
-                Authorization:"Beaer " +token,
+                Authorization:"Bearer " +token,
             }
         })
         const data = response.data

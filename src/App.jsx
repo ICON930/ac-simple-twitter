@@ -29,7 +29,7 @@ function App() {
             <Route path="main" element={<MainPage />} />
             <Route path="user">
               <Route path=":id" element={<UserPage />} />
-            </Route>
+            </Route>        
             {/* :tab = "reply" or "like" */}
             <Route path="setting" element={<SettingPage />} />
             <Route path="tweets/:tweetid" element={<ReplyTweetPage />} />

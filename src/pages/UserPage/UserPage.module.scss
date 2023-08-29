@@ -23,6 +23,10 @@ li {
   display: flex;
 }
 
+.link {
+  margin-top: 16px;
+}
+
 .link a {
   cursor: pointer;
   display: block; // 使a元素填充整個li區塊

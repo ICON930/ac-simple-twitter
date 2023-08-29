@@ -8,7 +8,7 @@ export const getUserInfo =async(token, id)=>{
     try{
         const response = await axios.get(`${authURL}/users/${id}`,{
             headers:{
-                Authorization:"Beaer" +token,
+                Authorization:"Beaer " +token,
             }
         })
         const data = response.data

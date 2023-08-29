@@ -10,7 +10,7 @@ import AdminUserPage from "./pages/AdminUserPage/AdminUserPage.jsx";
 import MainPage from "./pages/MainPage/MainPage";
 import UserPage from "./pages/UserPage/UserPage";
 import SettingPage from "./pages/SettingPage/SettingPage";
-// import ReplyTweetPage from "./pages/ReplyTweetPage/ReplyTweetPage";
+import ReplyTweetPage from "./pages/ReplyTweetPage/ReplyTweetPage";
 import FollowerPage from "./pages/FollowerPage/FollowerPage";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 
@@ -27,11 +27,12 @@ function App() {
             <Route path="admin/main" element={<AdminMainPage />} />
             <Route path="admin/users" element={<AdminUserPage />} />
             <Route path="main" element={<MainPage />} />
-            <Route path="user" element={<UserPage />} />
-            <Route path="user/:tab" element={<UserPage />} />
+            <Route path="user">
+              <Route path=":id" element={<UserPage />} />
+            </Route>
             {/* :tab = "reply" or "like" */}
             <Route path="setting" element={<SettingPage />} />
-            {/* <Route path="replytweet" element={<ReplyTweetPage />} /> */}
+            <Route path="tweets/:tweetid" element={<ReplyTweetPage />} />
             <Route path="follower" element={<FollowerPage />} />
             <Route path="following" element={<FollowerPage />} />
           </Routes>

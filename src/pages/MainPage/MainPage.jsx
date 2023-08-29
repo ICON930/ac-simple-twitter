@@ -8,15 +8,16 @@ import SuggestUserContainer from "components/SuggestUserContainer/SuggestUserCon
 //scss
 import styles from "./MainPage.module.scss";
 
-//api
 import { useAuth } from "contexts/AuthContext";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getTweets } from "api/tweet";
 
 export default function MainPage() {
   const [tweets, setTweets] = useState([]);
   const { isAuthenticated } = useAuth();
   const token = localStorage.getItem("token");
+  const [shouldReloadTweets, setShouldReloadTweets] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -31,7 +32,7 @@ export default function MainPage() {
       };
       fetchTweets();
     }
-  }, [isAuthenticated, token]);
+  }, [isAuthenticated, token, shouldReloadTweets]);
 
   return (
     <div className={`${styles.container} container max-auto`}>
@@ -44,21 +45,23 @@ export default function MainPage() {
             <Header title="首頁" />
           </div>
           <div className={styles.tweetField}>
-            <TweetField />
+            <TweetField setShouldReloadTweets={setShouldReloadTweets} />
           </div>
           <div className={styles.userTweetItem}>
             {tweets.length > 0 ? (
               tweets.map((tweet) => (
-                <UserTweetItem
-                  key={tweet.id}
-                  name={tweet.User.name}
-                  account={tweet.User.account}
-                  avatar={tweet.User.avatar}
-                  description={tweet.description}
-                  createdAt={tweet.createdAt}
-                  repliedAmount={tweet.repliedAmount}
-                  likedAmount={tweet.likedAmount}
-                />
+                <Link key={tweet.id} to={`/tweets/${tweet.id}`}>
+                  <UserTweetItem
+                    key={tweet.id}
+                    name={tweet.User.name}
+                    account={tweet.User.account}
+                    avatar={tweet.User.avatar}
+                    description={tweet.description}
+                    createdAt={tweet.createdAt}
+                    repliedAmount={tweet.repliedAmount}
+                    likedAmount={tweet.likedAmount}
+                  />
+                </Link>
               ))
             ) : (
               <p>Loading...</p>

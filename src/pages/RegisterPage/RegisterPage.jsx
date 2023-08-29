@@ -23,17 +23,25 @@ export default function RegisterPage() {
     if (account.length === 0) {
       return;
     }
+	  if (name.length === 0) {
+	    return;
+	  }
+	  if (email.length === 0) {
+	    return;
+	  }
     if (password.length === 0) {
-      return;
-    }
-    if (email.length === 0) {
-      return;
-    }
+	    return;
+	  }
+	  if (checkPassword.length === 0) {
+	    return;
+	  }
 
     const success = await register({
       account,
+      name,
       email,
       password,
+      checkPassword,
     });
     if (success) {
       Swal.fire({
@@ -44,7 +52,7 @@ export default function RegisterPage() {
         showConfirmButton: false,
       });
       return;
-    }
+    } 
     Swal.fire({
       position: "top",
       title: "註冊失敗！",
@@ -52,7 +60,7 @@ export default function RegisterPage() {
       icon: "error",
       showConfirmButton: false,
     });
-  };
+    }
 
   return (
     <AuthPageContainer title="建立你的帳號">
@@ -100,7 +108,7 @@ export default function RegisterPage() {
         notification="字數超出上限!"
         wordsLimit={20}
       />
-      <Button title="登入" size="large" isAction onClick={handleClick}></Button>
+      <Button title="註冊" size="large" isAction onClick={handleClick}></Button>
       <div className={styles.link}>
         <NavLink to={"/login"}>
           <span className={styles.span}>取消</span>

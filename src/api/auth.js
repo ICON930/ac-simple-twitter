@@ -2,6 +2,7 @@ import axios from "axios";
 
 const authURL = "https://thawing-beach-07124-5fd4697aa480.herokuapp.com/api";
 
+//前台登入
 export const login = async ({ account, password }) => {
   try {
     const { data } = await axios.post(`${authURL}/users/signin`, {
@@ -22,18 +23,20 @@ export const login = async ({ account, password }) => {
   }
 };
 
-export const register = async ({ account, name, email, password, passwordCheck }) => {
+//前台註冊
+export const register = async ({ account, name, email, password, checkPassword }) => {
   try {
-    const { data } = await axios.post(`${authURL}/users/signup`, {
+    const {data}  = await axios.post(`${authURL}/users`, {
       account,
       name,
       email,
       password,
-      passwordCheck,
+      checkPassword,
     });
-    const { authToken } = data;
 
-    if (authToken) {
+    const { token } = data;
+
+    if (token) {
       return { success: true, ...data };
     }
 

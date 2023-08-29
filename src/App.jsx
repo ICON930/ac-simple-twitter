@@ -34,7 +34,7 @@ function App() {
             <Route path="setting" element={<SettingPage />} />
             <Route path="tweets/:tweetid" element={<ReplyTweetPage />} />
             <Route path="follower" element={<FollowerPage />} />
-            <Route path="following" element={<FollowerPage />} />
+            <Route path="following" element={<FollowerPage />}/>
           </Routes>
         </AuthProvider>
       </BrowserRouter>

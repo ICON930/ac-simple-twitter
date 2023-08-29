@@ -3,11 +3,35 @@ import { useState, useEffect } from "react";
 import NavContainer from "../../components/NavContainer/NavContainer.jsx";
 import Header from "../../components/Header/Header.jsx";
 import AdminTweetItem from "../../components/AdminTweetItem/AdminTweetItem.jsx";
+import { deleteTweet, adminGetAllTweets } from "../../api/admin.js"
 
 import styles from "./AdminMainPage.module.scss";
 
 export default function AdminMainPage () {
     const [ tweets, setTweets ] = useState([]);
+
+    const handleDeleteTweet = async (id) => {
+      try {
+        await deleteTweet(id)
+        setTweets((preTweets) => {
+          return preTweets.filter((tweet) => tweet.id !== id);
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    useEffect(() => {
+    const adminGetAllTweet = async () => {
+        try {
+            const data = await adminGetAllTweets();
+            setTweets(data);
+        } catch (error) {
+            console.log('獲取推文失敗', error);
+        }
+        }
+        adminGetAllTweet();
+    }, []);
 
     const tweetList = tweets.map((tweet) => {
         return (
@@ -19,6 +43,7 @@ export default function AdminMainPage () {
             account={tweet.User.account}
             createdAt={tweet.createdAt}
             description={tweet.description}
+            onDelete={handleDeleteTweet}
         />
         );
     });

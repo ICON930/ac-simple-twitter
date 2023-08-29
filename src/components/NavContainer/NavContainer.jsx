@@ -36,7 +36,7 @@ export default function NavContainer({ page }) {
               <NavLink to="/main">
                 <NavItem iconStyle={"iconHome"} altName="main" title="首頁" />
               </NavLink>
-              <NavLink to="/user/:UserId/tweet" className={styles.btnLink}>
+              <NavLink to="/user/2" className={styles.btnLink}>
                 <NavItem
                   iconStyle={"iconUser"}
                   altName="user"

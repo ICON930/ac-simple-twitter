@@ -6,6 +6,8 @@ import UserInfo from "../../components/UserInfo/UserInfo"
 
 //hook
 import { useParams } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { useAuth } from "contexts/AuthContext";
 
 //scss
 import styles from "pages/UserPage/UserPage.module.scss"
@@ -14,19 +16,42 @@ import styles from "pages/UserPage/UserPage.module.scss"
 import { Link } from "react-router-dom";
 import { UserLikeItem, UserReplyItem, UserTweetItem } from "components/UserTweetItem/UserTweetItem";
 
-export default function UserPage() {
-  const { tab } = useParams();
+//api
+import { getUserInfo } from "api/setting";
 
-  let content;
+export default function UserPage() {
+  const { id, tab } = useParams();
+  const { isAuthenticated, currentMember} = useAuth()
+  const [userData, setUserData] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('token')
+        const data = await getUserInfo(token, id)
+        setUserData(data)
+        setIsLoading(false)
+      } catch (error) {
+        console.log('Error fetching user data',error)
+      }
+    }
+    if (isAuthenticated && id) {
+      fetchData()
+    }
+   },[id, isAuthenticated])
+
+  let content
   switch(tab) {
     case "reply":
-      content = <UserReplyItem />;
+      content = userData ? <UserReplyItem data={userData} /> : "Loading...";
       break;
     case "like":
-      content = <UserLikeItem />;
+      content = userData ? <UserLikeItem data={userData} /> :
+       "Loading...";
       break;
     default:
-      content = <UserTweetItem />;
+      content = userData ? <UserTweetItem data={userData} /> : "Loading...";
   }
 
   return (
@@ -35,12 +60,12 @@ export default function UserPage() {
         <NavContainer page="user" />  
       </div>
       <div className={styles.middleContainer}> 
-        <Header 
-          title="name" 
-          arrow 
+        {isLoading ? "Loading..." : <Header 
+          title={userData.name}
+          arrow
           tweetCount 
-        />
-        <UserInfo />
+        />}
+        {isLoading ? "Loading..." : <UserInfo isOtherUser={Number(currentMember?.id) !== Number(id)}  userData={userData} />}
         <ul className={styles.link}>
           <li><Link to="/user">推文</Link></li>
           <li><Link to="/user/reply">回覆</Link></li>
@@ -52,5 +77,5 @@ export default function UserPage() {
         <SuggestUserContainer />
       </div>
     </div>
-  )
+    )
   }

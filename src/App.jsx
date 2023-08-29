@@ -27,8 +27,9 @@ function App() {
             <Route path="admin/main" element={<AdminMainPage />} />
             <Route path="admin/users" element={<AdminUserPage />} />
             <Route path="main" element={<MainPage />} />
-            <Route path="user" element={<UserPage />} />
-            <Route path="user/:tab" element={<UserPage />} />
+            <Route path="user">
+              <Route path=":id" element={<UserPage />} />
+            </Route>        
             {/* :tab = "reply" or "like" */}
             <Route path="setting" element={<SettingPage />} />
             {/* <Route path="replytweet" element={<ReplyTweetPage />} /> */}

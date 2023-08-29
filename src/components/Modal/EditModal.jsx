@@ -8,11 +8,15 @@ import Banner from '../../assets/icons/default-banner.svg'
 import Avatar from '../../assets/icons/default-avatar.svg'
 import { useState } from 'react'
 
-export default function EditModal ({ isOpen, isClose }) {
-  const [name, setName] = useState('name')
-  const [description, setDescription] = useState('description')
+//api
+import { editPage } from 'api/setting'
+
+export default function EditModal ({ isOpen, isClose, userData }) {
+  const [name, setName] = useState(userData.name)
+  const [introduction, setIntroduction] = useState(userData.introduction)
   const [isNameExceeded, setNameExceeded] = useState(false)
-  const [isDescriptionExceeded, setDescriptionExceeded] = useState(false);
+  const [isIntroductionExceeded, setIsIntroductionExceeded] = useState(false);
+
 
   const handleTextChange = (e, setField, setExceeded, maxLength) => {
     const value = e.target.value
@@ -24,10 +28,27 @@ export default function EditModal ({ isOpen, isClose }) {
     }
   } 
 
-  const handleSave = () => {
-    localStorage.setItem('name', name);
-    localStorage.setItem('description', description);
+  const handleSave = async () => {
+    localStorage.setItem('name',name);
+    localStorage.setItem('introduction',introduction);
+
+    // 更新後端資料
+  try {
+    const token = localStorage.getItem('token');  // 或其他方式獲取 token
+    const id = localStorage.getItem('id');  // 或其他方式獲取用戶 ID
+    const data = await editPage(token, id, {
+      name,
+      bio: introduction,  // 如果後端接受的字段是 'bio'，則這樣寫
+      avatar: null,  // 可根據實際需求更新
+      cover: null  // 可根據實際需求更新
+    });
+
+    // 你可以在這裡添加一些成功後需要執行的代碼
+    console.log('Successfully updated:', data);
+  } catch (error) {
+    console.log('Failed to update user:', error);
   }
+};
 
   if(!isOpen) {
     return null
@@ -51,16 +72,16 @@ export default function EditModal ({ isOpen, isClose }) {
         <img width="634px" src={Banner} alt='default-banner'/>
         <img className={styles.avatar} src={Avatar} alt='default-avatar'/>
         <div className={styles.editContainer}>
-            <label className={styles.editName}>
+            <label className={`${styles.editName} ${isNameExceeded ? styles.errorLine :''}`}>
               <p className={styles.nameTitle}>名稱</p>
               <textarea value={name} onChange={(e) => handleTextChange(e, setName, setNameExceeded, 50)} className={styles.nameTextArea}>name</textarea>
             </label>
               <p className={styles.nameLength}>{isNameExceeded && <span className={styles.exceededStyle}>字數超出上限！</span>}{name.length}/50</p>
-            <label className={styles.editDescription}>
-              <p className={styles.descriptionTitle}>自我介紹</p>
-              <textarea value={description} onChange={(e) => handleTextChange(e, setDescription, setDescriptionExceeded, 160)} className={styles.descriptionTextArea}>description</textarea>
+            <label className={`${styles.editIntroduction} ${isIntroductionExceeded ? styles.errorLine :''}`} >
+              <p className={styles.introductionTitle}>自我介紹</p>
+              <textarea value={introduction} onChange={(e) => handleTextChange(e, setIntroduction, setIsIntroductionExceeded, 160)} className={styles.introductionTextArea}>introduction</textarea>
             </label>
-             <p className={styles.descriptionLength}>{isDescriptionExceeded && <span className={styles.exceededStyle}>字數超出上限！</span>}{description.length}/160</p>
+             <p className={styles.introductionLength}>{isIntroductionExceeded && <span className={styles.exceededStyle}>字數超出上限！</span>}{introduction.length}/160</p>
         </div>
       </div>
     </div>

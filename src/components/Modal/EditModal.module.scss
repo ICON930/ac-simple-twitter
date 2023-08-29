@@ -69,14 +69,14 @@
   }
 }
 
-.editDescription {
+.editIntroduction {
   height: 147px;
   background-color: #F5F8FA;
   border-radius: 2px;
   border-bottom: 2px solid color.$gray-8;
   position: relative;
   display: flex;
-  .descriptionTitle {
+  .introductionTitle {
     position: absolute;
     margin-top: 8px;
     margin-left: 15px;
@@ -97,7 +97,7 @@
   width: 602px;
 }
 
-.descriptionTextArea {
+.introductionTextArea {
   border: none;
   outline: none;
   resize: none;
@@ -127,7 +127,7 @@
   right: 0;
 }
 
-.descriptionLength {
+.introductionLength {
   position: absolute;
   margin-top: 237px;
   font-size: 12px;
@@ -137,10 +137,12 @@
 }
 
 .exceededStyle {
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 500;
   color: color.$error-color;
 }
 
-
+.errorLine {
+  border-bottom: 2px solid color.$error-color;
+}
 

@@ -23,6 +23,7 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     if (token) {
       const tempPayload = jwt.decode(token);
+       console.log("Temp payload:", tempPayload);  // 添加這一行
       if (tempPayload) {
         setPayload(tempPayload);
         setIsAuthenticated(true);
@@ -35,7 +36,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         isAuthenticated,
         currentMember: payload && {
-          id: payload.sub,
+          id: payload.id,
           name: payload.name,
         },
         register: async (data) => {

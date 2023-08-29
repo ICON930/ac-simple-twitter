@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
             name: data.name,
             email: data.email,
             password: data.password,
-            passwordCheck: data.passwordCheck,
+            checkPassword: data.checkPassword,
           });
           const tempPayload = jwt.decode(token);
           if (tempPayload) {
@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }) => {
           return success;
         },
         logout: () => {
-          localStorage.removeItem("authToken");
+          localStorage.removeItem('token');
           setPayload(null);
           setIsAuthenticated(false);
         },

@@ -2,7 +2,7 @@ import admin_delete from "../../assets/icons/cross-gray.svg";
 
 import styles from "./AdminTweetItem.module.scss";
 
-export default function AdminTweetItem (avatar, userName, account, createdAt, description, onDelete) {
+export default function AdminTweetItem ({tweetId, avatar, userName, account, createdAt, description, onDelete}) {
     return (
         <div className={styles.container}>
             <div className={styles.avatar}>
@@ -18,7 +18,7 @@ export default function AdminTweetItem (avatar, userName, account, createdAt, de
                     {description}
                 </div>
             </div>
-            <div className={styles.adminDelete} onClick={onDelete}>
+            <div className={styles.adminDelete} onClick={()=>onDelete(tweetId)}>
               <img className={styles.deleteImg} src={admin_delete} alt="admin_delete" />
             </div>
         </div>

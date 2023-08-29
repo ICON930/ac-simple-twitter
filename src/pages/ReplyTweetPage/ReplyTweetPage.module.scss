@@ -1,0 +1,17 @@
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+.replyContainer{
+    display: flex;
+}
+.middleContainer{
+    top: 0;
+    width:639px;
+    border-left: 1px solid #E6ECF0;
+    border-right: 1px solid #E6ECF0;
+}
+.header{
+    border-bottom: 1px solid#E6ECF0;
+}

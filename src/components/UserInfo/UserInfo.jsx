@@ -28,8 +28,8 @@ export default function UserInfo({ isOtherUser, userData, onSaveSuccess }) {
 
   return (
     <div className={styles.userInfoContainer}>
-      <img className={styles.banner} src={userData.cover} height="200px" width="634px" alt="default-banner" /> 
-      <img className={styles.avatar} src={userData.avatar} alt="default-avatar" />
+      <img className={styles.banner} src={userData.cover || Banner} height="200px" width="634px" alt="default-banner" /> 
+      <img className={styles.avatar} src={userData.avatar || Avatar} alt="default-avatar" />
       {isOtherUser && <img className={styles.ballStyle} src={Ball} alt="ball"/>}
       {isOtherUser && <img className={styles.ballStyleTwo} src={Ball} alt="ball"/>}  
       <div className={styles.buttonContainer}>

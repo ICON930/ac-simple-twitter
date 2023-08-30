@@ -54,7 +54,9 @@ export function UserIdTweetItem({ userId, updateTweetCount }) {
       {idTweets.map((tweet) => (
         <div className={styles.container} key={tweet.id}>
           <div className={styles.avatar}>
-            <img className="cursor-point" src={tweet.User.avatar}alt="avatar" />
+            <Link to={`/user/${userId}`}>
+            <img className="cursor-point" src={tweet.User.avatar || Avatar}alt="avatar" />
+            </Link>
           </div>
           <div className={styles.userPanel}>
             <div className={styles.accountInfo}>
@@ -126,8 +128,8 @@ export function UserIdReplyItem({ userId }) {
         <div className={styles.container} key={reply.id}>
           {/* 頭像 */}
           <div className={styles.avatar}>
-            <Link to={`/user/${reply.id}`}>
-              <img className="cursor-point" src={reply.User.avatar} alt="avatar" />
+            <Link to={`/user/${userId}`}>
+              <img className="cursor-point" src={reply.User.avatar || Avatar} alt="avatar" />
             </Link>
           </div>
           {/* 使用者帳號名字時間 */}
@@ -141,7 +143,7 @@ export function UserIdReplyItem({ userId }) {
           {/* 回覆 */}
           <div className={styles.replyUser}>
             <h6 className={styles.reply}>回覆</h6>
-            <h6 className={styles.replyPostUser}>@{reply.id}</h6>
+            <h6 className={styles.replyPostUser}>@{reply.Tweet.User.account}</h6>
           </div>
           {/*回文內容 */}
           <div className={styles.replyContainer}>{reply.comment}</div>

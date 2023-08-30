@@ -15,7 +15,7 @@ export default function Header({ title, arrow, tweetCount }) {
                         </NavLink>
                         <div className={styles.titleContainer}>
                             <h5 className={styles.smallTitle}>{title}</h5>
-                            <p className={styles.tweetCount}>23推文</p>
+                            <p className={styles.tweetCount}> {tweetCount} 推文</p>
                         </div>
                     </div>
                 </div>

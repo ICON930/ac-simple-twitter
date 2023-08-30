@@ -14,7 +14,7 @@ import styles from "pages/UserPage/UserPage.module.scss"
 
 //react-router-dom
 import { Link } from "react-router-dom";
-import { UserLikeItem, UserReplyItem, UserTweetItem } from "components/UserTweetItem/UserTweetItem";
+import { UserIdLikeItem, UserIdReplyItem, UserIdTweetItem } from "components/UserTweetItem/UserIdTweetItem";
 
 //api
 import { getUserInfo } from "api/setting";
@@ -22,8 +22,19 @@ import { getUserInfo } from "api/setting";
 export default function UserPage() {
   const { id, tab } = useParams();
   const { isAuthenticated, currentMember} = useAuth()
+
   const [userData, setUserData] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [shouldReload, setShouldReload] = useState(false);
+  const [tweetCount, setTweetCount] = useState(0);
+
+  const handleSaveSuccess = () => {
+    setShouldReload(prevState => !prevState);
+  };
+
+  const updateTweetCount = (count) => {
+    setTweetCount(count);
+  };
 
    useEffect(() => {
     const fetchData = async () => {
@@ -39,19 +50,19 @@ export default function UserPage() {
     if (isAuthenticated && id) {
       fetchData()
     }
-   },[id, isAuthenticated])
+   },[id, isAuthenticated, shouldReload, tab])
 
   let content
   switch(tab) {
     case "reply":
-      content = userData ? <UserReplyItem data={userData} /> : "Loading...";
+      content = userData ? <UserIdReplyItem data={userData} userId={id} /> : "Loading...";
       break;
     case "like":
-      content = userData ? <UserLikeItem data={userData} /> :
+      content = userData ? <UserIdLikeItem data={userData} userId={id} /> :
        "Loading...";
       break;
     default:
-      content = userData ? <UserTweetItem data={userData} /> : "Loading...";
+      content = userData ? <UserIdTweetItem data={userData} userId={id} updateTweetCount={updateTweetCount} /> : "Loading...";
   }
 
   return (
@@ -63,13 +74,13 @@ export default function UserPage() {
         {isLoading ? "Loading..." : <Header 
           title={userData.name}
           arrow
-          tweetCount 
+          tweetCount={tweetCount} 
         />}
-        {isLoading ? "Loading..." : <UserInfo isOtherUser={Number(currentMember?.id) !== Number(id)}  userData={userData} />}
+        {isLoading ? "Loading..." : <UserInfo onSaveSuccess={handleSaveSuccess} isOtherUser={Number(currentMember?.id) !== Number(id)}  userData={userData} />}
         <ul className={styles.link}>
-          <li><Link to="/user">推文</Link></li>
-          <li><Link to="/user/reply">回覆</Link></li>
-          <li><Link to="/user/like">喜歡的內容</Link></li>
+          <li><Link to={`/user/${id}`}>推文</Link></li>
+          <li><Link to={`/user/${id}/reply`}>回覆</Link></li>
+          <li><Link to={`/user/${id}/like`}>喜歡的內容</Link></li>
         </ul>
         {content}
       </div>

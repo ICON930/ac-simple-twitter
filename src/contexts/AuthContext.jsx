@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     if (token) {
       const tempPayload = jwt.decode(token);
-       console.log("Temp payload:", tempPayload);  // 添加這一行
+      console.log("Temp payload:", tempPayload); // 添加這一行
       if (tempPayload) {
         setPayload(tempPayload);
         setIsAuthenticated(true);
@@ -38,6 +38,7 @@ export const AuthProvider = ({ children }) => {
         currentMember: payload && {
           id: payload.id,
           name: payload.name,
+          avatar: payload.avatar,
         },
         register: async (data) => {
           const { success, token } = await register({
@@ -76,7 +77,7 @@ export const AuthProvider = ({ children }) => {
           return success;
         },
         logout: () => {
-          localStorage.removeItem('token');
+          localStorage.removeItem("token");
           setPayload(null);
           setIsAuthenticated(false);
         },

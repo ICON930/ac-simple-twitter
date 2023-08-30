@@ -2,6 +2,7 @@ import styles from "./UserTweetItem.module.scss";
 
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import ReplyModal from "components/Modal/ReplyModal";
 //載入圖片
 import Avatar from "../../assets/icons/default-avatar.svg";
 import { ReactComponent as ReplyIcon } from "../../assets/icons/reply-icon.svg";
@@ -20,12 +21,23 @@ export function UserTweetItem({
   createdAt,
   repliedAmount,
   likedAmount,
+  tweet,
 }) {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const openModal = () => {
+    console.log("Modal is opening");
+    setIsOpenModal(true);
+  };
+  const closeModal = () => {
+    setIsOpenModal(false);
+  };
+
   return (
     <div className={styles.container}>
       {/* 頭像 */}
       <div className={styles.avatar}>
-        <img className="cursor-point" src={avatar} alt="avatar" />
+        <img className="cursor-point" src={avatar || Avatar} alt="avatar" />
       </div>
       <div className={styles.userPanel}>
         {/* 使用者帳號名字時間 */}
@@ -36,16 +48,25 @@ export function UserTweetItem({
           </h6>
         </div>
         {/* 推文內容 */}
-        <div className={styles.tweetContainer}>{description}</div>
+        <Link to={`/tweets/${tweet.id}`}>
+          <div className={styles.tweetContainer}>{description}</div>
+        </Link>
         {/* 回覆及愛心功能 */}
         <div className={styles.iconEffect}>
           <div className={styles.replyEffect}>
             <ReplyIcon
-              className={`${styles.replyIcon}cursor-point`}
+              className={styles.replyIcon}
               width="1em"
               height="1em"
-              //onClick={replyModal}
+              onClick={() => openModal(tweet)}
             />
+            {isOpenModal && (
+              <ReplyModal
+                isOpen={isOpenModal}
+                onClose={closeModal}
+                tweetInfo={tweet}
+              />
+            )}
             <h6 className={styles.replyCount}>{repliedAmount}</h6>
           </div>
           <div className={styles.likeEffect}>

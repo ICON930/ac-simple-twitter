@@ -69,17 +69,21 @@ export const getTweetReply =async(token,tweetid) =>{
 
 
 //回覆推文
-export const replyTweet = async(token,tweetid)=>{
-    try{
-        const response =await axios.post(`${authURL}/tweets/${tweetid}/replies`,{
-            headers:{
-                Authorization:"Bearer "+ token
-            }
-        })
-        const {data} =response
-        return data
-    }catch(error){
-        console.log('[replyTweet is fail]',error)
-        throw error
+export const ReplyTweet = async (token, comment, tweetid) => {
+    try {
+      const response = await axios.post(
+        `${authURL}/tweets/${tweetid}/replies`,
+        { comment }, 
+        {
+          headers: {
+            Authorization: "Bearer " + token
+          },
+        }
+      );
+      const { data } = response;
+      return data;
+    } catch (error) {
+      console.log("[replyTweet is fail]", error);
+      throw error;
     }
-}
+  };

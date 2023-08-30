@@ -13,9 +13,8 @@ import Avatar from "../../assets/icons/default-avatar.svg"
 import EditModal from "components/Modal/EditModal"
 import Ball from "../../assets/icons/noti-Icon.svg"
 
-export default function UserInfo({ isOtherUser, userData }) {
+export default function UserInfo({ isOtherUser, userData, onSaveSuccess }) {
 
-  console.log('userData',userData)
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   const openModal = () => {
@@ -25,12 +24,12 @@ export default function UserInfo({ isOtherUser, userData }) {
   const closeModal = () => {
     setIsOpenModal(false)
   }
-
+  console.log(userData)
 
   return (
     <div className={styles.userInfoContainer}>
-      <img className={styles.banner} src={Banner} alt="default-banner" /> 
-      <img className={styles.avatar} src={Avatar} alt="default-avatar" />
+      <img className={styles.banner} src={userData.cover} height="200px" width="634px" alt="default-banner" /> 
+      <img className={styles.avatar} src={userData.avatar} alt="default-avatar" />
       {isOtherUser && <img className={styles.ballStyle} src={Ball} alt="ball"/>}
       {isOtherUser && <img className={styles.ballStyleTwo} src={Ball} alt="ball"/>}  
       <div className={styles.buttonContainer}>
@@ -42,7 +41,7 @@ export default function UserInfo({ isOtherUser, userData }) {
           className={isOtherUser && styles.buttonClass }
         />
       </div>
-        <EditModal isOpen={isOpenModal} isClose={closeModal} userData={userData}/>
+        <EditModal onSaveSuccess={onSaveSuccess} isOpen={isOpenModal} isClose={closeModal} userData={userData}/>
       <div>
         <div className={styles.nameContainer}>
           <p>{userData.name}</p>

@@ -87,3 +87,19 @@ export const ReplyTweet = async (token, comment, tweetid) => {
       throw error;
     }
   };
+
+//使用者查看特定使用者貼文
+    export const getUserIdTweet = async (token, id) => {
+        try{
+            const response =await axios.get(`${authURL}/users/${id}/tweets`,{
+                headers:{
+                    Authorization:"Bearer "+ token
+                }
+            })
+            const {data} =response
+            return data
+        }catch(error){
+            console.log('[getUserIdTweet is Fail]', error)
+            throw error
+        }
+    }

@@ -81,6 +81,9 @@ export const AuthProvider = ({ children }) => {
           setPayload(null);
           setIsAuthenticated(false);
         },
+        updateCurrentMember: (updatedFields) => {
+          setPayload((prevPayload) => ({ ...prevPayload, ...updatedFields }));
+        },
       }}
     >
       {children}

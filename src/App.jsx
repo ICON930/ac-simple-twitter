@@ -28,9 +28,10 @@ function App() {
             <Route path="admin/users" element={<AdminUserPage />} />
             <Route path="main" element={<MainPage />} />
             <Route path="user">
+              <Route index element={<UserPage />} />
               <Route path=":id" element={<UserPage />} />
-            </Route>        
-            {/* :tab = "reply" or "like" */}
+              <Route path=":id/:tab" element={<UserPage />} />
+            </Route>         
             <Route path="setting" element={<SettingPage />} />
             <Route path="tweets/:tweetid" element={<ReplyTweetPage />} />
             <Route path="follower" element={<FollowerPage />} />

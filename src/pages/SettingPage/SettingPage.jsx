@@ -48,6 +48,7 @@ export default function Setting() {
             label="密碼"
             value={password}
             placeholder="請設定密碼"
+            type="password"
             onChange={(passwordInputValue) => setPassword(passwordInputValue)}
             notification="字數超出上限!"
             wordsLimit={20}
@@ -56,6 +57,7 @@ export default function Setting() {
             label="密碼確認"
             value={checkPassword}
             placeholder="請再次輸入密碼"
+            type="password"
             onChange={(checkPasswordInputValue) =>
               setCheckPassword(checkPasswordInputValue)
             }

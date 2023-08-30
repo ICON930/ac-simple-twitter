@@ -1,4 +1,5 @@
 @use "../../assets/styles/color" as color;
+
 .container{
     position: fixed;
     top: 0;
@@ -27,5 +28,123 @@
         width: 15px;
         top: 20.5px;
         left: 19.5px;
+        cursor: pointer;
     }
+}
+.middle{
+    display: flex;
+    margin-top: 16px;
+}
+.avatar{
+    margin-left: 24px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    img{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+}
+.article{
+    width: 528px;
+    margin-left: 8px;
+}
+.userInfo{
+    display: flex;
+    align-items: center;
+    gap:8px;
+    height: 26px;
+.userName{
+    h6{
+    font-size: 16px;
+    font-weight: 700;
+}}
+.accountAndTime{
+    h6{
+    font-size: 14px;
+    font-weight: 400;
+    color: #6C757D;
+    }}
+}
+.userArticle{
+    min-height: 78px;
+    overflow-wrap: break-word;
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+}
+.replyName{
+    display: flex;
+}
+.replyFor,
+.forName
+{
+font-family: Noto Sans TC;
+font-size: 14px;
+font-weight: 400;
+line-height: 22px;
+}
+.forName{
+    color: color.$brand-color;
+}
+.line{
+    width: 2px;
+    height: 86px;
+    background: #B5B5BE;
+    position: absolute;
+    left: 48px;
+    top: 139px;
+}
+.replyContainer{
+    display: flex;
+    margin-top: 42px;
+    gap: 8px;
+}
+.replyAvatar{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-left: 24px;
+    img{
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+    }
+}
+.textarea{
+    width: 528px;
+    border: none;
+    resize: none;
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-weight: 400;
+    padding-top: 8px;
+}
+  .buttonAndMessage{
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    .errorMessage {
+        display: flex;
+        visibility: hidden;
+        font-family: Noto Sans TC;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 15px;
+        align-items: center;
+    
+        &.showError {
+          visibility: visible;
+          color: color.$error-color;
+        }
+      }
+  .button{
+    display: flex;
+    align-items: center;
+  }
 }

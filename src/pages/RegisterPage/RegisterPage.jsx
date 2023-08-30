@@ -23,18 +23,18 @@ export default function RegisterPage() {
     if (account.length === 0) {
       return;
     }
-	  if (name.length === 0) {
-	    return;
-	  }
-	  if (email.length === 0) {
-	    return;
-	  }
+    if (name.length === 0) {
+      return;
+    }
+    if (email.length === 0) {
+      return;
+    }
     if (password.length === 0) {
-	    return;
-	  }
-	  if (checkPassword.length === 0) {
-	    return;
-	  }
+      return;
+    }
+    if (checkPassword.length === 0) {
+      return;
+    }
 
     const success = await register({
       account,
@@ -52,7 +52,7 @@ export default function RegisterPage() {
         showConfirmButton: false,
       });
       return;
-    } 
+    }
     Swal.fire({
       position: "top",
       title: "註冊失敗！",
@@ -60,7 +60,7 @@ export default function RegisterPage() {
       icon: "error",
       showConfirmButton: false,
     });
-    }
+  };
 
   return (
     <AuthPageContainer title="建立你的帳號">

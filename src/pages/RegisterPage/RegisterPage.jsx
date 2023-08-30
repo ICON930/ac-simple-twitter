@@ -43,6 +43,7 @@ export default function RegisterPage() {
       password,
       checkPassword,
     });
+    console.log(success)
     if (success) {
       Swal.fire({
         position: "top",

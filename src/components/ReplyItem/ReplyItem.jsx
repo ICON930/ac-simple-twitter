@@ -7,9 +7,12 @@ import { ReactComponent as UnLikeIcon } from "../../assets/icons/like-active.svg
 //api
 import { getUserTweet } from "api/tweet";
 import { useEffect, useState } from "react";
+import ReplyModal from "components/Modal/ReplyModal";
 
 export default function PostTweet({ tweetid }) {
   const [tweetData, setTweetData] = useState(null);
+
+  const [isOpenModal, setIsOpenModal] = useState(false);
   useEffect(() => {
     const fetchTweetData = async () => {
       try {
@@ -22,7 +25,7 @@ export default function PostTweet({ tweetid }) {
     fetchTweetData();
   }, [tweetid]);
   if (!tweetData) {
-    return;
+    return null;
   }
   const {
     User: { name, account, avatar },
@@ -32,6 +35,13 @@ export default function PostTweet({ tweetid }) {
     repliedAmount,
     likedAmount,
   } = tweetData;
+
+  const openModal = (tweet) => {
+    setIsOpenModal(true);
+  };
+  const closeModal = () => {
+    setIsOpenModal(false);
+  };
   return (
     <div>
       <div className={styles.container}>
@@ -60,8 +70,20 @@ export default function PostTweet({ tweetid }) {
         </div>
       </div>
       <div className={styles.icon}>
-        <ReplyIcon className={styles.replyIcon} />
-        <LikeIcon className={styles.likeIcon} />
+        <ReplyIcon
+          className={`${styles.replyIcon}`}
+          width="1em"
+          height="1em"
+          onClick={() => openModal(tweetData)}
+        />
+        {isOpenModal && (
+          <ReplyModal
+            isOpen={isOpenModal}
+            onClose={closeModal}
+            tweetInfo={tweetData}
+          />
+        )}
+        <LikeIcon className={styles.likeIcon} width="1em" height="1em" />
       </div>
     </div>
   );

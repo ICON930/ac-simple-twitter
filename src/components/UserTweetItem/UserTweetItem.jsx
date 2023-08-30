@@ -1,6 +1,6 @@
 import styles from "./UserTweetItem.module.scss";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import ReplyModal from "components/Modal/ReplyModal";
 //載入圖片
@@ -8,9 +8,6 @@ import Avatar from "../../assets/icons/default-avatar.svg";
 import { ReactComponent as ReplyIcon } from "../../assets/icons/reply-icon.svg";
 import { ReactComponent as LikeIcon } from "../../assets/icons/like-icon.svg";
 import { ReactComponent as UnLikeIcon } from "../../assets/icons/like-active.svg";
-
-//API
-import { getTweetReply } from "api/tweet";
 
 //mainPage UserPage的推文欄位
 export function UserTweetItem({

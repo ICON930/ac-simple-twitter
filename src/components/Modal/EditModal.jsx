@@ -134,12 +134,12 @@ export default function EditModal ({ isOpen, isClose, userData, onSaveSuccess })
           style={{ display: 'none' }}
           onChange={(e) => setNewCover(URL.createObjectURL(e.target.files[0]))}
         />
-          <img width="634px" height="200px" src={newCover} alt='default-banner'/>
+          <img width="634px" height="200px" src={newCover || Banner} alt='default-banner'/>
           <img className={styles.updateBanner} src={Camera} alt='update-banner' onClick={handleCoverClick} htmlFor="avatar"/>
           <img className={styles.deleteBanner} src={Cross} alt='delete-banner' onClick={handleDeleteCover} />
         </div>
         <div>
-          <img className={styles.avatar} src={Avatar} alt='default-avatar'/>
+          <img className={styles.avatar} src={newAvatar || Avatar} alt='default-avatar'/>
           <img className={styles.updateAvatar} src={Camera} alt='update-avatar' onClick={handleAvatarClick} />
         </div>
         <div className={styles.editContainer}>

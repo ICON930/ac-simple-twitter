@@ -68,7 +68,7 @@ export default function ReplyModal({ isOpen, onClose, tweetInfo }) {
           </div>
           <div className={styles.article}>
             <div className={styles.userInfo}>
-              <h6 className={styles.userName}>{tweetInfo?.User?.name}</h6>
+              <p className={styles.userName}>{tweetInfo?.User?.name}</p>
               <h6 className={styles.accountAndTime}>
                 @{tweetInfo?.User?.account}．{tweetInfo?.createdAt}
               </h6>
@@ -76,7 +76,7 @@ export default function ReplyModal({ isOpen, onClose, tweetInfo }) {
             <div className={styles.userArticle}>{tweetInfo?.description}</div>
             <div className={styles.replyName}>
               <h6 className={styles.replyFor}>回覆給</h6>
-              <h6 className={styles.forName}>@{tweetInfo?.User?.account}</h6>
+              <p className={styles.forName}>@{tweetInfo?.User?.account}</p>
             </div>
           </div>
         </div>
@@ -101,7 +101,7 @@ export default function ReplyModal({ isOpen, onClose, tweetInfo }) {
           </div>
           <div className={styles.button}>
             <Button
-              title="推文"
+              title="回覆"
               size="small"
               onClick={handleReply}
               disabled={isReplying}

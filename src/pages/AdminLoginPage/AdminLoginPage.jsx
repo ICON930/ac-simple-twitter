@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { useAuth } from '../../contexts/AuthContext.jsx';
@@ -13,7 +13,8 @@ import styles from "./AdminLoginPage.module.scss";
 export default function LoginPage () {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
+  const [accountNotFound, setAccountNotFound] = useState(false);
+  const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const handleClick = async () => {
@@ -40,6 +41,7 @@ export default function LoginPage () {
       navigate("/admin/main");
       return;
     }
+    setAccountNotFound(true);
     Swal.fire({
       position: 'top',
       title: '登入失敗！',
@@ -49,17 +51,23 @@ export default function LoginPage () {
     });
   };
 
+  useEffect(() => {
+      if (isAuthenticated) {
+          navigate('/admin/main');
+      }
+  }, [navigate, isAuthenticated]);
+
   return (
     <AuthPageContainer title="後台登入">
       <AuthInput label="帳號" value={account} placeholder="請輸入帳號" onChange={(accountInputValue) => setAccount(accountInputValue)}
-      notification="字數超出上限!" wordsLimit={50}
+      notification={accountNotFound ? "帳號不存在！" : "字數超出上限!"} wordsLimit={50}
       />
       <AuthInput label="密碼" value={password} type="password" placeholder="請輸入密碼" onChange={(passwordInputValue) => setPassword(passwordInputValue)}
       notification="字數超出上限!" wordsLimit={20}
       />
       <Button title="登入" size="large" isAction onClick={handleClick}></Button>
       <div className={styles.link}>
-        <NavLink to={"/register"}>
+        <NavLink to={"/login"}>
           <span className={styles.span}>前台登入</span>
         </NavLink>
       </div>

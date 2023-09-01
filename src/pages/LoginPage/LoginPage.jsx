@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../contexts/AuthContext.jsx";
@@ -13,7 +13,8 @@ import styles from "./LoginPage.module.scss";
 export default function LoginPage() {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
+  const [accountNotFound, setAccountNotFound] = useState(false);
+  const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const handleClick = async () => {
@@ -36,9 +37,10 @@ export default function LoginPage() {
         icon: "success",
         showConfirmButton: false,
       });
-      navigate("/main");
+      navigate('/main');
       return;
     }
+    setAccountNotFound(true);
     Swal.fire({
       position: "top",
       title: "登入失敗！",
@@ -48,6 +50,12 @@ export default function LoginPage() {
     });
   };
 
+  useEffect(() => {
+      if (isAuthenticated) {
+          navigate('/main');
+      }
+  }, [navigate, isAuthenticated]);
+
   return (
     <AuthPageContainer title="登入 Alphitter">
       <AuthInput
@@ -55,7 +63,7 @@ export default function LoginPage() {
         value={account}
         placeholder="請輸入帳號"
         onChange={(accountInputValue) => setAccount(accountInputValue)}
-        notification="字數超出上限!"
+        notification={accountNotFound ? "帳號不存在！" : "字數超出上限!"}
         wordsLimit={50}
       />
       <AuthInput

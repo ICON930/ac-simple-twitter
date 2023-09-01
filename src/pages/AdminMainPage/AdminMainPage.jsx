@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { useAuth } from "../../contexts/AuthContext.jsx";
 
 import NavContainer from "../../components/NavContainer/NavContainer.jsx";
 import Header from "../../components/Header/Header.jsx";
@@ -9,6 +12,8 @@ import styles from "./AdminMainPage.module.scss";
 
 export default function AdminMainPage () {
     const [ tweets, setTweets ] = useState([]);
+    const { isAuthenticated } = useAuth();
+    const navigate = useNavigate();
 
     const handleDeleteTweet = async (id) => {
       try {
@@ -47,6 +52,12 @@ export default function AdminMainPage () {
         />
         );
     });
+
+  useEffect(() => {
+      if (!isAuthenticated) {
+          navigate('/admin/login');
+      }
+  }, [navigate, isAuthenticated]);
 
     return (
     <div className={styles.container}>

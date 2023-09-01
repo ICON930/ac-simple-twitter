@@ -26,7 +26,7 @@ export const login = async ({ account, password }) => {
 //前台註冊
 export const register = async ({ account, name, email, password, checkPassword }) => {
   try {
-    const {data}  = await axios.post(`${authURL}/users`, {
+    const { data }  = await axios.post(`${authURL}/users`, {
       account,
       name,
       email,
@@ -43,6 +43,6 @@ export const register = async ({ account, name, email, password, checkPassword }
     return data;
   } catch (error) {
     console.error('[Signup Failed]: ', error);
-    return { success: false };
+    return error;
   }
 };

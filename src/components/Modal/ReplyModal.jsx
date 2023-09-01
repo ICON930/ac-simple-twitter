@@ -7,10 +7,11 @@ import Avatar from "../../assets/icons/default-avatar.svg";
 import Swal from "sweetalert2";
 //API
 import { ReplyTweet } from "api/tweet";
-
+import { useAuth } from "contexts/AuthContext";
 export default function ReplyModal({ isOpen, onClose, tweetInfo }) {
   const [comment, setComment] = useState("");
   const [isReplying, setIsReplying] = useState(false);
+  const { currentMember } = useAuth();
   const handleReply = async () => {
     if (!comment) {
       return;
@@ -83,7 +84,7 @@ export default function ReplyModal({ isOpen, onClose, tweetInfo }) {
         <div className={styles.line}></div>
         <div className={styles.replyContainer}>
           <div className={styles.replyAvatar}>
-            <img src={Avatar} alt="avatar" />
+            <img src={currentMember.avatar || Avatar} alt="avatar" />
           </div>
           <div className={styles.textarea}>
             <textarea

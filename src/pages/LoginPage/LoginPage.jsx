@@ -61,6 +61,7 @@ export default function LoginPage() {
       <AuthInput
         label="密碼"
         value={password}
+        type="password"
         placeholder="請輸入密碼"
         onChange={(passwordInputValue) => setPassword(passwordInputValue)}
         notification="字數超出上限!"

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { useAuth } from '../../contexts/AuthContext.jsx';
 import Swal from "sweetalert2";
@@ -14,6 +14,7 @@ export default function LoginPage () {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleClick = async () => {
     if (account.length === 0) {
@@ -36,6 +37,7 @@ export default function LoginPage () {
         icon: 'success',
         showConfirmButton: false,
       });
+      navigate("/admin/main");
       return;
     }
     Swal.fire({
@@ -52,7 +54,7 @@ export default function LoginPage () {
       <AuthInput label="帳號" value={account} placeholder="請輸入帳號" onChange={(accountInputValue) => setAccount(accountInputValue)}
       notification="字數超出上限!" wordsLimit={50}
       />
-      <AuthInput label="密碼" value={password} placeholder="請輸入密碼" onChange={(passwordInputValue) => setPassword(passwordInputValue)}
+      <AuthInput label="密碼" value={password} type="password" placeholder="請輸入密碼" onChange={(passwordInputValue) => setPassword(passwordInputValue)}
       notification="字數超出上限!" wordsLimit={20}
       />
       <Button title="登入" size="large" isAction onClick={handleClick}></Button>

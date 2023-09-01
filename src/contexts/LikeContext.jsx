@@ -1,16 +1,14 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { getUserAddLikeTweet } from 'api/like';
-import { getUserDelLikeTweet } from 'api/like';
+import { getUserAddLikeTweet, getUserDelLikeTweet } from 'api/like';
 import { useAuth } from './AuthContext';
 
 const LikeContext = createContext();
 
 export const useLikes = () => useContext(LikeContext);
 
-
 export const LikeProvider = ({ children }) => {
-  const { currenMember } = useAuth()
-  const token = localStorage.getItem('token')
+  const { currentMember } = useAuth(); 
+  const token = localStorage.getItem('token');
   const [likes, setLikes] = useState([]);
   const [likeCounts, setLikeCounts] = useState({});
 
@@ -20,61 +18,51 @@ export const LikeProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    const fetchUserLike = async () => {
-      try {
-        if (currenMember && token) {
-          const userLikes = await getUserAddLikeTweet(token)
-          const tweetIds = userLikes.map(tweet => tweet.id);
-          setLikes(tweetIds);
-          localStorage.setItem('likes', JSON.stringify(tweetIds));
-          
-          const likeCountsMap = {};
-          userLikes.forEach(tweet => {
-            likeCountsMap[tweet.id] = tweet.likedAmount;
-          });
-          setLikeCounts(likeCountsMap);
+    const fetchUserLikes = async () => {
+      if (!currentMember || !token) return;
 
-          console.log("User likes loaded:", userLikes);
-        }
+      try {
+        const userLikes = await getUserAddLikeTweet(token);
+        const tweetIds = userLikes.map(tweet => tweet.id);
+        setLikes(tweetIds);
+        localStorage.setItem('likes', JSON.stringify(tweetIds));
+
+        const likeCountsMap = {};
+        userLikes.forEach(tweet => {
+          likeCountsMap[tweet.id] = tweet.likedAmount;
+        });
+        setLikeCounts(likeCountsMap);
       } catch (error) {
         console.log('Failed to fetch user likes:', error);
       }
+    };
+
+    fetchUserLikes();
+  }, [currentMember, token]);
+
+  const addLike = async (tweetId) => {
+    try {
+      console.log("Calling getUserAddLikeTweet with token:", token, "and tweetId:", tweetId);  // Log before API call
+      await getUserAddLikeTweet(token, tweetId);
+      const newLikes = [...likes, tweetId];
+      setLikes(newLikes);
+      localStorage.setItem('likes', JSON.stringify(newLikes));
+    } catch (error) {
+      console.log('Failed to add like:', error);    
     }
+  };
 
-    // Fetch user likes only if currentMember and token are available
-    if (currenMember && token) {
-      fetchUserLike();
+  const removeLike = async (tweetId) => {
+    try {
+      await getUserDelLikeTweet(token, tweetId);
+      const newLikes = likes.filter(id => id !== tweetId);
+      setLikes(newLikes);
+      localStorage.setItem('likes', JSON.stringify(newLikes));
+    } catch (error) {
+      console.log('Failed to remove like:', error);
     }
-  }, [currenMember, token]);
+  };
 
-  const addLike = async (tweetId, token, callback) => {
-  try {
-    await getUserAddLikeTweet(token, tweetId);
-    setLikes([...likes, tweetId]);
-    localStorage.setItem('likes', JSON.stringify([...likes, tweetId])); 
-    if (callback) {
-      callback();
-    }
-  } catch (error) {
-    console.error('Failed to add like:', error);
-  }
-};
-
-  const removeLike = async (tweetId, token) => {
-  try {
-    await getUserDelLikeTweet(token, tweetId);
-    setLikes(likes.filter(id => id !== tweetId));
-    localStorage.setItem('likes', JSON.stringify(likes.filter(id => id !== tweetId)));
-  } catch (error) {
-    console.error('Failed to remove like:', error);
-  }
-};
-
-  useEffect(() => {
-    localStorage.setItem('likes', JSON.stringify(likes));
-  }, [likes]);
-
-  // Provide the context value
   const contextValue = {
     likes,
     likeCounts,

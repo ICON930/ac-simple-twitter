@@ -43,8 +43,8 @@ export default function RegisterPage() {
       password,
       checkPassword,
     });
-    console.log(success)
-    if (success) {
+    console.log(success === "success");
+    if (success.status === "success") {
       Swal.fire({
         position: "top",
         title: "註冊成功！",
@@ -61,6 +61,7 @@ export default function RegisterPage() {
       icon: "error",
       showConfirmButton: false,
     });
+    return;
   };
 
   return (

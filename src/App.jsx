@@ -33,11 +33,13 @@ function App() {
               <Route index element={<UserPage />} />
               <Route path=":id" element={<UserPage />} />
               <Route path=":id/:tab" element={<UserPage />} />
-            </Route>         
+            </Route>
             <Route path="setting" element={<SettingPage />} />
             <Route path="tweets/:tweetid" element={<ReplyTweetPage />} />
-            <Route path="follower" element={<FollowerPage />} />
-            <Route path="following" element={<FollowerPage />}/>
+            <Route path="users">
+              <Route index element={<FollowerPage />} />
+              <Route path=":id/:tab" element={<FollowerPage />} />
+            </Route>
           </Routes>
         </AuthProvider>
       </BrowserRouter>

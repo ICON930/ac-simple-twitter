@@ -45,6 +45,7 @@ export default function RegisterPage() {
       password,
       checkPassword,
     });
+    console.log(success)
     if (success.status === "success") {
       Swal.fire({
         position: "top",
@@ -59,7 +60,7 @@ export default function RegisterPage() {
     Swal.fire({
       position: "top",
       title: "註冊失敗！",
-      text: success.message,
+      text: success.response.data.message,
       timer: 1000,
       icon: "error",
       showConfirmButton: false,

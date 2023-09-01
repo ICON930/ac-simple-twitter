@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+
+import { useAuth } from "../../contexts/AuthContext.jsx";
 
 import NavContainer from "../../components/NavContainer/NavContainer.jsx";
 import Header from "../../components/Header/Header.jsx";
@@ -9,6 +12,8 @@ import styles from "./AdminUserPage.module.scss";
 
 export default function AdminUserPage () {
   const [users, setUsers] = useState([]);
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
   const adminGetAllUser = async () => {
@@ -43,6 +48,12 @@ export default function AdminUserPage () {
         />
         );
     });
+
+  useEffect(() => {
+      if (!isAuthenticated) {
+          navigate('/admin/login');
+      }
+  }, [navigate, isAuthenticated]);
 
 
   return (

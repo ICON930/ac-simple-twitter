@@ -16,6 +16,8 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
+  const [accountDuplication, setAccountDuplication] = useState(false);
+  const [emailDuplication, setEmailDuplication] = useState(false);
 
   const { register } = useAuth();
 
@@ -65,6 +67,11 @@ export default function RegisterPage() {
       icon: "error",
       showConfirmButton: false,
     });
+    if(success.response.data.message === "Error: email已重複註冊！") {
+      setEmailDuplication(true)
+    } else if (success.response.data.message === "Error: account已重複註冊！") {
+      setAccountDuplication(true)
+    }
     return;
   };
 
@@ -75,7 +82,7 @@ export default function RegisterPage() {
         value={account}
         placeholder="請輸入帳號"
         onChange={(accountInputValue) => setAccount(accountInputValue)}
-        notification="字數超出上限!"
+        notification={accountDuplication ? "Error: account已重複註冊！" : "字數超出上限!"}
         wordsLimit={50}
       />
       <AuthInput
@@ -91,7 +98,7 @@ export default function RegisterPage() {
         value={email}
         placeholder="請輸入Email"
         onChange={(emailInputValue) => setEmail(emailInputValue)}
-        notification="字數超出上限!"
+        notification={emailDuplication ? "Error: account已重複註冊！" : "字數超出上限!"}
         wordsLimit={100}
       />
       <AuthInput

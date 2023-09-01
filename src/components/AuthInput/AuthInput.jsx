@@ -15,7 +15,7 @@ export default function AuthInput ({ label, type, value, placeholder, onChange, 
         />
       </div>
       <div className={styles.noteBox}>
-        <div className={clsx(styles.notification, { [styles.active]: value.length > wordsLimit || notification === "帳號不存在！"})}>
+        <div className={clsx(styles.notification, { [styles.active]: value.length > wordsLimit || notification === "帳號不存在！" || notification === "Error: email已重複註冊！" || notification === "Error: account已重複註冊！"})}>
           {notification}
         </div>
         <span className={clsx(styles.count, { [styles.active]: value.length > 0 })}>{value.length}/{wordsLimit}</span>

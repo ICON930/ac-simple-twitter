@@ -23,7 +23,6 @@ export default function UserInfo({ isOtherUser, userData, onSaveSuccess }) {
   const closeModal = () => {
     setIsOpenModal(false);
   };
-  console.log(userData);
 
   return (
     <div className={styles.userInfoContainer}>

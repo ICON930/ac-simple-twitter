@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../contexts/AuthContext";
 import Swal from "sweetalert2";
@@ -18,6 +18,8 @@ export default function RegisterPage() {
   const [checkPassword, setCheckPassword] = useState("");
 
   const { register } = useAuth();
+
+  const navigate = useNavigate();
 
   const handleClick = async () => {
     if (account.length === 0) {
@@ -52,6 +54,7 @@ export default function RegisterPage() {
         icon: "success",
         showConfirmButton: false,
       });
+      navigate("/login");
       return;
     }
     Swal.fire({

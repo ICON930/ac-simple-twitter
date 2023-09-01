@@ -25,15 +25,16 @@ export function UserTweetItem({
   repliedAmount,
   likedAmount,
   tweet,
+  id,
 }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   //new
   const { likes, addLike, removeLike } = useLikes();
   const [isLiked, setIsLiked] = useState(likes.includes(tweet.id));
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
 
-   const handleLike = async () => {
+  const handleLike = async () => {
     if (isLiked) {
       await removeLike(tweet.id, token);
       setIsLiked(false);
@@ -55,7 +56,9 @@ export function UserTweetItem({
     <div className={styles.container}>
       {/* 頭像 */}
       <div className={styles.avatar}>
-        <img className="cursor-point" src={avatar || Avatar} alt="avatar" />
+        <Link to={`/user/${id}`}>
+          <img className="cursor-point" src={avatar || Avatar} alt="avatar" />
+        </Link>
       </div>
       <div className={styles.userPanel}>
         {/* 使用者帳號名字時間 */}
@@ -92,13 +95,13 @@ export function UserTweetItem({
               <UnLikeIcon
                 className={styles.likeIcon}
                 onClick={handleLike}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer" }}
               />
             ) : (
               <LikeIcon
                 className={styles.likeIcon}
                 onClick={handleLike}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer" }}
               />
             )}
             <h6 className={styles.likeCount}>{tweet.likedAmount}</h6>
@@ -111,12 +114,16 @@ export function UserTweetItem({
 
 //User回覆的推文欄位
 export function UserReplyItem({ reply }) {
-  const { User: { name, account, avatar } = {}, createdAt, comment } = reply;
+  const {
+    User: { name, account, avatar, id } = {},
+    createdAt,
+    comment,
+  } = reply;
   return (
     <div className={styles.container}>
       {/* 頭像 */}
       <div className={styles.avatar}>
-        <Link to={`/user`}>
+        <Link to={`/user/${id}`}>
           <img src={avatar} alt="avatar" />
         </Link>
       </div>

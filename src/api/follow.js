@@ -37,10 +37,10 @@ export const getFollowing = async (token, id) => {
 //追蹤
 export const AddFollow = async (token, id) => {
     try {
-console.log(token,id)
-      const bodyData = {
-        id, // 使用者 ID
-      };
+        console.log(token,id)
+          const bodyData = {
+            id: id, // 使用者 ID
+          };
       const response = await axios.post(`${authURL}/followships`, bodyData,{
         headers: {
           Authorization: "Bearer " + token,

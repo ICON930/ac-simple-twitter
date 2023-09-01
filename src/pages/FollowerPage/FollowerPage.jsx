@@ -18,7 +18,6 @@ export default function FollowerPage() {
   const { isAuthenticated, currentMember } = useAuth();
   const token = localStorage.getItem("token");
   const { id, tab } = useParams(); // 從 URL 中取得 id 和 tab 參數
-  console.log("Tab parameter:", tab);
   const [userData, setUserData] = useState([]);
   const [hasNoFollowers, setHasNoFollowers] = useState(false);
 
@@ -26,8 +25,6 @@ export default function FollowerPage() {
     if (isAuthenticated) {
       const fetchData = async () => {
         try {
-          console.log("Fetching data for tab:", tab);
-          console.log("Using id:", id);
           let response;
           if (tab === "follower") {
             response = await getFollower(token, id);
@@ -40,8 +37,8 @@ export default function FollowerPage() {
               setHasNoFollowers(false);
             }
           }
-          console.log("API response:", response);
-          setUserData(response);
+          const responseData = response.data || [];
+          setUserData(responseData);
         } catch (error) {
           console.log("[Fetching data failed]", error);
           setUserData([]);
@@ -52,7 +49,7 @@ export default function FollowerPage() {
   }, [isAuthenticated, token, id, tab]);
 
   return (
-    <div className={`${styles.container} container max-auto`}>
+    <div className={styles.container}>
       <div className={styles.mainContainer}>
         <div className={styles.navContainer}>
           <NavContainer page="user" />
@@ -77,19 +74,23 @@ export default function FollowerPage() {
           </div>
           <div className={styles.followList}>
             {hasNoFollowers ? (
-              <p>使用者無追隨者!</p>
+              <p>
+                {tab === "follower"
+                  ? "使用者無追隨者!"
+                  : "使用者無正在追隨的對象!"}
+              </p>
             ) : (
-              userData.map((item, index) =>
+              userData.map((item) =>
                 tab === "follower" ? (
                   <FollowerList
-                    key={index}
+                    key={item}
                     avatar={item.avatar}
                     name={item.name}
                     introduction={item.introduction}
                   />
                 ) : (
                   <FollowingList
-                    key={index}
+                    key={item}
                     avatar={item.avatar}
                     name={item.name}
                     introduction={item.introduction}
@@ -106,34 +107,3 @@ export default function FollowerPage() {
     </div>
   );
 }
-
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         if (isAuthenticated) {
-//           const token = localStorage.getItem("token");
-//           let response = null;
-
-//           if (tab === "follower") {
-//             console.log("Fetching follower data...");
-//             response = await getFollower(token, id);
-//           } else if (tab === "following") {
-//             console.log("Fetching following data...");
-//             response = await getFollowing(token, id);
-//           }
-
-//           if (response) {
-//             const data =
-//               tab === "follower"
-//                 ? response.followerList
-//                 : response.followingList;
-//             setListData(data);
-//           }
-//         }
-//       } catch (error) {
-//         console.log("[Fetching data failed]", error);
-//       }
-//     };
-
-//     fetchData();
-//   }, [id, tab, isAuthenticated]);

@@ -11,6 +11,7 @@ import { ReactComponent as UnLikeIcon } from "../../assets/icons/like-active.svg
 
 //mainPage UserPage的推文欄位
 export function UserTweetItem({
+  id,
   name,
   account,
   avatar,
@@ -34,12 +35,16 @@ export function UserTweetItem({
     <div className={styles.container}>
       {/* 頭像 */}
       <div className={styles.avatar}>
-        <img className="cursor-point" src={avatar || Avatar} alt="avatar" />
+        <Link to={`/user/${id}`}>
+          <img src={avatar || Avatar} alt="avatar" />
+        </Link>
       </div>
       <div className={styles.userPanel}>
         {/* 使用者帳號名字時間 */}
         <div className={styles.accountInfo}>
-          <h6 className={styles.name}>{name}</h6>
+          <Link to={`/user/${id}`}>
+            <h6 className={styles.name}>{name}</h6>
+          </Link>
           <h6 className={styles.accountAndTime}>
             @{account}．{createdAt}
           </h6>
@@ -89,7 +94,7 @@ export function UserReplyItem({ reply }) {
       {/* 頭像 */}
       <div className={styles.avatar}>
         <Link to={`/user`}>
-          <img className="cursor-point" src={avatar} alt="avatar" />
+          <img src={avatar} alt="avatar" />
         </Link>
       </div>
       <div className={styles.userPanel}>

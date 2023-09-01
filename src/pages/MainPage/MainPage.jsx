@@ -60,6 +60,7 @@ export default function MainPage() {
                   repliedAmount={tweet.repliedAmount}
                   likedAmount={tweet.likedAmount}
                   tweet={tweet}
+                  id={tweet.User.id}
                 />
               ))
             ) : (

@@ -97,6 +97,7 @@ export const ReplyTweet = async (token, comment, tweetid) => {
                 }
             })
             const {data} =response
+            console.log('TweetData', data);
             return data
         }catch(error){
             console.log('[getUserIdTweet is Fail]', error)

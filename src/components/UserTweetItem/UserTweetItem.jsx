@@ -9,9 +9,14 @@ import { ReactComponent as ReplyIcon } from "../../assets/icons/reply-icon.svg";
 import { ReactComponent as LikeIcon } from "../../assets/icons/like-icon.svg";
 import { ReactComponent as UnLikeIcon } from "../../assets/icons/like-active.svg";
 
+//new
+import { useLikes } from "contexts/LikeContext";
+
+//component
+import { UserIdTweetItem } from "./UserIdTweetItem";
+
 //mainPage UserPage的推文欄位
 export function UserTweetItem({
-  id,
   name,
   account,
   avatar,
@@ -22,6 +27,21 @@ export function UserTweetItem({
   tweet,
 }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
+
+  //new
+  const { likes, addLike, removeLike } = useLikes();
+  const [isLiked, setIsLiked] = useState(likes.includes(tweet.id));
+  const token = localStorage.getItem('token')
+
+   const handleLike = async () => {
+    if (isLiked) {
+      await removeLike(tweet.id, token);
+      setIsLiked(false);
+    } else {
+      await addLike(tweet.id, token);
+      setIsLiked(true);
+    }
+  };
 
   const openModal = () => {
     console.log("Modal is opening");
@@ -35,16 +55,12 @@ export function UserTweetItem({
     <div className={styles.container}>
       {/* 頭像 */}
       <div className={styles.avatar}>
-        <Link to={`/user/${id}`}>
-          <img src={avatar || Avatar} alt="avatar" />
-        </Link>
+        <img className="cursor-point" src={avatar || Avatar} alt="avatar" />
       </div>
       <div className={styles.userPanel}>
         {/* 使用者帳號名字時間 */}
         <div className={styles.accountInfo}>
-          <Link to={`/user/${id}`}>
-            <h6 className={styles.name}>{name}</h6>
-          </Link>
+          <h6 className={styles.name}>{name}</h6>
           <h6 className={styles.accountAndTime}>
             @{account}．{createdAt}
           </h6>
@@ -72,13 +88,20 @@ export function UserTweetItem({
             <h6 className={styles.replyCount}>{repliedAmount}</h6>
           </div>
           <div className={styles.likeEffect}>
-            <LikeIcon
-              className={`${styles.likeIcon}cursor-point`}
-              width="1em"
-              height="1em"
-              //   onClick={handlelike}
-            />
-            <h6 className={styles.likeCount}>{likedAmount}</h6>
+            {isLiked ? (
+              <UnLikeIcon
+                className={styles.likeIcon}
+                onClick={handleLike}
+                style={{ cursor: 'pointer' }}
+              />
+            ) : (
+              <LikeIcon
+                className={styles.likeIcon}
+                onClick={handleLike}
+                style={{ cursor: 'pointer' }}
+              />
+            )}
+            <h6 className={styles.likeCount}>{tweet.likedAmount}</h6>
           </div>
         </div>
       </div>

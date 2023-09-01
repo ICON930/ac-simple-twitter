@@ -38,11 +38,7 @@ li {
   line-height: 52px; // 設定與li高度相同，使文本垂直居中
   color: color.$secondary-color;
   &:hover {
-      border-bottom: 2px solid color.$brand-color;
-      color: color.$brand-color;
-    }
-    &:active{
-      border-bottom: 2px solid color.$brand-color;
+      border-bottom: 1px solid color.$brand-color;
       color: color.$brand-color;
     }
 }

@@ -12,12 +12,18 @@ import { useAuth } from "contexts/AuthContext";
 import { useEffect, useState } from "react";
 import { getTweets } from "api/tweet";
 
+//new
+import { useLikes } from "contexts/LikeContext";
+
 export default function MainPage() {
   const [tweets, setTweets] = useState([]);
 
   const { isAuthenticated } = useAuth();
   const token = localStorage.getItem("token");
   const [shouldReloadTweets, setShouldReloadTweets] = useState(false);
+
+  //new
+  const { likes, addLike, removeLike } = useLikes();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -32,10 +38,11 @@ export default function MainPage() {
       };
       fetchTweets();
     }
-  }, [isAuthenticated, token, shouldReloadTweets]);
+  }, [isAuthenticated, token, shouldReloadTweets, likes]);
+
 
   return (
-    <div className={styles.container}>
+     <div className={styles.container}>
       <div className={styles.mainContainer}>
         <div className={styles.navContainer}>
           <NavContainer page="user" />

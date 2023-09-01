@@ -4,17 +4,15 @@ const authURL = "https://thawing-beach-07124-5fd4697aa480.herokuapp.com/api";
 
 //主頁取得喜歡的所有推文
 export const getUserLikeTweet = async (token, id) => {
-  console.log("ID is:", id);
-    try{
+    try {
         const response = await axios.get(`${authURL}/users/${id}/likes`,{
             headers:{
                 Authorization:"Bearer " + token,
             }
         })
-        const{data} = response
-        console.log('Response data:', data);
+        const {data} = response
         return data
-    }catch(error) {
+    } catch(error) {
         console.log('[getUserLikeTweet is Fail]',error)
         throw error
     }
@@ -23,15 +21,17 @@ export const getUserLikeTweet = async (token, id) => {
 //使用者點擊喜歡的貼文
 
 export const getUserAddLikeTweet = async (token, tweetid) => {
-    try {const response = await axios.post(`${authURL}/tweets/${tweetid}/like`,
+    try {
+        const response = await axios.post(`${authURL}/tweets/${tweetid}/like`,{}, 
     {
         headers:{
-            Authorization:"Bearer " +token
+            Authorization:`Bearer ${token}`
         }
     })
-      const {data} =response
+      const {data} = response
+      console.log('likedata',data);
       return data
-    }catch(error) {
+    } catch(error) {
       console.log('[getUserAddLikeTweet is Fail]',error)
       throw error
     }
@@ -39,14 +39,17 @@ export const getUserAddLikeTweet = async (token, tweetid) => {
 //使用者刪除喜歡的貼文
 
 export const getUserDelLikeTweet = async (token, tweetid) => {
-    try{const response = await axios.post(`${authURL}/tweets/${tweetid}/unlike`,{
+    try {
+        const response = await axios.post(`${authURL}/tweets/${tweetid}/unlike`,{},
+    {
         headers:{
-            Authorization:"Bearer " +token
+            Authorization:`Bearer ${token}`
         }
     })
-      const {data} =response
+      const {data} = response
+      console.log('deldata',data);
       return data
-    }catch(error) {
+    } catch(error) {
       console.log('[getUserDelLikeTweet is Fail]',error)
       throw error
     }

@@ -9,33 +9,39 @@ import { ReactComponent as LikeIcon } from "../../assets/icons/like-icon.svg";
 import { ReactComponent as UnLikeIcon } from "../../assets/icons/like-active.svg";
 
 //API
-// import { getTweetReply } from "api/tweet";
 import { getUserIdTweet } from "api/tweet";
 import { getUserLikeTweet } from "api/like";
 import { getUserReplyTweet } from "api/reply";
 
 import { useAuth } from "contexts/AuthContext";
+import { useLikes } from 'contexts/LikeContext';
+
 
 //mainPage UserPage的推文欄位
-export function UserIdTweetItem({ userId, updateTweetCount }) {
+export function UserIdTweetItem({ userId, updateTweetCount, tweet }) {
   const [idTweets, setIdTweets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { currentMember } = useAuth(); 
-  console.log('currentMember.id',currentMember?.id)
   const token = localStorage.getItem('token'); 
+  const { likes, addLike, removeLike } = useLikes();  
+  console.log('like',likes)
+  const { currentMember } = useAuth();
 
   useEffect(() => {
     const fetchTweets = async () => {
       try {
         setIsLoading(true);
         if (userId && token) {
-        const data = await getUserIdTweet(token, userId);
-        setIdTweets(data);  // 更新狀態以重新渲染組件
-        setIsLoading(false); 
-        if (typeof updateTweetCount === "function") {
-          updateTweetCount(data.length);
-        }
-        console.log('data',data)
+          const data = await getUserIdTweet(token, userId);
+          if (Array.isArray(data)) {
+            setIdTweets(data);
+            if (typeof updateTweetCount === "function") {
+              updateTweetCount(data.length);
+            }
+          } else {
+            console.error('Expected an array but received', data);
+            setIdTweets([]);
+          }
+          setIsLoading(false);
         }
       } catch (error) {
         console.log('Error Details:', error.response);
@@ -44,11 +50,40 @@ export function UserIdTweetItem({ userId, updateTweetCount }) {
       }
     };
     fetchTweets(); 
-  }, [userId, token, updateTweetCount]); 
+  }, [userId, token, updateTweetCount]);
+
+  const handleLike = async (tweetId) => {
+    try {
+      if (likes.includes(tweetId)) {
+        await removeLike(tweetId, token);
+      } else {
+        await addLike(tweetId, token);
+      }
+
+      const updatedTweets = idTweets.map(tweet => {
+        if (tweet.id === tweetId) {
+          return {
+            ...tweet,
+            likedAmount: likes.includes(tweetId) ? tweet.likedAmount - 1 : tweet.likedAmount + 1,
+          };
+        }
+        return tweet;
+      });
+
+      setIdTweets(updatedTweets);
+    } catch (error) {
+      console.error("Error handling like:", error);
+    }
+  };
 
   if (isLoading) {
   return <p>Loading...</p>;
   } 
+
+  if (idTweets.length === 0) {
+  return <p>使用者無推文</p>;
+  }
+
   return (
     <div>
       {idTweets.map((tweet) => (
@@ -60,7 +95,7 @@ export function UserIdTweetItem({ userId, updateTweetCount }) {
           </div>
           <div className={styles.userPanel}>
             <div className={styles.accountInfo}>
-              <h6 className={styles.name}>{tweet.name}</h6>
+              <h6 className={styles.name}>{tweet.User.name}</h6>
               <h6 className={styles.accountAndTime}>
                 @{tweet.User.account}．{tweet.createdAt}
               </h6>
@@ -76,11 +111,19 @@ export function UserIdTweetItem({ userId, updateTweetCount }) {
                 <h6 className={styles.replyCount}>{tweet.repliedAmount}</h6>
               </div>
               <div className={styles.likeEffect}>
-                <LikeIcon
-                  className={`${styles.likeIcon} cursor-point`}
-                  width="1em"
-                  height="1em"
+                {
+                  likes.includes(tweet.id) ? 
+                (<UnLikeIcon
+                  className={styles.likeIcon}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => handleLike(tweet.id)}
+                />) :
+                (<LikeIcon
+                  className={styles.likeIcon}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => handleLike(tweet.id)}
                 />
+                )}
                 <h6 className={styles.likeCount}>{tweet.likedAmount}</h6>
               </div>
             </div>
@@ -96,32 +139,41 @@ export function UserIdReplyItem({ userId }) {
   const [replies, setReplies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { currentMember } = useAuth();
-  console.log('currentMember.id',currentMember?.id)
   const token = localStorage.getItem('token'); 
-
-  console.log('token',token);
-  console.log('userId',userId);
+  
   useEffect(() => {
-    const fetchReplies = async () => {
-      try {
-        setIsLoading(true);
-        if (userId && token) {
-          const data = await getUserReplyTweet(token, userId);
-          console.log('replies data', data)
-          setReplies(data);  // 更新狀態以重新渲染組件
-          setIsLoading(false); 
+  const fetchReplies = async () => {
+    try {
+      setIsLoading(true);
+      if (userId && token) {
+        const data = await getUserReplyTweet(token, userId);
+        
+        // 檢查 data 是否為陣列
+        if (Array.isArray(data)) {
+          setReplies(data);
+        } else {
+          console.error('Expected an array but received', data);
+          setReplies([]);
         }
-      } catch (error) {
-        console.log('Error fetching replies:', error);
-        setIsLoading(false);  
+
+        setIsLoading(false); 
       }
-    };
-    fetchReplies(); 
-  }, [userId, token]); 
+    } catch (error) {
+      console.log('Error fetching replies:', error);
+      setIsLoading(false);  
+    }
+  };
+  fetchReplies();  
+  }, [userId, token]);
 
   if (isLoading) {
     return <p>Loading...</p>;
   } 
+
+  if (replies.length === 0) {
+  return <p>使用者無回覆推文</p>;
+  }
+
   return (
     <div>
       {replies.map((reply) => (
@@ -159,50 +211,58 @@ export function UserIdLikeItem({ userId }) {
   const [userLikeData, setUserLikeData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { currentMember } = useAuth()
-  console.log('currentMember' ,currentMember);
   const token = localStorage.getItem('token')
-
-  console.log('token',token);
-  console.log('userId',userId) 
+  const { likes, addLike, removeLike } = useLikes();
 
   useEffect(() => {
     const fetchUserLikeData = async () => {
       try {
-        setIsLoading(true)
+        setIsLoading(true);
         if (userId && token) {
-          const data = await getUserLikeTweet(token, userId)
-          console.log('like data', data);
-          setUserLikeData(data)
-          setIsLoading(false)
+          const data = await getUserLikeTweet(token, userId);
+          
+          // 檢查 data 是否為陣列
+          if (Array.isArray(data)) {
+            setUserLikeData(data);
+          } else {
+            console.error('Expected an array but received', data);
+            setUserLikeData([]);
+          }
+
+          setIsLoading(false);
         }
       } catch (error) {
         console.log('Error fetching UserLikeData:', error);
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
-    fetchUserLikeData()
-  }, [userId, token]); 
+    };
+    fetchUserLikeData();
+  }, [userId, token]);
 
   if (isLoading) {
     return <p>Loading...</p>
   }
 
+  if (userLikeData.length === 0) {
+  return <p>使用者無喜歡的內容</p>;
+  }
+
   return (
     <div>
       {userLikeData.map((like)=> (
-        <div className={styles.container} key={like.id}>
+      <div className={styles.container} key={like.id}>
       {/* 頭像 */}
       <div className={styles.avatar}>
-        <img className="cursor-point" src={Avatar} alt="avatar" />
+        <img className="cursor-point" src={like.Tweet.User.avatar || Avatar} alt="avatar" />
       </div>
       <div className={styles.userPanel}>
         {/* 使用者帳號名字時間 */}
         <div className={styles.accountInfo}>
-          <h6 className={styles.name}>name</h6>
-          <h6 className={styles.accountAndTime}>@account．time</h6>
+          <h6 className={styles.name}>{like.Tweet.User.name}</h6>
+          <h6 className={styles.accountAndTime}>@{like.Tweet.User.account}．{like.tweetCreatedAt}</h6>
         </div>
         {/* 推文內容 */}
-        <div className={styles.tweetContainer}>{userLikeData ? userLikeData.introduction : 'Loading...'}</div>
+        <div className={styles.tweetContainer}>{userLikeData ? like.Tweet.description : 'Loading...'}</div>
         {/* 回覆及愛心功能 */}
         <div className={styles.iconEffect}>
           <div className={styles.replyEffect}>
@@ -212,14 +272,43 @@ export function UserIdLikeItem({ userId }) {
               height="1em"
               //   onClick={handleReply}
             />
-            <h6 className={styles.replyCount}>123</h6>
+            <h6 className={styles.replyCount}>{like.replies?.length}</h6>
           </div>
           <div className={styles.likeEffect}>
+            {
+            like.isLiked ? 
             <UnLikeIcon
-              className={`${styles.likeIcon}cursor-point`}
-              //   onClick={handlelike}
+              className={styles.likeIcon}
+              style={{ cursor: 'pointer' }}
+              onClick={async () => {
+                try {
+                  await removeLike(like.Tweet.id, token);
+                 setUserLikeData(prevData => prevData.filter(item => item.id !== like.id));
+                } catch (error) {
+                  console.error('Failed to remove like:', error);
+                }
+              }}
+            /> :
+            <LikeIcon
+              className={styles.likeIcon}
+              style={{ cursor: 'pointer' }}
+              onClick={() => {
+                addLike(like.Tweet.id, token).then(() => {
+                  setUserLikeData(prevData => prevData.map(item => {
+                    if (item.id === like.id) {
+                      return {
+                        ...item,
+                        isLiked: true,
+                        likedAmount: item.likedAmount + 1
+                      };
+                    }
+                    return item;
+                  }));
+                });
+              }}
             />
-            <h6 className={styles.likeCount}>123</h6>
+          }
+            <h6 className={styles.likeCount}>{like.likedAmount}</h6>
           </div>
         </div>
       </div>

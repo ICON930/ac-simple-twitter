@@ -13,6 +13,7 @@ import SettingPage from "./pages/SettingPage/SettingPage";
 import ReplyTweetPage from "./pages/ReplyTweetPage/ReplyTweetPage";
 import FollowerPage from "./pages/FollowerPage/FollowerPage";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
+import { LikeProvider } from "contexts/LikeContext";
 
 const basename = process.env.PUBLIC_URL;
 
@@ -21,6 +22,7 @@ function App() {
     <div className="app">
       <BrowserRouter basename={basename}>
         <AuthProvider>
+          <LikeProvider> 
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="login" element={<LoginPage />} />
@@ -41,6 +43,7 @@ function App() {
               <Route path=":id/:tab" element={<FollowerPage />} />
             </Route>
           </Routes>
+          </LikeProvider>
         </AuthProvider>
       </BrowserRouter>
     </div>

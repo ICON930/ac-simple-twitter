@@ -89,6 +89,9 @@
     .likeIcon {
       width: 16px;
       margin-right: 8px;
+      &.cursor-point {
+          cursor: pointer;
+        }
     }
 
     .likeEffect {

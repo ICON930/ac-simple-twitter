@@ -1,54 +1,64 @@
 import styles from "./SettingPage..module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavContainer from "components/NavContainer/NavContainer";
 import Header from "components/Header/Header";
 import AuthInput from "components/AuthInput/AuthInput";
 import Button from "components/Button/Button";
+
 import { useAuth } from "contexts/AuthContext";
 import { settingPage } from "api/setting";
 import Swal from "sweetalert2";
-
+import { useNavigate } from "react-router";
 export default function Setting() {
-  const { isAuthenticated, currentMember, token } = useAuth();
-  const [account, setAccount] = useState(currentMember.account);
-  const [name, setName] = useState(currentMember.name);
-  const [email, setEmail] = useState(currentMember.email);
+  const { isAuthenticated, currentMember } = useAuth();
+  const token = localStorage.getItem("token");
+  const [account, setAccount] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordCheck, setPasswordCheck] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
+  const navigate = useNavigate();
+  const [isPageLoaded, setIsPageLoaded] = useState(false);
 
-  const handleSaveClick = async (token, id) => {
-    try {
-      console.log("Token:", token);
-      const success = await settingPage(token, currentMember.id, {
-        account,
-        name,
-        email,
-        password,
-        passwordCheck,
-      });
-
-      if (success.status === "success") {
-        Swal.fire({
-          position: "top",
-          title: "設定已更新。",
-          timer: 1000,
-          icon: "success",
-          showConfirmButton: false,
-        });
-      } else {
-        Swal.fire({
-          position: "top",
-          title: "設定更新失敗。",
-          timer: 1000,
-          icon: "error",
-          showConfirmButton: false,
-        });
+  useEffect(() => {
+    if (!isPageLoaded) {
+      // 進入頁面時，讀取一次資料
+      if (isAuthenticated && currentMember) {
+        setAccount(currentMember.account);
+        setName(currentMember.name);
+        setEmail(currentMember.email);
+        setIsPageLoaded(true); // 設置 flag，避免重複讀取
+        console.log();
       }
-    } catch (error) {
-      console.log("[API error]", error);
+    }
+  }, [isAuthenticated, currentMember, isPageLoaded]);
+
+  const handleChange = async () => {
+    const success = await settingPage(token, currentMember.id, {
+      account,
+      name,
+      email,
+      password,
+      checkPassword,
+    });
+    console.log(success);
+    if (success.status === "success") {
+      setAccount(account);
+      setName(name);
+      setEmail(email);
+
       Swal.fire({
         position: "top",
-        title: "發生錯誤，請稍後再試。",
+        title: "變更成功！",
+        timer: 1000,
+        icon: "success",
+        showConfirmButton: false,
+      });
+      navigate("/setting");
+    } else {
+      Swal.fire({
+        position: "top",
+        title: "變更失敗！",
         timer: 1000,
         icon: "error",
         showConfirmButton: false,
@@ -90,6 +100,7 @@ export default function Setting() {
             notification="字數超出上限!"
             wordsLimit={100}
           />
+
           <AuthInput
             label="密碼"
             value={password}
@@ -101,23 +112,18 @@ export default function Setting() {
           />
           <AuthInput
             label="密碼確認"
-            value={passwordCheck}
+            value={checkPassword}
             placeholder="請再次輸入密碼"
             type="password"
-            onChange={(passwordCheckInputValue) =>
-              setPasswordCheck(passwordCheckInputValue)
+            onChange={(checkPasswordInputValue) =>
+              setCheckPassword(checkPasswordInputValue)
             }
             notification="字數超出上限!"
             wordsLimit={20}
           />
         </div>
         <div className={styles.button}>
-          <Button
-            title="儲存"
-            size="small"
-            isAction
-            onClick={handleSaveClick}
-          />
+          <Button title="儲存" size="small" isAction onClick={handleChange} />
         </div>
       </div>
     </div>

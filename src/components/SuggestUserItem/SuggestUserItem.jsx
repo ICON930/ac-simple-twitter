@@ -4,7 +4,13 @@ import Button from "../Button/Button.jsx";
 import logo from "../../assets/icons/default-avatar.svg";
 import styles from "./SuggestUserItem.module.scss";
 
-export default function SuggestUserItem({ avatar, name, account, id }) {
+export default function SuggestUserItem({
+  avatar,
+  name,
+  account,
+  id,
+  isFollowed,
+}) {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {

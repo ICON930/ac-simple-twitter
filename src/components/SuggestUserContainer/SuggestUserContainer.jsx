@@ -30,6 +30,7 @@ export default function SuggestUserContainer() {
         name={user.name}
         account={user.account}
         id={user.id}
+        isFollowed={user.isFollowed}
       />
     );
   });

@@ -40,9 +40,8 @@ export default function MainPage() {
     }
   }, [isAuthenticated, token, shouldReloadTweets, likes]);
 
-
   return (
-     <div className={styles.container}>
+    <div className={styles.container}>
       <div className={styles.mainContainer}>
         <div className={styles.navContainer}>
           <NavContainer page="user" />

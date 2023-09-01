@@ -3,13 +3,13 @@
 
 .fieldContainer{
     position: relative;
-    height: 140px;
     width: 100%;
+    height: 170px;
 }
 .tweetContainer{
     display: flex;
     width: 100%;
-    height: 100%;
+    
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 10px;
@@ -27,6 +27,8 @@
     width: 526px;
     padding-left: 10px;
     padding-top: 10px;
+
+
 }
 .textarea{
     font-family: Noto Sans TC;
@@ -34,15 +36,15 @@
     font-weight: 700;
     border: none;
     resize: none;
-    width: 526px;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0);
+    width: 526px;   
+    height: 80px;
 }
 .buttonAndMessage{
     display: flex;
     float: right;
     padding-right:40px;
-    margin-top: -50px;
+    margin-top: 16px;
+
 }
 .errorMessage {
     display: flex;

@@ -110,49 +110,19 @@ export const AuthProvider = ({ children }) => {
             return null; // 或者您可以返回一個適當的錯誤狀態
           }
         },
-        // addFollow: async (id) => {
-        //   try {
-        //     const token = localStorage.getItem("token");
-        //     const response = await AddFollow(token, id);
-        //     console.log(response);
-        //     if (response.message) {
-        //       // 更新追蹤狀態
-        //       console.log("OK");
-        //       setFollowingUsers([response.user]);
-        //       return { success: true };
-        //     } else {
-        //       console.log("follow is fail", response);
-        //       return { error: "追蹤失敗" };
-        //     }
-        //   } catch (error) {
-        //     console.log("follow fail", error);
-        //     return { error };
-        //   }
-        // },
-        // unFollow: async (id) => {
-        //   try {
-        //     const token = localStorage.getItem("token");
-        //     const response = await UnFollow(token, id);
-        //     if (response.message) {
-        //       console.log("退追拉");
-        //       setFollowingUsers([response.user]);
-        //       return { success: false };
-        //     }
-        //   } catch (error) {
-        //     console.log("unfollow fail", error);
-        //     return error;
-        //   }
-        // },
-
         addFollow: async (id) => {
           try {
             const token = localStorage.getItem("token");
             const response = await AddFollow(token, id);
-            console.log(response);
             if (response.message) {
-              console.log("OK");
-              // 合併新的使用者到現有列表中
-              setFollowingUsers((prevUsers) => [...prevUsers, response.user]);
+              // 更新追蹤狀態
+              const updatedFollowingUsers = followingUsers.map((user) => {
+                if (user.id === id) {
+                  return { ...user, isFollowed: false }; // 如果被追蹤的使用者的id匹配，將isFollowed設置為false
+                }
+                return user;
+              });
+              setFollowingUsers(updatedFollowingUsers);
               return { success: true };
             } else {
               console.log("follow is fail", response);
@@ -168,11 +138,14 @@ export const AuthProvider = ({ children }) => {
             const token = localStorage.getItem("token");
             const response = await UnFollow(token, id);
             if (response.message) {
-              console.log("退追拉");
-              // 從列表中移除取消追蹤的使用者
-              setFollowingUsers((prevUsers) =>
-                prevUsers.filter((user) => user.id !== id)
-              );
+              // 更新追蹤狀態
+              const updatedFollowingUsers = followingUsers.map((user) => {
+                if (user.id === id) {
+                  return { ...user, isFollowed: true }; // 如果被追蹤的使用者的id匹配，將isFollowed設置為true
+                }
+                return user;
+              });
+              setFollowingUsers(updatedFollowingUsers);
               return { success: false };
             }
           } catch (error) {

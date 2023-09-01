@@ -3,16 +3,16 @@ import clsx from "clsx";
 import Swal from "sweetalert2";
 import styles from "./TweetField.module.scss";
 import Button from "../Button/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Avatar from "../../assets/icons/default-avatar.svg";
 //api
 import { useAuth } from "contexts/AuthContext";
 import { postTweet } from "api/tweet";
-
 export default function TweetField({ avatar, setShouldReloadTweets }) {
   const [description, setDescription] = useState("");
   const { currentMember } = useAuth(); // 使用 useAuth 取得登入者資訊
   const [error, setError] = useState("");
+  const navigate = useNavigate();
   const handlePostTweet = async () => {
     setShouldReloadTweets(true);
     try {
@@ -28,6 +28,8 @@ export default function TweetField({ avatar, setShouldReloadTweets }) {
         icon: "success",
         showConfirmButton: false,
       });
+      navigate("/main");
+      return;
     } catch (error) {
       console.log("發文失敗", error);
       setError("發文失敗");
@@ -46,8 +48,9 @@ export default function TweetField({ avatar, setShouldReloadTweets }) {
     setDescription(e.target.value);
   };
   const isMaxLength = description.length > 140;
+  const isMinLength = description.trim() === "";
   const errorMessageClassName = clsx(styles.errorMessage, {
-    [styles.showError]: isMaxLength,
+    [styles.showError]: isMaxLength || isMinLength,
   });
   return (
     <div className={styles.fieldContainer}>
@@ -71,9 +74,11 @@ export default function TweetField({ avatar, setShouldReloadTweets }) {
         </div>
       </div>
       <div className={styles.buttonAndMessage}>
-        {isMaxLength && (
-          <div className={errorMessageClassName}>字數超出上限!</div>
-        )}
+        <div className={errorMessageClassName}>
+          {isMaxLength && "字數不可超過140字"}
+          {isMinLength && "內容不可為空白"}
+        </div>
+
         <div className={styles.tweetButton}>
           <Button
             size="small"

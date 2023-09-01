@@ -14,11 +14,13 @@ import styles from "./FollowerPage.module.scss";
 //api
 import { getFollower, getFollowing } from "api/follow";
 import { useAuth } from "contexts/AuthContext";
-export default function FollowerPage() {
-  const { isAuthenticated, currentMember } = useAuth();
+export default function FollowerPage({ followerId, followingId }) {
+  const { isAuthenticated, currentMember, addFollow, unFollow } = useAuth();
+  console.log("isAuthenticated", isAuthenticated);
   const token = localStorage.getItem("token");
   const { id, tab } = useParams(); // 從 URL 中取得 id 和 tab 參數
   const [userData, setUserData] = useState([]);
+
   const [hasNoFollowers, setHasNoFollowers] = useState(false);
 
   useEffect(() => {
@@ -37,8 +39,8 @@ export default function FollowerPage() {
               setHasNoFollowers(false);
             }
           }
-          const responseData = response.data || [];
-          setUserData(responseData);
+          console.log("API response:", response);
+          setUserData(response);
         } catch (error) {
           console.log("[Fetching data failed]", error);
           setUserData([]);
@@ -47,7 +49,6 @@ export default function FollowerPage() {
       fetchData();
     }
   }, [isAuthenticated, token, id, tab]);
-
   return (
     <div className={styles.container}>
       <div className={styles.mainContainer}>
@@ -74,26 +75,30 @@ export default function FollowerPage() {
           </div>
           <div className={styles.followList}>
             {hasNoFollowers ? (
-              <p>
-                {tab === "follower"
-                  ? "使用者無追隨者!"
-                  : "使用者無正在追隨的對象!"}
-              </p>
+              <p>目前沒有追隨者</p>
             ) : (
               userData.map((item) =>
                 tab === "follower" ? (
                   <FollowerList
-                    key={item}
+                    key={item.id}
                     avatar={item.avatar}
                     name={item.name}
                     introduction={item.introduction}
+                    isFollowed={item.isFollowed}
+                    Follow={addFollow} // 傳遞 addFollow 函數
+                    Unfollow={unFollow} // 傳遞 unFollow 函數
+                    followerId={followerId}
                   />
                 ) : (
                   <FollowingList
-                    key={item}
+                    key={item.id}
                     avatar={item.avatar}
                     name={item.name}
                     introduction={item.introduction}
+                    isFollowed={item.isFollowed}
+                    Follow={addFollow} // 傳遞 addFollow 函數
+                    Unfollow={unFollow} // 傳遞 unFollow 函數
+                    followingId={followingId}
                   />
                 )
               )

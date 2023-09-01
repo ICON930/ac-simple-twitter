@@ -33,12 +33,12 @@ export const register = async ({ account, name, email, password, checkPassword }
       password,
       checkPassword,
     });
-
+  
     const { token } = data;
 
     if (token) {
       return { success: true, ...data };
-    }
+    } 
 
     return data;
   } catch (error) {

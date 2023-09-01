@@ -35,7 +35,7 @@ export default function MainPage() {
   }, [isAuthenticated, token, shouldReloadTweets]);
 
   return (
-    <div className={`${styles.container} container max-auto`}>
+    <div className={styles.container}>
       <div className={styles.mainContainer}>
         <div className={styles.navContainer}>
           <NavContainer page="user" />

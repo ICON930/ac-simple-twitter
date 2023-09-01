@@ -29,7 +29,6 @@ export const getUserAddLikeTweet = async (token, tweetid) => {
         }
     })
       const {data} = response
-      console.log('likedata',data);
       return data
     } catch(error) {
       console.log('[getUserAddLikeTweet is Fail]',error)
@@ -47,7 +46,6 @@ export const getUserDelLikeTweet = async (token, tweetid) => {
         }
     })
       const {data} = response
-      console.log('deldata',data);
       return data
     } catch(error) {
       console.log('[getUserDelLikeTweet is Fail]',error)

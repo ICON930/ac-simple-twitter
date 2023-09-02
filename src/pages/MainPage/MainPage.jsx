@@ -23,7 +23,7 @@ export default function MainPage() {
   const [shouldReloadTweets, setShouldReloadTweets] = useState(false);
 
   //new
-  const { likes, addLike, removeLike } = useLikes();
+  const { likes } = useLikes();
   const [shouldRefresh, setShouldRefresh] = useState(false);
   useEffect(() => {
     if (isAuthenticated) {
@@ -31,9 +31,13 @@ export default function MainPage() {
         try {
           const tweets = await getTweets(token);
           setTweets(tweets);
+          setShouldReloadTweets(false);
         } catch (error) {
           console.log("fetch tweets is Fail", error);
           setTweets([]);
+        } finally {
+        setShouldRefresh(false);  
+        setShouldReloadTweets(false); 
         }
       };
       fetchTweets();
@@ -46,7 +50,7 @@ export default function MainPage() {
 
   // 在需要时重新渲染组件
   if (shouldRefresh) {
-    return;
+    return null;
   }
 
   return (

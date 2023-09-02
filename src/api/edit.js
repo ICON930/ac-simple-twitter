@@ -19,6 +19,6 @@ export const editPage = async(token, id, formData) => {
         return data
     } catch (error) {
         console.log("editChange is Fail", error);
-                console.log('formData:',formData)
+        console.log('formData:',formData)
     }
 }

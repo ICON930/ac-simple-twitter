@@ -19,12 +19,12 @@ export default function TweetField({
   const navigate = useNavigate();
 
   const handlePostTweet = async () => {
-    setShouldReloadTweets(true);
     try {
       setError("");
       if (!isMaxLength || !isMinLength) {
         await postTweet(localStorage.getItem("token"), description); // 呼叫發文API
         setDescription(""); // 清空輸入
+        setShouldReloadTweets(true)
       }
       navigate("/main");
       Swal.fire({
@@ -90,7 +90,6 @@ export default function TweetField({
           <Button
             size="small"
             title="推文"
-            disabled={isMaxLength || isMinLength}
             onClick={handlePostTweet}
             isAction
           ></Button>

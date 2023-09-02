@@ -19,6 +19,8 @@ export default function Setting() {
   const [checkPassword, setCheckPassword] = useState("");
   const navigate = useNavigate();
   const [isPageLoaded, setIsPageLoaded] = useState(false);
+  const [accountDuplication, setAccountDuplication] = useState(false);
+  const [emailDuplication, setEmailDuplication] = useState(false);
 
   useEffect(() => {
     if (!isPageLoaded) {
@@ -59,10 +61,18 @@ export default function Setting() {
       Swal.fire({
         position: "top",
         title: "變更失敗！",
+        text:success.error.response.data.message,
         timer: 1000,
         icon: "error",
         showConfirmButton: false,
       });
+      console.log(success.error.response.data.message)
+      if (success.error.response.data.message === "Error: email已重複註冊！") {
+      setEmailDuplication(true);
+    } else if (success.error.response.data.message === "Error: account已重複註冊！") {
+      setAccountDuplication(true);
+    }
+    return;
     }
   };
 
@@ -81,7 +91,9 @@ export default function Setting() {
             value={account}
             placeholder="請輸入帳號"
             onChange={(accountInputValue) => setAccount(accountInputValue)}
-            notification="字數超出上限!"
+            notification={
+          accountDuplication ? "Error: account已重複註冊！" : "字數超出上限!"
+        }
             wordsLimit={50}
           />
           <AuthInput
@@ -97,7 +109,7 @@ export default function Setting() {
             value={email}
             placeholder="請輸入Email"
             onChange={(emailInputValue) => setEmail(emailInputValue)}
-            notification="字數超出上限!"
+            notification={emailDuplication ? "Error: email已重複註冊！" : "字數超出上限!"}
             wordsLimit={100}
           />
 

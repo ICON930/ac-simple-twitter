@@ -16,7 +16,11 @@ export default function AuthInput({
         <label className={styles.label}>{label}</label>
         <input
           className={clsx(styles.input, {
-            [styles.active]: value.length > wordsLimit,
+            [styles.active]: 
+              value.length > wordsLimit ||
+              notification === "帳號不存在！" ||
+              notification === "Error: email已重複註冊！" ||
+              notification === "Error: account已重複註冊！" ,
           })}
           type={type || "text"}
           value={value}

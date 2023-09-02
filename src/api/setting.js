@@ -41,6 +41,6 @@ export const settingPage = async (token,id, {account ,name, email, password,chec
     
     }catch(error){
         console.log("[settingChange is Fail]",error)
-        return{success:false}
+        return{error}
     }
 }

@@ -22,7 +22,11 @@ export default function AdminUserCard ({avatar, name, cover, account, followerAm
       </div>
       <div className={styles.infoContainer}>
         {name && account === "root" ? (
+          <div className={styles.userInfoContainer}>
+          <h5 className={styles.name}>{name}</h5>
+          <h5 className={styles.account}>{account}</h5>
           <h5 className={styles.name}>管理員</h5>
+          </div>
         ) : (
           <div className={styles.userInfoContainer}>
             <h5 className={styles.name}>{name}</h5>

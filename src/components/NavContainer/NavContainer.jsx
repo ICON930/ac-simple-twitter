@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import NavItem from "../NavItem/NavItem.jsx";
 import Button from "../Button/Button.jsx";
 import TweetModal from "../Modal/TweetModal.jsx";
@@ -8,12 +8,11 @@ import logo from "../../assets/icons/logo-Icon.svg";
 import logoutImg from "../../assets/icons/logout-Icon.svg";
 
 //api
-import { getUserInfo } from "api/setting.js";
 
 import styles from "./NavContainer.module.scss";
 
 export default function NavContainer({ page }) {
-  const { currentMember } = useAuth()
+  const { currentMember } = useAuth();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const navigate = useNavigate();
   const { logout, isAuthenticated } = useAuth();
@@ -28,12 +27,12 @@ export default function NavContainer({ page }) {
     logout();
   };
 
-  const id = currentMember?.id
+  const id = currentMember?.id;
 
-    useEffect(() => {
-      if (!isAuthenticated) {
-          navigate('/login');
-      }
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login");
+    }
   }, [navigate, isAuthenticated]);
 
   return (

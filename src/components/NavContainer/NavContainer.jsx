@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import NavItem from "../NavItem/NavItem.jsx";
 import Button from "../Button/Button.jsx";
 import TweetModal from "../Modal/TweetModal.jsx";
@@ -16,7 +16,7 @@ export default function NavContainer({ page }) {
   const { currentMember } = useAuth()
   const [isOpenModal, setIsOpenModal] = useState(false);
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { logout, isAuthenticated } = useAuth();
   const openModal = () => {
     console.log("Modal is opening");
     setIsOpenModal(true);
@@ -24,13 +24,17 @@ export default function NavContainer({ page }) {
   const closeModal = () => {
     setIsOpenModal(false);
   };
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("currentUserId");
-    navigate("/login");
+  const handleClick = () => {
+    logout();
   };
 
   const id = currentMember?.id
+
+    useEffect(() => {
+      if (!isAuthenticated) {
+          navigate('/login');
+      }
+  }, [navigate, isAuthenticated]);
 
   return (
     <div className={styles.container}>
@@ -85,7 +89,7 @@ export default function NavContainer({ page }) {
           </div>
         )}
       </div>
-      <div className={styles.logout} onClick={handleLogout}>
+      <div className={styles.logout} onClick={handleClick}>
         <img className={styles.logoutImg} src={logoutImg} alt="log-out" />
         <h5 className={styles.btnName}>登出</h5>
       </div>

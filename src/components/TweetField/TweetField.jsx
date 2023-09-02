@@ -8,30 +8,36 @@ import Avatar from "../../assets/icons/default-avatar.svg";
 //api
 import { useAuth } from "contexts/AuthContext";
 import { postTweet } from "api/tweet";
-export default function TweetField({ avatar, setShouldReloadTweets }) {
+export default function TweetField({
+  avatar,
+  setShouldReloadTweets,
+  onRefresh,
+}) {
   const [description, setDescription] = useState("");
   const { currentMember } = useAuth(); // 使用 useAuth 取得登入者資訊
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
   const handlePostTweet = async () => {
     setShouldReloadTweets(true);
     try {
       setError("");
-      if (!isMaxLength) {
+      if (!isMaxLength || !isMinLength) {
         await postTweet(localStorage.getItem("token"), description); // 呼叫發文API
         setDescription(""); // 清空輸入
       }
+      navigate("/main");
       Swal.fire({
         position: "top",
         title: "發文成功！",
         timer: 1000,
         icon: "success",
         showConfirmButton: false,
+      }).then(() => {
+        onRefresh();
       });
-      navigate("/main");
-      return;
     } catch (error) {
-      console.log("發文失敗", error);
+      console.error("发文失败，错误信息：", error);
       setError("發文失敗");
       Swal.fire({
         position: "top",
@@ -43,15 +49,16 @@ export default function TweetField({ avatar, setShouldReloadTweets }) {
     }
   };
 
-  //輸入內容
-  const haneleDescription = (e) => {
-    setDescription(e.target.value);
-  };
   const isMaxLength = description.length > 140;
   const isMinLength = description.trim() === "";
   const errorMessageClassName = clsx(styles.errorMessage, {
     [styles.showError]: isMaxLength || isMinLength,
   });
+
+  //輸入內容
+  const haneleDescription = (e) => {
+    setDescription(e.target.value);
+  };
   return (
     <div className={styles.fieldContainer}>
       <div className={styles.tweetContainer}>
@@ -83,6 +90,7 @@ export default function TweetField({ avatar, setShouldReloadTweets }) {
           <Button
             size="small"
             title="推文"
+            disabled={isMaxLength || isMinLength}
             onClick={handlePostTweet}
             isAction
           ></Button>

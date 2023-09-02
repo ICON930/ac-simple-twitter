@@ -88,6 +88,7 @@ export default function FollowerPage({ followerId, followingId }) {
                     Follow={addFollow} // 傳遞 addFollow 函數
                     Unfollow={unFollow} // 傳遞 unFollow 函數
                     followerId={followerId}
+                    id={item.id}
                   />
                 ) : (
                   <FollowingList
@@ -99,6 +100,7 @@ export default function FollowerPage({ followerId, followingId }) {
                     Follow={addFollow} // 傳遞 addFollow 函數
                     Unfollow={unFollow} // 傳遞 unFollow 函數
                     followingId={followingId}
+                    id={item.id}
                   />
                 )
               )

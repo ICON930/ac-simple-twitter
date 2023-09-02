@@ -47,7 +47,7 @@ export default function RegisterPage() {
       password,
       checkPassword,
     });
-    console.log(success)
+    console.log(success);
     if (success.status === "success") {
       Swal.fire({
         position: "top",
@@ -67,10 +67,10 @@ export default function RegisterPage() {
       icon: "error",
       showConfirmButton: false,
     });
-    if(success.response.data.message === "Error: email已重複註冊！") {
-      setEmailDuplication(true)
+    if (success.response.data.message === "Error: email已重複註冊！") {
+      setEmailDuplication(true);
     } else if (success.response.data.message === "Error: account已重複註冊！") {
-      setAccountDuplication(true)
+      setAccountDuplication(true);
     }
     return;
   };
@@ -82,7 +82,9 @@ export default function RegisterPage() {
         value={account}
         placeholder="請輸入帳號"
         onChange={(accountInputValue) => setAccount(accountInputValue)}
-        notification={accountDuplication ? "Error: account已重複註冊！" : "字數超出上限!"}
+        notification={
+          accountDuplication ? "Error: account已重複註冊！" : "字數超出上限!"
+        }
         wordsLimit={50}
       />
       <AuthInput
@@ -98,7 +100,9 @@ export default function RegisterPage() {
         value={email}
         placeholder="請輸入Email"
         onChange={(emailInputValue) => setEmail(emailInputValue)}
+
         notification={emailDuplication ? "Error: email已重複註冊！" : "字數超出上限!"}
+
         wordsLimit={100}
       />
       <AuthInput

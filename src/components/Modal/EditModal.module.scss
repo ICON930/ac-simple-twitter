@@ -60,6 +60,9 @@
   margin-bottom: 30px;
   position: relative;
   display: flex;
+  &.focused {
+      border-bottom: 2px solid color.$assistant-blue;
+    }
   .nameTitle {
     position: absolute;
     margin-top: 8px;
@@ -76,6 +79,9 @@
   border-bottom: 2px solid color.$gray-8;
   position: relative;
   display: flex;
+  &.focused {
+      border-bottom: 2px solid color.$assistant-blue;
+    }
   .introductionTitle {
     position: absolute;
     margin-top: 8px;
@@ -134,6 +140,23 @@
   font-weight: 500;
   color: #696974;
   right: 0;
+}
+
+.nameExceededStyle {
+  position: absolute;
+  left: 0;
+}
+
+.exceededNameContainer {
+  position: absolute;
+  top: 55px;
+  left: 0;
+}
+
+.exceededContainer {
+  position: absolute;
+  bottom: -18px;
+  left: 0; 
 }
 
 .exceededStyle {

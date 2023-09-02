@@ -23,7 +23,7 @@ export default function ReplyModal({ isOpen, onClose, tweetInfo }) {
       onClose();
       Swal.fire({
         position: "top",
-        title: "回覆成功！",
+        title: "推文發送成功！",
         timer: 1000,
         icon: "success",
         showConfirmButton: false,
@@ -36,7 +36,7 @@ export default function ReplyModal({ isOpen, onClose, tweetInfo }) {
       setIsReplying(false);
       Swal.fire({
         position: "top",
-        title: "回覆失敗！",
+        title: "推文發送失敗！",
         timer: 1000,
         icon: "error",
         showConfirmButton: false,

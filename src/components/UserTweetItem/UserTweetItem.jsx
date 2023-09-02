@@ -16,6 +16,7 @@ import { useLikes } from "contexts/LikeContext";
 import { UserIdTweetItem } from "./UserIdTweetItem";
 
 //mainPage UserPage的推文欄位
+
 export function UserTweetItem({
   name,
   account,
@@ -51,6 +52,8 @@ export function UserTweetItem({
   const closeModal = () => {
     setIsOpenModal(false);
   };
+
+  // 或者您可以返回加载动画或其他内容
 
   return (
     <div className={styles.container}>

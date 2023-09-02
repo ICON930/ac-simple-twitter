@@ -10,19 +10,19 @@ export function FollowerList({
   isFollowed,
   Follow,
   Unfollow,
-  followerId,
+  id,
 }) {
   const [isFollower, setIsFollower] = useState(isFollowed);
   const handleClick = async () => {
     if (isFollower) {
       // 如果已經在追蹤狀態，則執行取消追蹤
-      const success = await Unfollow(followerId); // 這裡的 userId 是您要取消追蹤的使用者的 ID
+      const success = await Unfollow(id); // 這裡的 userId 是您要取消追蹤的使用者的 ID
       if (success) {
         setIsFollower(false);
       }
     } else {
       // 如果不在追蹤狀態，則執行追蹤
-      const success = await Follow(followerId); // 這裡的 userId 是您要追蹤的使用者的 ID
+      const success = await Follow(id); // 這裡的 userId 是您要追蹤的使用者的 ID
       if (success) {
         setIsFollower(true);
       }
@@ -61,19 +61,19 @@ export function FollowingList({
   isFollowed,
   Follow,
   Unfollow,
-  followingId,
+  id,
 }) {
   const [isFollowing, setIsFollowing] = useState(isFollowed);
   const handleClick = async () => {
     if (isFollowing) {
       // 如果已經在追蹤狀態，則執行取消追蹤
-      const success = await Unfollow(followingId); // 這裡的 userId 是您要取消追蹤的使用者的 ID
+      const success = await Unfollow(id); // 這裡的 userId 是您要取消追蹤的使用者的 ID
       if (success) {
         setIsFollowing(false);
       }
     } else {
       // 如果不在追蹤狀態，則執行追蹤
-      const success = await Follow(followingId); // 這裡的 userId 是您要追蹤的使用者的 ID
+      const success = await Follow(id); // 這裡的 userId 是您要追蹤的使用者的 ID
       if (success) {
         setIsFollowing(true);
       }

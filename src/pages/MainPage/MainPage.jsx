@@ -24,7 +24,7 @@ export default function MainPage() {
 
   //new
   const { likes, addLike, removeLike } = useLikes();
-
+  const [shouldRefresh, setShouldRefresh] = useState(false);
   useEffect(() => {
     if (isAuthenticated) {
       const fetchTweets = async () => {
@@ -40,6 +40,15 @@ export default function MainPage() {
     }
   }, [isAuthenticated, token, shouldReloadTweets, likes]);
 
+  const handleRefresh = () => {
+    setShouldRefresh(true);
+  };
+
+  // 在需要时重新渲染组件
+  if (shouldRefresh) {
+    return;
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.mainContainer}>
@@ -51,7 +60,10 @@ export default function MainPage() {
             <Header title="首頁" />
           </div>
           <div className={styles.tweetField}>
-            <TweetField setShouldReloadTweets={setShouldReloadTweets} />
+            <TweetField
+              setShouldReloadTweets={setShouldReloadTweets}
+              onRefresh={handleRefresh}
+            />
           </div>
           <div className={styles.userTweetItem}>
             {tweets.length > 0 ? (
@@ -67,6 +79,7 @@ export default function MainPage() {
                   likedAmount={tweet.likedAmount}
                   tweet={tweet}
                   id={tweet.User.id}
+                  onRefresh={handleRefresh}
                 />
               ))
             ) : (

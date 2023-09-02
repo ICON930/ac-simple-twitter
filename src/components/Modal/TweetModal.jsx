@@ -12,10 +12,11 @@ import Swal from "sweetalert2";
 export default function TweetModal({ isOpen, onClose }) {
   const [error, setError] = useState("");
   const { currentMember } = useAuth();
+
   const handlePostTweet = async () => {
     try {
       setError("");
-      if (!isMaxLength) {
+      if (!isMaxLength || !isMinLength) {
         await postTweet(localStorage.getItem("token"), description); // 呼叫發文API
         setDescription(""); // 清空輸入
       }
@@ -50,8 +51,9 @@ export default function TweetModal({ isOpen, onClose }) {
 
   //設定超過字數上限提示
   const isMaxLength = description.length > 140;
+  const isMinLength = description.trim() === "";
   const errorMessageClassName = clsx(styles.errorMessage, {
-    [styles.showError]: isMaxLength,
+    [styles.showError]: isMaxLength || isMinLength,
   });
   const handleDescription = (e) => {
     setDescription(e.target.value);
@@ -81,9 +83,10 @@ export default function TweetModal({ isOpen, onClose }) {
           </div>
         </div>
         <div className={styles.buttonAndMessage}>
-          {isMaxLength && (
-            <div className={errorMessageClassName}>字數不可超過140字</div>
-          )}
+          <div className={errorMessageClassName}>
+            {isMaxLength && "字數不可超過140字"}
+            {isMinLength && "內容不可為空白"}
+          </div>
           <div className={styles.button}>
             <Button
               title="推文"

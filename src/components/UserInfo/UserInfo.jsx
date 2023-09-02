@@ -72,7 +72,7 @@ export default function UserInfo({ isOtherUser, userData, onSaveSuccess }) {
           <Link to={`/users/${userData.id}/followings`}>
             <span className={styles.label}>跟隨中</span>
           </Link>
-          <span className={styles.number}>{userData.followingsCount} 位</span>
+          <span className={styles.number}>{userData.followersCount} 位</span>
           <Link to={`/users/${userData.id}/follower`}>
             <span className={styles.label}>跟隨者</span>
           </Link>

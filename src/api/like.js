@@ -31,7 +31,7 @@ export const getUserAddLikeTweet = async (token, tweetid) => {
       const {data} = response
       return data
     } catch(error) {
-      console.log('[getUserAddLikeTweet is Fail]',error)
+    //   console.log('[getUserAddLikeTweet is Fail]',error)
       throw error
     }
 }

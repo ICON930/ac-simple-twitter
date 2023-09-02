@@ -12,9 +12,6 @@ import { ReactComponent as UnLikeIcon } from "../../assets/icons/like-active.svg
 //new
 import { useLikes } from "contexts/LikeContext";
 
-//component
-import { UserIdTweetItem } from "./UserIdTweetItem";
-
 //mainPage UserPage的推文欄位
 
 export function UserTweetItem({
@@ -46,14 +43,11 @@ export function UserTweetItem({
   };
 
   const openModal = () => {
-    console.log("Modal is opening");
     setIsOpenModal(true);
   };
   const closeModal = () => {
     setIsOpenModal(false);
   };
-
-  // 或者您可以返回加载动画或其他内容
 
   return (
     <div className={styles.container}>
@@ -145,46 +139,6 @@ export function UserReplyItem({ reply }) {
         </div>
         {/*回文內容 */}
         <div className={styles.replyContainer}>{comment}</div>
-      </div>
-    </div>
-  );
-}
-
-//User喜歡的內容欄位
-export function UserLikeItem() {
-  return (
-    <div className={styles.container}>
-      {/* 頭像 */}
-      <div className={styles.avatar}>
-        <img className="cursor-point" src={Avatar} alt="avatar" />
-      </div>
-      <div className={styles.userPanel}>
-        {/* 使用者帳號名字時間 */}
-        <div className={styles.accountInfo}>
-          <h6 className={styles.name}>name</h6>
-          <h6 className={styles.accountAndTime}>@account．time</h6>
-        </div>
-        {/* 推文內容 */}
-        <div className={styles.tweetContainer}>description</div>
-        {/* 回覆及愛心功能 */}
-        <div className={styles.iconEffect}>
-          <div className={styles.replyEffect}>
-            <ReplyIcon
-              className={`${styles.replyIcon}cursor-point`}
-              width="1em"
-              height="1em"
-              //   onClick={handleReply}
-            />
-            <h6 className={styles.replyCount}>123</h6>
-          </div>
-          <div className={styles.likeEffect}>
-            <UnLikeIcon
-              className={`${styles.likeIcon}cursor-point`}
-              //   onClick={handlelike}
-            />
-            <h6 className={styles.likeCount}>123</h6>
-          </div>
-        </div>
       </div>
     </div>
   );

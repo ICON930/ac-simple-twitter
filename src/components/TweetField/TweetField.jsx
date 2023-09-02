@@ -24,7 +24,7 @@ export default function TweetField({
       if (!isMaxLength || !isMinLength) {
         await postTweet(localStorage.getItem("token"), description); // 呼叫發文API
         setDescription(""); // 清空輸入
-        setShouldReloadTweets(true)
+        setShouldReloadTweets(true);
       }
       navigate("/main");
       Swal.fire({
@@ -56,7 +56,7 @@ export default function TweetField({
   });
 
   //輸入內容
-  const haneleDescription = (e) => {
+  const handleDescription = (e) => {
     setDescription(e.target.value);
   };
   return (
@@ -76,7 +76,7 @@ export default function TweetField({
             className={styles.textarea}
             placeholder="有什麼新鮮事?"
             value={description}
-            onChange={haneleDescription}
+            onChange={handleDescription}
           ></textarea>
         </div>
       </div>

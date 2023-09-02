@@ -37,11 +37,8 @@ export const getFollowing = async (token, id) => {
 //追蹤
 export const AddFollow = async (token, id) => {
     try {
-        console.log(token,id)
-          const bodyData = {
-            id: id, // 使用者 ID
-          };
-      const response = await axios.post(`${authURL}/followships`, bodyData,{
+console.log(token,id)
+      const response = await axios.post(`${authURL}/followships`,{ id},{
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -49,6 +46,7 @@ export const AddFollow = async (token, id) => {
       const  {data}  = response;
       return data;
     } catch (error) {
+      console.log(id)
       console.log('[follow fail]', error);
       throw error;
     }
@@ -64,6 +62,7 @@ export const UnFollow =async(token,id)=>{
         const { data } = response;
       return data;
     }catch(error){
+      console.log(id)
         console.log('[unFollow fail]',error)
         throw error
     }

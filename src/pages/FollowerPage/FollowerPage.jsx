@@ -14,18 +14,20 @@ import styles from "./FollowerPage.module.scss";
 //api
 import { getFollower, getFollowing } from "api/follow";
 import { useAuth } from "contexts/AuthContext";
+import { useFollow } from "contexts/FollowContext";
 export default function FollowerPage({ followerId, followingId }) {
-  const { isAuthenticated, currentMember, addFollow, unFollow } = useAuth();
-  console.log("isAuthenticated", isAuthenticated);
+  const { isAuthenticated, currentMember } = useAuth();
   const token = localStorage.getItem("token");
-  const { id, tab } = useParams(); // 從 URL 中取得 id 和 tab 參數
-  const [userData, setUserData] = useState([]);
 
+  const [userData, setUserData] = useState([]);
   const [hasNoFollowers, setHasNoFollowers] = useState(false);
+  const { followUser, unfollowUser } = useFollow();
+  const { id, tab } = useParams();
 
   useEffect(() => {
     if (isAuthenticated) {
       const fetchData = async () => {
+        console.log(token);
         try {
           let response;
           if (tab === "follower") {
@@ -34,7 +36,7 @@ export default function FollowerPage({ followerId, followingId }) {
             response = await getFollowing(token, id);
             if (response && response.status === "success") {
               setHasNoFollowers(true);
-              setUserData([]); // 設置為空陣列
+              setUserData([]);
             } else {
               setHasNoFollowers(false);
             }
@@ -48,7 +50,7 @@ export default function FollowerPage({ followerId, followingId }) {
       };
       fetchData();
     }
-  }, [isAuthenticated, token, id, tab]);
+  }, [isAuthenticated, token, id, tab, currentMember.id]);
   return (
     <div className={styles.container}>
       <div className={styles.mainContainer}>
@@ -85,10 +87,10 @@ export default function FollowerPage({ followerId, followingId }) {
                     name={item.name}
                     introduction={item.introduction}
                     isFollowed={item.isFollowed}
-                    Follow={addFollow} // 傳遞 addFollow 函數
-                    Unfollow={unFollow} // 傳遞 unFollow 函數
                     followerId={followerId}
                     id={item.id}
+                    Follow={followUser}
+                    Unfollow={unfollowUser}
                   />
                 ) : (
                   <FollowingList
@@ -97,17 +99,17 @@ export default function FollowerPage({ followerId, followingId }) {
                     name={item.name}
                     introduction={item.introduction}
                     isFollowed={item.isFollowed}
-                    Follow={addFollow} // 傳遞 addFollow 函數
-                    Unfollow={unFollow} // 傳遞 unFollow 函數
                     followingId={followingId}
                     id={item.id}
+                    Follow={followUser}
+                    Unfollow={unfollowUser}
                   />
                 )
               )
             )}
           </div>
         </div>
-        <div className="sugContainer">
+        <div className={styles.sugContainer}>
           <SuggestUserContainer />
         </div>
       </div>

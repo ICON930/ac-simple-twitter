@@ -2,7 +2,7 @@ import { createContext, useState, useContext, useEffect } from "react";
 
 import { login, register } from "../api/auth";
 import { adminLogin } from "../api/admin";
-import { AddFollow, UnFollow, getFollowing } from "api/follow";
+import { getFollowing } from "api/follow";
 import { getUserInfo } from "api/setting";
 import * as jwt from "jsonwebtoken";
 
@@ -108,49 +108,6 @@ export const AuthProvider = ({ children }) => {
           } catch (error) {
             console.log("getUserInfo fail", error);
             return null; // 或者您可以返回一個適當的錯誤狀態
-          }
-        },
-        addFollow: async (id) => {
-          try {
-            const token = localStorage.getItem("token");
-            const response = await AddFollow(token, id);
-            if (response.message) {
-              // 更新追蹤狀態
-              const updatedFollowingUsers = followingUsers.map((user) => {
-                if (user.id === id) {
-                  return { ...user, isFollowed: false }; // 如果被追蹤的使用者的id匹配，將isFollowed設置為false
-                }
-                return user;
-              });
-              setFollowingUsers(updatedFollowingUsers);
-              return { success: true };
-            } else {
-              console.log("follow is fail", response);
-              return { error: "追蹤失敗" };
-            }
-          } catch (error) {
-            console.log("follow fail", error);
-            return { error };
-          }
-        },
-        unFollow: async (id) => {
-          try {
-            const token = localStorage.getItem("token");
-            const response = await UnFollow(token, id);
-            if (response.message) {
-              // 更新追蹤狀態
-              const updatedFollowingUsers = followingUsers.map((user) => {
-                if (user.id === id) {
-                  return { ...user, isFollowed: true }; // 如果被追蹤的使用者的id匹配，將isFollowed設置為true
-                }
-                return user;
-              });
-              setFollowingUsers(updatedFollowingUsers);
-              return { success: false };
-            }
-          } catch (error) {
-            console.log("unfollow fail", error);
-            return error;
           }
         },
 

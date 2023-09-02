@@ -45,6 +45,7 @@ export default function LoginPage () {
     Swal.fire({
       position: 'top',
       title: '登入失敗！',
+      text:"帳號不存在！",
       timer: 1000,
       icon: 'error',
       showConfirmButton: false,

@@ -100,9 +100,9 @@ export default function RegisterPage() {
         value={email}
         placeholder="請輸入Email"
         onChange={(emailInputValue) => setEmail(emailInputValue)}
-        notification={
-          emailDuplication ? "Error: email已重複註冊！" : "字數超出上限!"
-        }
+
+        notification={emailDuplication ? "Error: email已重複註冊！" : "字數超出上限!"}
+
         wordsLimit={100}
       />
       <AuthInput

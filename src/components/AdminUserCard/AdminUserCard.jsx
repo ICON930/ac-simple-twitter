@@ -21,21 +21,27 @@ export default function AdminUserCard ({avatar, name, cover, account, followerAm
         </div>
       </div>
       <div className={styles.infoContainer}>
-        <h5 className={styles.name}>{name}</h5>
-        <h5 className={styles.account}>{account}</h5>
-        <div className={styles.counts}>
-          <img className={styles.icon} src={admin_reply} alt="reply"/>
-          <span className={styles.number}>{tweetsAmount}</span>
-          <img className={styles.icon} src={admin_like} alt="like"/>
-          <span className={styles.number}>{likedAmount}</span>
-        </div>
-        <div className={styles.follows}>
-          <span className={styles.followCount}>{followingAmount}</span>
-          <span className={styles.followInfo}>跟隨中</span>
-          <span className={styles.break}></span>
-          <span className={styles.followCount}>{followerAmount}</span>
-          <span className={styles.followInfo}>跟隨者</span>
-        </div>
+        {name && account === "root" ? (
+          <h5 className={styles.name}>管理員</h5>
+        ) : (
+          <div className={styles.userInfoContainer}>
+            <h5 className={styles.name}>{name}</h5>
+            <h5 className={styles.account}>{account}</h5>
+            <div className={styles.counts}>
+              <img className={styles.icon} src={admin_reply} alt="reply"/>
+              <span className={styles.number}>{tweetsAmount}</span>
+              <img className={styles.icon} src={admin_like} alt="like"/>
+              <span className={styles.number}>{likedAmount}</span>
+            </div>
+            <div className={styles.follows}>
+              <span className={styles.followCount}>{followingAmount}</span>
+              <span className={styles.followInfo}>跟隨中</span>
+              <span className={styles.break}></span>
+              <span className={styles.followCount}>{followerAmount}</span>
+              <span className={styles.followInfo}>跟隨者</span>
+            </div>
+          </div>
+          )}
       </div>
     </div>
   );

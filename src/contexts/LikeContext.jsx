@@ -42,7 +42,6 @@ export const LikeProvider = ({ children }) => {
 
   const addLike = async (tweetId) => {
     try {
-      console.log("Calling getUserAddLikeTweet with token:", token, "and tweetId:", tweetId);  // Log before API call
       await getUserAddLikeTweet(token, tweetId);
       const newLikes = [...likes, tweetId];
       setLikes(newLikes);

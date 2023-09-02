@@ -23,7 +23,6 @@ export function UserIdTweetItem({ userId, updateTweetCount, tweet }) {
   const [isLoading, setIsLoading] = useState(true);
   const token = localStorage.getItem('token'); 
   const { likes, addLike, removeLike } = useLikes();  
-  console.log('like',likes)
   const { currentMember } = useAuth();
 
   useEffect(() => {
@@ -103,11 +102,13 @@ export function UserIdTweetItem({ userId, updateTweetCount, tweet }) {
             <div className={styles.tweetContainer}>{tweet.description}</div>
             <div className={styles.iconEffect}>
               <div className={styles.replyEffect}>
+                <Link to={`/tweets/${tweet.id}`}>
                 <ReplyIcon
                   className={`${styles.replyIcon} cursor-point`}
                   width="1em"
                   height="1em"
                 />
+                </Link>
                 <h6 className={styles.replyCount}>{tweet.repliedAmount}</h6>
               </div>
               <div className={styles.likeEffect}>

@@ -3,7 +3,7 @@ import styles from "./AdminUserCard.module.scss";
 import admin_reply from "../../assets/icons/tweet-Icon.svg";
 import admin_like from "../../assets/icons/like-icon.svg";
 
-export default function AdminUserCard ({avatar, name, cover, account, followerAmount, followingAmount, tweetsAmount, likedAmount}) {
+export default function AdminUserCard ({avatar, name, cover, account, followerAmount, followingAmount, tweetsAmount, likedAmount, role}) {
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>
@@ -21,7 +21,7 @@ export default function AdminUserCard ({avatar, name, cover, account, followerAm
         </div>
       </div>
       <div className={styles.infoContainer}>
-        {name && account === "root" ? (
+        {role === "admin" ? (
           <div className={styles.userInfoContainer}>
           <h5 className={styles.name}>{name}</h5>
           <h5 className={styles.account}>{account}</h5>

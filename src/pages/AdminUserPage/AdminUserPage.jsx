@@ -45,6 +45,7 @@ export default function AdminUserPage () {
             followingAmount={user.followingAmount}
             tweetsAmount={user.tweetsAmount}
             likedAmount={user.likedAmount}
+            role={user.role}
         />
         );
     });

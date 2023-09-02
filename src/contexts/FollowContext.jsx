@@ -6,7 +6,6 @@ import {
   useCallback,
 } from "react";
 import { AddFollow, UnFollow, getFollower, getFollowing } from "api/follow";
-import { useAuth } from "./AuthContext";
 
 const FollowContext = createContext();
 
@@ -15,31 +14,32 @@ export function useFollow() {
 }
 
 export function FollowProvider({ children }) {
+  const token = localStorage.getItem("token");
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
-  const { userToken } = useAuth();
 
+  console.log("尋找TOKEN", token);
   const fetchFollowers = useCallback(async () => {
     try {
-      const response = await getFollower(userToken);
+      const response = await getFollower(token);
       setFollowers(response);
     } catch (error) {
       console.error("追隨者清單失敗", error);
     }
-  }, [userToken]);
+  }, [token]);
 
   const fetchFollowing = useCallback(async () => {
     try {
-      const response = await getFollowing(userToken);
+      const response = await getFollowing(token);
       setFollowing(response);
     } catch (error) {
       console.error("正在跟隨清單失敗", error);
     }
-  }, [userToken]);
+  }, [token]);
 
   const followUser = async (userId) => {
     try {
-      await AddFollow(userToken, userId);
+      await AddFollow(token, userId);
       fetchFollowers();
     } catch (error) {
       console.error("跟隨失敗", error);
@@ -48,7 +48,7 @@ export function FollowProvider({ children }) {
 
   const unfollowUser = async (userId) => {
     try {
-      await UnFollow(userToken, userId);
+      await UnFollow(token, userId);
       fetchFollowers();
     } catch (error) {
       console.error("取消追蹤失敗", error);
@@ -58,7 +58,7 @@ export function FollowProvider({ children }) {
   useEffect(() => {
     fetchFollowers();
     fetchFollowing();
-  }, [fetchFollowers, fetchFollowing]); // 添加依赖项
+  }, [fetchFollowers, fetchFollowing]);
 
   return (
     <FollowContext.Provider

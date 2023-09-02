@@ -36,8 +36,8 @@ export default function MainPage() {
           console.log("fetch tweets is Fail", error);
           setTweets([]);
         } finally {
-        setShouldRefresh(false);  
-        setShouldReloadTweets(false); 
+          setShouldRefresh(false);
+          setShouldReloadTweets(false);
         }
       };
       fetchTweets();

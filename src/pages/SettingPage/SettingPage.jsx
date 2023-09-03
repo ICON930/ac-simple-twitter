@@ -119,9 +119,9 @@ export default function Setting() {
               setEmail(emailInputValue);
               setEmailDuplication("");
             }}
-            notification={
-              emailDuplication ? "Error: email已重複註冊！" : "字數超出上限!"
-            }
+
+            notification={emailDuplication ? "Error: email已重複註冊！" : "字數超出上限!"}
+
             wordsLimit={100}
           />
 

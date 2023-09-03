@@ -8,10 +8,7 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("homepage$#$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-    if (isAuthenticated) {
-      navigate("/main");
-    } else {
+    if (!isAuthenticated) {
       navigate("/login");
     }
   }, [navigate, isAuthenticated]);

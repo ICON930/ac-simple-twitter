@@ -12,7 +12,7 @@ import styles from "./AdminMainPage.module.scss";
 
 export default function AdminMainPage () {
     const [ tweets, setTweets ] = useState([]);
-    const { isAuthenticated } = useAuth();
+    const { adminAuthenticated } = useAuth();
     const navigate = useNavigate();
 
     const handleDeleteTweet = async (id) => {
@@ -54,10 +54,10 @@ export default function AdminMainPage () {
     });
 
   useEffect(() => {
-      if (!isAuthenticated) {
+      if (!adminAuthenticated) {
           navigate('/admin/login');
       }
-  }, [navigate, isAuthenticated]);
+  }, [navigate, adminAuthenticated]);
 
     return (
     <div className={styles.container}>

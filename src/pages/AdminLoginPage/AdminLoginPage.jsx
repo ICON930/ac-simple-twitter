@@ -14,7 +14,7 @@ export default function LoginPage () {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
   const [accountNotFound, setAccountNotFound] = useState(false);
-  const { login, isAuthenticated } = useAuth();
+  const { adminLogin, adminAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const handleClick = async () => {
@@ -25,10 +25,9 @@ export default function LoginPage () {
       return;
     }
 
-    const success = await login({
+    const success = await adminLogin({
       account,
       password,
-      role: "admin",
     });
     if (success) {
       Swal.fire({
@@ -53,14 +52,17 @@ export default function LoginPage () {
   };
 
   useEffect(() => {
-      if (isAuthenticated) {
+      if (adminAuthenticated) {
           navigate('/admin/main');
       }
-  }, [navigate, isAuthenticated]);
+  }, [navigate, adminAuthenticated]);
 
   return (
     <AuthPageContainer title="後台登入">
-      <AuthInput label="帳號" value={account} placeholder="請輸入帳號" onChange={(accountInputValue) => setAccount(accountInputValue)}
+      <AuthInput label="帳號" value={account} placeholder="請輸入帳號" onChange={(accountInputValue) => {
+          setAccount(accountInputValue);
+          setAccountNotFound("");
+        }}
       notification={accountNotFound ? "帳號不存在！" : "字數超出上限!"} wordsLimit={50}
       />
       <AuthInput label="密碼" value={password} type="password" placeholder="請輸入密碼" onChange={(passwordInputValue) => setPassword(passwordInputValue)}

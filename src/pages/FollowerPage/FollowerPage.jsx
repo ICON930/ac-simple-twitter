@@ -87,7 +87,7 @@ export default function FollowerPage({ followerId, followingId }) {
                     name={item.name}
                     introduction={item.introduction}
                     isFollowed={item.isFollowed}
-                    followerId={followerId}
+                    followerId={item.followerId}
                     Follow={followUser}
                     Unfollow={unfollowUser}
                   />

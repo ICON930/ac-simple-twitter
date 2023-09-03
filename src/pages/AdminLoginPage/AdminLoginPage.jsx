@@ -14,7 +14,7 @@ export default function LoginPage () {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
   const [accountNotFound, setAccountNotFound] = useState(false);
-  const { login, isAuthenticated } = useAuth();
+  const { adminLogin, adminAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const handleClick = async () => {
@@ -25,10 +25,9 @@ export default function LoginPage () {
       return;
     }
 
-    const success = await login({
+    const success = await adminLogin({
       account,
       password,
-      role: "admin",
     });
     if (success) {
       Swal.fire({
@@ -53,10 +52,10 @@ export default function LoginPage () {
   };
 
   useEffect(() => {
-      if (isAuthenticated) {
+      if (adminAuthenticated) {
           navigate('/admin/main');
       }
-  }, [navigate, isAuthenticated]);
+  }, [navigate, adminAuthenticated]);
 
   return (
     <AuthPageContainer title="後台登入">

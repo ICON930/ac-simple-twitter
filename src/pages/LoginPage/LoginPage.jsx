@@ -14,7 +14,7 @@ export default function LoginPage() {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
   const [accountNotFound, setAccountNotFound] = useState(false);
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated, adminAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const handleClick = async () => {
@@ -54,10 +54,10 @@ export default function LoginPage() {
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/main");
+    } else if (adminAuthenticated) {
+      navigate("/admin/main");
     }
-  }, [navigate, isAuthenticated]);
-  const location = useLocation();
-  console.log(location.pathname);
+  }, [navigate, isAuthenticated, adminAuthenticated]);
 
   return (
     <AuthPageContainer title="登入 Alphitter">

@@ -15,6 +15,11 @@ import Ball from "../../assets/icons/noti-Icon.svg";
 
 export default function UserInfo({ isOtherUser, userData, onSaveSuccess }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false); 
+
+  const handleFollow = () => {
+
+  };
 
   const openModal = () => {
     setIsOpenModal(true);
@@ -46,11 +51,11 @@ export default function UserInfo({ isOtherUser, userData, onSaveSuccess }) {
       )}
       <div className={styles.buttonContainer}>
         <Button
-          title={isOtherUser ? "正在跟隨" : "編輯個人資料"}
-          size={isOtherUser ? "middle" : "edit"}
-          onClick={openModal}
-          isAction
-          className={isOtherUser && styles.buttonClass}
+          title={isOtherUser ? (isFollowing ? "正在跟隨" : "跟隨") : "編輯個人資料"}
+          size={isOtherUser ? (isFollowing ? "middle" : "small") : "edit"}
+          onClick={isOtherUser ? handleFollow : openModal}
+          isAction={isOtherUser ? (isFollowing? "isAction" : "") : "isAction"}
+          className={isOtherUser ? (isFollowing? styles.buttonClass : styles.buttonSmall ) : styles.buttonClass}
         />
       </div>
       <EditModal

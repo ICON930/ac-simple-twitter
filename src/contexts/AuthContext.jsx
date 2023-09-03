@@ -8,6 +8,7 @@ import * as jwt from "jsonwebtoken";
 import { useNavigate } from "react-router-dom";
 const defaultAuthContext = {
   isAuthenticated: false,
+  adminAuthenticated: false,
   currentMember: null,
   register: null,
   login: null,
@@ -18,6 +19,7 @@ const AuthContext = createContext(defaultAuthContext);
 export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [adminAuthenticated, setAdminAuthenticated] = useState(false);
   const [payload, setPayload] = useState(null);
   const [followingUsers, setFollowingUsers] = useState([]);
   const navigate = useNavigate();
@@ -30,6 +32,7 @@ export const AuthProvider = ({ children }) => {
       if (tempPayload) {
         setPayload(tempPayload);
         setIsAuthenticated(true);
+        setAdminAuthenticated(true);
       }
     }
   }, []);
@@ -52,10 +55,31 @@ export const AuthProvider = ({ children }) => {
       fetchFollowingUsers();
     }
   }, [isAuthenticated, payload]);
+
+    useEffect(() => {
+    if (adminAuthenticated) {
+      const fetchFollowingUsers = async () => {
+        try {
+          const token = localStorage.getItem("token");
+          if (payload) {
+            // 檢查 payload 是否存在
+            const id = payload.id;
+            const response = await getFollowing(token, id);
+            setFollowingUsers(response);
+          }
+        } catch (error) {
+          console.log("Fetch following users failed", error);
+        }
+      };
+
+      fetchFollowingUsers();
+    }
+  }, [adminAuthenticated, payload]);
   return (
     <AuthContext.Provider
       value={{
         isAuthenticated,
+        adminAuthenticated,
         currentMember: payload && {
           id: payload.id,
           name: payload.name,
@@ -77,8 +101,7 @@ export const AuthProvider = ({ children }) => {
           return success;
         },
         login: async (data) => {
-          const loginFunc = data.role === "admin" ? adminLogin : login;
-          const { success, token } = await loginFunc({
+          const { success, token } = await login({
             account: data.account,
             password: data.password,
           });
@@ -93,10 +116,27 @@ export const AuthProvider = ({ children }) => {
           }
           return success;
         },
+        adminLogin: async (data) => {
+          const { success, token } = await adminLogin({
+            account: data.account,
+            password: data.password,
+          });
+          const tempPayload = jwt.decode(token);
+          if (tempPayload) {
+            setPayload(tempPayload);
+            setAdminAuthenticated(true);
+            localStorage.setItem("token", token);
+          } else {
+            setPayload(null);
+            setAdminAuthenticated(false);
+          }
+          return success;
+        },
         logout: () => {
           localStorage.removeItem("token");
           setPayload(null);
           setIsAuthenticated(false);
+          setAdminAuthenticated(false);
           navigate("/login");
         },
         getUser: async (id) => {

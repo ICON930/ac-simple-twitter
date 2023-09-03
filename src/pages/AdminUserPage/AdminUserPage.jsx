@@ -12,7 +12,7 @@ import styles from "./AdminUserPage.module.scss";
 
 export default function AdminUserPage () {
   const [users, setUsers] = useState([]);
-  const { isAuthenticated } = useAuth();
+  const { adminAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,10 +51,10 @@ export default function AdminUserPage () {
     });
 
   useEffect(() => {
-      if (!isAuthenticated) {
+      if (!adminAuthenticated) {
           navigate('/admin/login');
       }
-  }, [navigate, isAuthenticated]);
+  }, [navigate, adminAuthenticated]);
 
 
   return (

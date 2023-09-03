@@ -78,6 +78,9 @@ export default function EditModal ({ isOpen, isClose, userData, onSaveSuccess })
       return;
     }
 
+    const oldAvatar = currentMember.avatar
+    const oldCover = currentMember.cover
+
     const formData = new FormData();
 
     formData.append('name', name);
@@ -85,20 +88,23 @@ export default function EditModal ({ isOpen, isClose, userData, onSaveSuccess })
 
     if (newAvatar) {
       formData.append('avatar', newAvatar);
+    } else {
+      formData.append('avatar', oldAvatar)
     }
 
     if (newCover) {
       formData.append('cover', newCover); 
-    }
+     } else {
+      formData.append('cover', oldCover)
+    } 
 
     const updatedInfo = await editPage(token, id, formData);
 
     updateCurrentMember({
-      name: updatedInfo.name,
-      introduction: updatedInfo.introduction,
-      avatar: updatedInfo.avatar,
-      cover: updatedInfo.cover,
-    });
+      name: updatedInfo.data.user.name,
+      avatar: updatedInfo.data.user.avatar,
+      cover: updatedInfo.data.user.cover,
+    }); 
 
     Swal.fire({
       icon: 'success',
@@ -207,5 +213,3 @@ export default function EditModal ({ isOpen, isClose, userData, onSaveSuccess })
     </div>
     )
 }
-
-

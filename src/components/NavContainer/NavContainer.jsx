@@ -29,11 +29,11 @@ export default function NavContainer({ page }) {
 
   const id = currentMember?.id;
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-    }
-  }, [navigate, isAuthenticated]);
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     navigate("/login");
+  //   }
+  // }, [navigate, isAuthenticated]);
 
   return (
     <div className={styles.container}>

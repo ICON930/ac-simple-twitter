@@ -56,6 +56,7 @@ export function FollowProvider({ children }) {
   };
 
   useEffect(() => {
+    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$有東西嗎");
     fetchFollowers();
     fetchFollowing();
   }, [fetchFollowers, fetchFollowing]);

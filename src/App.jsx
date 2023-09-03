@@ -25,7 +25,7 @@ function App() {
           <LikeProvider>
             <FollowProvider>
               <Routes>
-                <Route path="/" element={<HomePage />} />
+                <Route path="*" element={<HomePage />} />
                 <Route path="login" element={<LoginPage />} />
                 <Route path="register" element={<RegisterPage />} />
                 <Route path="admin/login" element={<AdminLoginPage />} />

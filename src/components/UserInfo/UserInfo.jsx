@@ -13,12 +13,32 @@ import Avatar from "../../assets/icons/default-avatar.svg";
 import EditModal from "components/Modal/EditModal";
 import Ball from "../../assets/icons/noti-Icon.svg";
 
-export default function UserInfo({ isOtherUser, userData, onSaveSuccess }) {
+export default function UserInfo({
+  isOtherUser,
+  userData,
+  onSaveSuccess,
+  isFollowed,
+  Unfollow,
+  Follow,
+  id,
+}) {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [isFollowing, setIsFollowing] = useState(false); 
+  const [isFollower, setIsFollower] = useState(isFollowed);
+  const token = localStorage.getItem("token");
 
-  const handleFollow = () => {
-
+  const handleClick = async () => {
+    if (isFollower) {
+      const success = await Unfollow(userData.id, token);
+      if (success.message === "取消跟隨成功!") {
+        setIsFollower(false);
+      }
+    } else {
+      const success = await Follow(userData.id, token);
+      console.log(userData.id);
+      if (success.message === "跟隨成功!") {
+        setIsFollower(true);
+      }
+    }
   };
 
   const openModal = () => {
@@ -50,20 +70,37 @@ export default function UserInfo({ isOtherUser, userData, onSaveSuccess }) {
         <img className={styles.ballStyleTwo} src={Ball} alt="ball" />
       )}
       <div className={styles.buttonContainer}>
-        <Button
-          title={isOtherUser ? (isFollowing ? "正在跟隨" : "跟隨") : "編輯個人資料"}
-          size={isOtherUser ? (isFollowing ? "middle" : "small") : "edit"}
-          onClick={isOtherUser ? handleFollow : openModal}
-          isAction={isOtherUser ? (isFollowing? "isAction" : "") : "isAction"}
-          className={isOtherUser ? (isFollowing? styles.buttonClass : styles.buttonSmall ) : styles.buttonClass}
-        />
+        {isOtherUser ? (
+          <div className={styles.buttonClass}>
+            <Button title="編輯個人資料" size="edit" onClick={openModal} />
+            {isOpenModal && (
+              <EditModal
+                onSaveSuccess={onSaveSuccess}
+                isOpen={isOpenModal}
+                isClose={closeModal}
+                userData={userData}
+              />
+            )}
+          </div>
+        ) : (
+          <div className={styles.buttonSmall}>
+            {isFollower ? (
+              <Button
+                title="正在跟隨"
+                size="middle"
+                onClick={() => handleClick(userData.id)}
+                isAction
+              />
+            ) : (
+              <Button
+                title="跟隨"
+                size="small"
+                onClick={() => handleClick(userData.id)}
+              />
+            )}
+          </div>
+        )}
       </div>
-      <EditModal
-        onSaveSuccess={onSaveSuccess}
-        isOpen={isOpenModal}
-        isClose={closeModal}
-        userData={userData}
-      />
       <div>
         <div className={styles.nameContainer}>
           <p>{userData.name}</p>

@@ -22,7 +22,7 @@ import {
 
 //api
 import { getUserInfo } from "api/setting";
-
+import { useFollow } from "contexts/FollowContext";
 export default function UserPage() {
   const { id, tab } = useParams();
   const { isAuthenticated, currentMember } = useAuth();
@@ -31,7 +31,7 @@ export default function UserPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [shouldReload, setShouldReload] = useState(false);
   const [tweetCount, setTweetCount] = useState(0);
-
+  const { followUser, unfollowUser } = useFollow();
   const handleSaveSuccess = () => {
     setShouldReload((prevState) => !prevState);
   };
@@ -100,8 +100,11 @@ export default function UserPage() {
         ) : (
           <UserInfo
             onSaveSuccess={handleSaveSuccess}
-            isOtherUser={Number(currentMember?.id) !== Number(id)}
+            isOtherUser={Number(currentMember?.id) === Number(id)}
             userData={userData}
+            isFollowed={userData.isFollowed}
+            Follow={followUser}
+            Unfollow={unfollowUser}
           />
         )}
         <ul className={styles.link}>

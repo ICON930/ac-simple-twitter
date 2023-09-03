@@ -23,9 +23,10 @@ export default function FollowerPage({ followerId, followingId }) {
   const [hasNoFollowers, setHasNoFollowers] = useState(false);
   const { followUser, unfollowUser } = useFollow();
   const { id, tab } = useParams();
+  console.log(id, "!!!!!!!!!!!!!!!!!");
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && id !== null && currentMember !== null) {
       const fetchData = async () => {
         console.log(token);
         try {
@@ -50,7 +51,7 @@ export default function FollowerPage({ followerId, followingId }) {
       };
       fetchData();
     }
-  }, [isAuthenticated, token, id, tab, currentMember.id]);
+  }, [isAuthenticated, token, id, tab, currentMember]);
   return (
     <div className={styles.container}>
       <div className={styles.mainContainer}>
@@ -60,9 +61,9 @@ export default function FollowerPage({ followerId, followingId }) {
         <div className={styles.middleContainer}>
           <div className={styles.header}>
             <Header
-              title={currentMember.name}
+              title={currentMember?.name}
               arrow
-              tweetCount={currentMember.tweetCount}
+              tweetCount={currentMember?.tweetCount}
             />
           </div>
           <div className={styles.followTable}>
@@ -76,7 +77,7 @@ export default function FollowerPage({ followerId, followingId }) {
             </ul>
           </div>
           <div className={styles.followList}>
-            {hasNoFollowers ? (
+            {/* {hasNoFollowers ? (
               <p>目前沒有追隨者</p>
             ) : (
               userData.map((item) =>
@@ -104,7 +105,7 @@ export default function FollowerPage({ followerId, followingId }) {
                   />
                 )
               )
-            )}
+            )} */}
           </div>
         </div>
         <div className={styles.sugContainer}>

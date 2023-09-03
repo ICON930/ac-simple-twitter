@@ -1,5 +1,5 @@
-import { useState,useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 
 import { useAuth } from "../../contexts/AuthContext.jsx";
 import Swal from "sweetalert2";
@@ -37,14 +37,14 @@ export default function LoginPage() {
         icon: "success",
         showConfirmButton: false,
       });
-      navigate('/main');
+      navigate("/main");
       return;
     }
     setAccountNotFound(true);
     Swal.fire({
       position: "top",
       title: "登入失敗！",
-      text:"帳號不存在！",
+      text: "帳號不存在！",
       timer: 1000,
       icon: "error",
       showConfirmButton: false,
@@ -52,10 +52,12 @@ export default function LoginPage() {
   };
 
   useEffect(() => {
-      if (isAuthenticated) {
-          navigate('/main');
-      }
+    if (isAuthenticated) {
+      navigate("/main");
+    }
   }, [navigate, isAuthenticated]);
+  const location = useLocation();
+  console.log(location.pathname);
 
   return (
     <AuthPageContainer title="登入 Alphitter">

@@ -5,15 +5,13 @@ import { adminLogin } from "../api/admin";
 import { getFollowing } from "api/follow";
 import { getUserInfo } from "api/setting";
 import * as jwt from "jsonwebtoken";
-
+import { useNavigate } from "react-router-dom";
 const defaultAuthContext = {
   isAuthenticated: false,
   currentMember: null,
   register: null,
   login: null,
   logout: null,
-  addFollow: null,
-  unFollow: null,
 };
 
 const AuthContext = createContext(defaultAuthContext);
@@ -22,7 +20,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [payload, setPayload] = useState(null);
   const [followingUsers, setFollowingUsers] = useState([]);
-
+  const navigate = useNavigate();
   //儲存TOKEN不讓頁面在重新整理時讀不到
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -99,6 +97,7 @@ export const AuthProvider = ({ children }) => {
           localStorage.removeItem("token");
           setPayload(null);
           setIsAuthenticated(false);
+          navigate("/login");
         },
         getUser: async (id) => {
           try {

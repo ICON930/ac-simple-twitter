@@ -60,7 +60,10 @@ export default function LoginPage () {
 
   return (
     <AuthPageContainer title="後台登入">
-      <AuthInput label="帳號" value={account} placeholder="請輸入帳號" onChange={(accountInputValue) => setAccount(accountInputValue)}
+      <AuthInput label="帳號" value={account} placeholder="請輸入帳號" onChange={(accountInputValue) => {
+          setAccount(accountInputValue);
+          setAccountNotFound("");
+        }}
       notification={accountNotFound ? "帳號不存在！" : "字數超出上限!"} wordsLimit={50}
       />
       <AuthInput label="密碼" value={password} type="password" placeholder="請輸入密碼" onChange={(passwordInputValue) => setPassword(passwordInputValue)}

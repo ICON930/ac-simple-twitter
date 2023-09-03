@@ -37,26 +37,27 @@ export function FollowProvider({ children }) {
     }
   }, [token]);
 
-  const followUser = async (userId) => {
+  const followUser = async (id) => {
     try {
-      await AddFollow(token, userId);
+      const follow = await AddFollow(token, id);
       fetchFollowers();
+      return follow;
     } catch (error) {
       console.error("跟隨失敗", error);
     }
   };
 
-  const unfollowUser = async (userId) => {
+  const unfollowUser = async (id) => {
     try {
-      await UnFollow(token, userId);
+      const unfollow = await UnFollow(token, id);
       fetchFollowers();
+      return unfollow;
     } catch (error) {
       console.error("取消追蹤失敗", error);
     }
   };
 
   useEffect(() => {
-    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$有東西嗎");
     fetchFollowers();
     fetchFollowing();
   }, [fetchFollowers, fetchFollowing]);

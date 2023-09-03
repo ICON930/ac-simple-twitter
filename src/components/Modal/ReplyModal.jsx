@@ -10,7 +10,7 @@ import { ReplyTweet } from "api/tweet";
 import { useAuth } from "contexts/AuthContext";
 export default function ReplyModal({ isOpen, onClose, tweetInfo }) {
   const [comment, setComment] = useState("");
-  const [isReplying, setIsReplying] = useState(false);
+  const [isReplying, setIsReplying] = useState(true);
   const { currentMember } = useAuth();
   const handleReply = async () => {
     if (!comment) {
@@ -23,7 +23,7 @@ export default function ReplyModal({ isOpen, onClose, tweetInfo }) {
       onClose();
       Swal.fire({
         position: "top",
-        title: "推文發送成功！",
+        title: "回覆發送成功！",
         timer: 1000,
         icon: "success",
         showConfirmButton: false,
@@ -36,7 +36,7 @@ export default function ReplyModal({ isOpen, onClose, tweetInfo }) {
       setIsReplying(false);
       Swal.fire({
         position: "top",
-        title: "推文發送失敗！",
+        title: "回覆發送失敗！",
         timer: 1000,
         icon: "error",
         showConfirmButton: false,
@@ -45,7 +45,8 @@ export default function ReplyModal({ isOpen, onClose, tweetInfo }) {
   };
 
   const handleComment = (e) => {
-    setComment(e.target.value);
+    const comment = e.target.value;
+    setComment(comment);
   };
   const isMaxLength = comment.length > 140;
   const isMinLength = comment.trim() === "";

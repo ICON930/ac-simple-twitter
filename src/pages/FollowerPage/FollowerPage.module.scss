@@ -50,3 +50,7 @@ li{
         text-decoration: none
       }
 }
+.isActive {
+    color:color.$brand-color;
+    border-bottom: 2px solid color.$brand-color;
+  }

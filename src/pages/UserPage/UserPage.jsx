@@ -2,91 +2,124 @@
 import NavContainer from "components/NavContainer/NavContainer";
 import SuggestUserContainer from "components/SuggestUserContainer/SuggestUserContainer";
 import Header from "components/Header/Header";
-import UserInfo from "../../components/UserInfo/UserInfo"
+import UserInfo from "../../components/UserInfo/UserInfo";
 
 //hook
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "contexts/AuthContext";
 
 //scss
-import styles from "pages/UserPage/UserPage.module.scss"
+import styles from "pages/UserPage/UserPage.module.scss";
 
 //react-router-dom
 import { Link } from "react-router-dom";
-import { UserIdLikeItem, UserIdReplyItem, UserIdTweetItem } from "components/UserTweetItem/UserIdTweetItem";
+import {
+  UserIdLikeItem,
+  UserIdReplyItem,
+  UserIdTweetItem,
+} from "components/UserTweetItem/UserIdTweetItem";
 
 //api
 import { getUserInfo } from "api/setting";
 
 export default function UserPage() {
   const { id, tab } = useParams();
-  const { isAuthenticated, currentMember} = useAuth()
+  const { isAuthenticated, currentMember } = useAuth();
 
-  const [userData, setUserData] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [userData, setUserData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [shouldReload, setShouldReload] = useState(false);
   const [tweetCount, setTweetCount] = useState(0);
 
   const handleSaveSuccess = () => {
-    setShouldReload(prevState => !prevState);
+    setShouldReload((prevState) => !prevState);
   };
 
   const updateTweetCount = (count) => {
     setTweetCount(count);
   };
 
-   useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('token')
-        const data = await getUserInfo(token, id)
-        setUserData(data)
-        setIsLoading(false)
+        const token = localStorage.getItem("token");
+        const data = await getUserInfo(token, id);
+        setUserData(data);
+        setIsLoading(false);
       } catch (error) {
-        console.log('Error fetching user data',error)
+        console.log("Error fetching user data", error);
       }
-    }
+    };
     if (isAuthenticated && id) {
-      fetchData()
+      fetchData();
     }
-   },[id, isAuthenticated, shouldReload, tab])
+  }, [id, isAuthenticated, shouldReload, tab]);
 
-  let content
-  switch(tab) {
+  let content;
+  switch (tab) {
     case "reply":
-      content = userData ? <UserIdReplyItem data={userData} userId={id} /> : "Loading...";
+      content = userData ? (
+        <UserIdReplyItem data={userData} userId={id} />
+      ) : (
+        "Loading..."
+      );
       break;
     case "like":
-      content = userData ? <UserIdLikeItem data={userData} userId={id} /> :
-       "Loading...";
+      content = userData ? (
+        <UserIdLikeItem data={userData} userId={id} />
+      ) : (
+        "Loading..."
+      );
       break;
     default:
-      content = userData ? <UserIdTweetItem data={userData} userId={id} updateTweetCount={updateTweetCount} /> : "Loading...";
+      content = userData ? (
+        <UserIdTweetItem
+          data={userData}
+          userId={id}
+          updateTweetCount={updateTweetCount}
+        />
+      ) : (
+        "Loading..."
+      );
   }
 
   return (
     <div className={styles.container}>
-      <div className={styles.navContainer}> 
-        <NavContainer page="user" />  
+      <div className={styles.navContainer}>
+        <NavContainer page="user" />
       </div>
-      <div className={styles.middleContainer}> 
-        {isLoading ? "Loading..." : <Header 
-          title={userData.name}
-          arrow
-          tweetCount={tweetCount} 
-        />}
-        {isLoading ? "Loading..." : <UserInfo onSaveSuccess={handleSaveSuccess} isOtherUser={Number(currentMember?.id) !== Number(id)}  userData={userData} />}
+      <div className={styles.middleContainer}>
+        {isLoading ? (
+          "Loading..."
+        ) : (
+          <Header title={userData.name} arrow tweetCount={tweetCount} />
+        )}
+        {isLoading ? (
+          "Loading..."
+        ) : (
+          <UserInfo
+            onSaveSuccess={handleSaveSuccess}
+            isOtherUser={Number(currentMember?.id) !== Number(id)}
+            userData={userData}
+          />
+        )}
         <ul className={styles.link}>
-          <li><Link to={`/user/${id}`}>推文</Link></li>
-          <li><Link to={`/user/${id}/reply`}>回覆</Link></li>
-          <li><Link to={`/user/${id}/like`}>喜歡的內容</Link></li>
+          <li>
+            <Link to={`/user/${id}`}>推文</Link>
+          </li>
+          <li>
+            <Link to={`/user/${id}/reply`}>回覆</Link>
+          </li>
+          <li>
+            <Link to={`/user/${id}/like`}>喜歡的內容</Link>
+          </li>
         </ul>
         {content}
       </div>
-      <div className={styles.suggestUserContainer}> 
+      <div className={styles.suggestUserContainer}>
         <SuggestUserContainer />
       </div>
     </div>
-    )
-  }
+  );
+}

@@ -16,15 +16,14 @@ export function FollowerList({
   const handleClick = async () => {
     console.log("Clicked user ID:", followerId);
     if (isFollower) {
-      setIsFollower(true);
       const success = await Unfollow(followerId, token);
-      if (success) {
-        setIsFollower(true);
+      if (success.message === "取消跟隨成功!") {
+        setIsFollower(false);
       }
     } else {
       const success = await Follow(followerId, token);
-      if (success) {
-        setIsFollower(false);
+      if (success.message === "跟隨成功!") {
+        setIsFollower(true);
       }
     }
   };
@@ -68,22 +67,18 @@ export function FollowingList({
   followingId,
 }) {
   const [isFollower, setIsFollower] = useState(isFollowed);
+  const token = localStorage.getItem("token");
   const handleClick = async () => {
     console.log("Clicked user ID:", followingId);
     if (isFollower) {
-      // 如果已經在追蹤狀態，則執行取消追蹤
-      setIsFollower(false);
-      const success = await Unfollow(followingId); // 您要取消追蹤的使用者的 ID
-      if (success) {
+      const success = await Unfollow(followingId, token);
+      if (success.message === "取消跟隨成功!") {
         setIsFollower(false);
       }
     } else {
-      // 如果不在追蹤狀態，則執行追蹤
-      const success = await Follow(followingId); //要追蹤的使用者的 ID
-      setIsFollower(true);
-
-      if (success) {
-        setIsFollower(false);
+      const success = await Follow(followingId, token);
+      if (success.message === "跟隨成功!") {
+        setIsFollower(true);
       }
     }
   };

@@ -10,17 +10,16 @@ export default function SuggestUserItem({
   account,
   id,
   isFollowed,
+  onFollow,
+  onUnfollow,
 }) {
-  const [isClicked, setIsClicked] = useState(false);
-
-  const handleClick = () => {
-    if (isClicked === false) {
-      setIsClicked(true);
+  const handleFollow = async () => {
+    if (isFollowed) {
+      await onFollow(id);
     } else {
-      setIsClicked(false);
+      await onUnfollow(id);
     }
   };
-
   return (
     <div className={styles.container}>
       <div className={styles.avatarContainer}>
@@ -38,8 +37,8 @@ export default function SuggestUserItem({
           <p className={styles.userInfoAccount}>@{account}</p>
         </Link>
       </div>
-      <div className={styles.btnFollow} onClick={handleClick}>
-        {isClicked ? (
+      <div className={styles.btnFollow} onClick={handleFollow}>
+        {isFollowed ? (
           <Button title="正在跟隨" size="middle" isAction />
         ) : (
           <Button title="跟隨" size="small" />
@@ -48,3 +47,12 @@ export default function SuggestUserItem({
     </div>
   );
 }
+// const [isClicked, setIsClicked] = useState(false);
+
+// const handleClick = () => {
+//   if (isClicked === false) {
+//     setIsClicked(true);
+//   } else {
+//     setIsClicked(false);
+//   }
+// };

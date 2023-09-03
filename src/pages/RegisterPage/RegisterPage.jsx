@@ -81,7 +81,10 @@ export default function RegisterPage() {
         label="帳號"
         value={account}
         placeholder="請輸入帳號"
-        onChange={(accountInputValue) => setAccount(accountInputValue)}
+        onChange={(accountInputValue) => {
+          setAccount(accountInputValue);
+          setAccountDuplication("");
+        }}
         notification={
           accountDuplication ? "Error: account已重複註冊！" : "字數超出上限!"
         }
@@ -99,8 +102,10 @@ export default function RegisterPage() {
         label="Email"
         value={email}
         placeholder="請輸入Email"
-        onChange={(emailInputValue) => setEmail(emailInputValue)}
-
+        onChange={(emailInputValue) => {
+          setEmail(emailInputValue);
+          setEmailDuplication("");
+        }}
         notification={emailDuplication ? "Error: email已重複註冊！" : "字數超出上限!"}
 
         wordsLimit={100}

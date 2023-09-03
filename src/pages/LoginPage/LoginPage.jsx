@@ -65,7 +65,10 @@ export default function LoginPage() {
         label="帳號"
         value={account}
         placeholder="請輸入帳號"
-        onChange={(accountInputValue) => setAccount(accountInputValue)}
+        onChange={(accountInputValue) => {
+          setAccount(accountInputValue);
+          setAccountNotFound("");
+        }}
         notification={accountNotFound ? "帳號不存在！" : "字數超出上限!"}
         wordsLimit={50}
       />

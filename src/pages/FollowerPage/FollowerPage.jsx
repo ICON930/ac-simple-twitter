@@ -77,22 +77,30 @@ export default function FollowerPage({ followerId, followingId }) {
             </ul>
           </div>
           <div className={styles.followList}>
-            {/* {hasNoFollowers ? (
-              <p>目前沒有追隨者</p>
+            {tab === "follower" ? (
+              hasNoFollowers ? (
+                <p>目前沒有追隨者</p>
+              ) : (
+                userData.map((item) => {
+                  return (
+                    <FollowerList
+                      key={item.id}
+                      avatar={item.avatar}
+                      name={item.name}
+                      introduction={item.introduction}
+                      isFollowed={item.isFollowed}
+                      followerId={item.followerId}
+                      Follow={followUser}
+                      Unfollow={unfollowUser}
+                    />
+                  );
+                })
+              )
+            ) : hasNoFollowers ? (
+              <p>目前沒有追蹤者</p>
             ) : (
-              userData.map((item) =>
-                tab === "follower" ? (
-                  <FollowerList
-                    key={item.id}
-                    avatar={item.avatar}
-                    name={item.name}
-                    introduction={item.introduction}
-                    isFollowed={item.isFollowed}
-                    followerId={item.followerId}
-                    Follow={followUser}
-                    Unfollow={unfollowUser}
-                  />
-                ) : (
+              userData.map((item) => {
+                return (
                   <FollowingList
                     key={item.id}
                     avatar={item.avatar}
@@ -103,9 +111,9 @@ export default function FollowerPage({ followerId, followingId }) {
                     Follow={followUser}
                     Unfollow={unfollowUser}
                   />
-                )
-              )
-            )} */}
+                );
+              })
+            )}
           </div>
         </div>
         <div className={styles.sugContainer}>

@@ -61,18 +61,20 @@ export default function Setting() {
       Swal.fire({
         position: "top",
         title: "變更失敗！",
-        text:success.error.response.data.message,
+        text: success.error.response.data.message,
         timer: 1000,
         icon: "error",
         showConfirmButton: false,
       });
-      console.log(success.error.response.data.message)
+      console.log(success.error.response.data.message);
       if (success.error.response.data.message === "Error: email已重複註冊！") {
-      setEmailDuplication(true);
-    } else if (success.error.response.data.message === "Error: account已重複註冊！") {
-      setAccountDuplication(true);
-    }
-    return;
+        setEmailDuplication(true);
+      } else if (
+        success.error.response.data.message === "Error: account已重複註冊！"
+      ) {
+        setAccountDuplication(true);
+      }
+      return;
     }
   };
 
@@ -90,10 +92,15 @@ export default function Setting() {
             label="帳號"
             value={account}
             placeholder="請輸入帳號"
-            onChange={(accountInputValue) => setAccount(accountInputValue)}
+            onChange={(accountInputValue) => {
+              setAccount(accountInputValue);
+              setAccountDuplication("");
+            }}
             notification={
-          accountDuplication ? "Error: account已重複註冊！" : "字數超出上限!"
-        }
+              accountDuplication
+                ? "Error: account已重複註冊！"
+                : "字數超出上限!"
+            }
             wordsLimit={50}
           />
           <AuthInput
@@ -108,8 +115,13 @@ export default function Setting() {
             label="Email"
             value={email}
             placeholder="請輸入Email"
-            onChange={(emailInputValue) => setEmail(emailInputValue)}
-            notification={emailDuplication ? "Error: email已重複註冊！" : "字數超出上限!"}
+            onChange={(emailInputValue) => {
+              setEmail(emailInputValue);
+              setEmailDuplication("");
+            }}
+            notification={
+              emailDuplication ? "Error: email已重複註冊！" : "字數超出上限!"
+            }
             wordsLimit={100}
           />
 

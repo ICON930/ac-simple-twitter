@@ -8,6 +8,7 @@
     width: 100%;
 }
 .top{
+    position: relative;
     display: flex;
     height: 50px;
     padding-left: 20px;
@@ -35,13 +36,15 @@ text-align: left;
 padding-left: 8px;
 }
 .button{
+    position: absolute;
+    right:25px;
     width: 96px;
     height: 40px;
-    padding-left: 385px;
+    text-align: right;
 }
 .introduction{ 
     margin-left: 79px;
-    margin-top: 10px;
+    margin-top: 15px;
     width: 528px;
     height: 79px;
     word-wrap: break-word;

@@ -13,17 +13,14 @@ import { getUserIdTweet } from "api/tweet";
 import { getUserLikeTweet } from "api/like";
 import { getUserReplyTweet } from "api/reply";
 
-import { useAuth } from "contexts/AuthContext";
 import { useLikes } from 'contexts/LikeContext';
 
-
 //mainPage UserPage的推文欄位
-export function UserIdTweetItem({ userId, updateTweetCount, tweet }) {
+export function UserIdTweetItem({ userId, updateTweetCount }) {
   const [idTweets, setIdTweets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const token = localStorage.getItem('token'); 
   const { likes, addLike, removeLike } = useLikes();  
-  const { currentMember } = useAuth();
 
   useEffect(() => {
     const fetchTweets = async () => {
@@ -99,16 +96,16 @@ export function UserIdTweetItem({ userId, updateTweetCount, tweet }) {
                 @{tweet.User.account}．{tweet.createdAt}
               </h6>
             </div>
+            <Link to={`/tweets/${tweet.id}`}>
             <div className={styles.tweetContainer}>{tweet.description}</div>
+            </Link>
             <div className={styles.iconEffect}>
               <div className={styles.replyEffect}>
-                <Link to={`/tweets/${tweet.id}`}>
                 <ReplyIcon
                   className={`${styles.replyIcon} cursor-point`}
                   width="1em"
                   height="1em"
                 />
-                </Link>
                 <h6 className={styles.replyCount}>{tweet.repliedAmount}</h6>
               </div>
               <div className={styles.likeEffect}>
@@ -139,7 +136,6 @@ export function UserIdTweetItem({ userId, updateTweetCount, tweet }) {
 export function UserIdReplyItem({ userId }) {
   const [replies, setReplies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { currentMember } = useAuth();
   const token = localStorage.getItem('token'); 
   
   useEffect(() => {
@@ -209,11 +205,11 @@ export function UserIdReplyItem({ userId }) {
 
 //User喜歡的內容欄位
 export function UserIdLikeItem({ userId }) {
+
   const [userLikeData, setUserLikeData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { currentMember } = useAuth()
   const token = localStorage.getItem('token')
-  const { likes, addLike, removeLike } = useLikes();
+  const { addLike, removeLike } = useLikes();
 
   useEffect(() => {
     const fetchUserLikeData = async () => {
@@ -263,7 +259,9 @@ export function UserIdLikeItem({ userId }) {
           <h6 className={styles.accountAndTime}>@{like.Tweet.User.account}．{like.tweetCreatedAt}</h6>
         </div>
         {/* 推文內容 */}
+        <Link to={`/tweets/${like.Tweet.id}`}>
         <div className={styles.tweetContainer}>{userLikeData ? like.Tweet.description : 'Loading...'}</div>
+        </Link>
         {/* 回覆及愛心功能 */}
         <div className={styles.iconEffect}>
           <div className={styles.replyEffect}>
@@ -271,7 +269,6 @@ export function UserIdLikeItem({ userId }) {
               className={`${styles.replyIcon}cursor-point`}
               width="1em"
               height="1em"
-              //   onClick={handleReply}
             />
             <h6 className={styles.replyCount}>{like.replies?.length}</h6>
           </div>

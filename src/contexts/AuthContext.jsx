@@ -23,6 +23,7 @@ export const AuthProvider = ({ children }) => {
   const [payload, setPayload] = useState(null);
   const [followingUsers, setFollowingUsers] = useState([]);
   const navigate = useNavigate();
+
   //儲存TOKEN不讓頁面在重新整理時讀不到
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -89,6 +90,7 @@ export const AuthProvider = ({ children }) => {
           followingUsers,
           isFollowed: payload.id,
           tweetCount: payload.id,
+          cover: payload.cover,
         },
         register: async (data) => {
           const success = await register({
@@ -151,6 +153,7 @@ export const AuthProvider = ({ children }) => {
         },
 
         updateCurrentMember: (updatedFields) => {
+          console.log('...updatedFields',updatedFields);
           setPayload((prevPayload) => ({ ...prevPayload, ...updatedFields }));
         },
       }}

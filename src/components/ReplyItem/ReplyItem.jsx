@@ -8,11 +8,36 @@ import { ReactComponent as UnLikeIcon } from "../../assets/icons/like-active.svg
 import { getUserTweet } from "api/tweet";
 import { useEffect, useState } from "react";
 import ReplyModal from "components/Modal/ReplyModal";
+import { useLikes } from "contexts/LikeContext";
 
 export default function PostTweet({ tweetid }) {
   const [tweetData, setTweetData] = useState(null);
 
   const [isOpenModal, setIsOpenModal] = useState(false);
+
+    //new
+  const { likes, addLike, removeLike } = useLikes();
+  const [isLiked, setIsLiked] = useState(likes.includes(tweetid));
+  const token = localStorage.getItem("token");
+  
+  const handleLike = async () => {
+    let newLikedAmount = likedAmount;
+    if (!isLiked) {
+      await addLike(tweetid, token);
+      setIsLiked(true);
+      newLikedAmount++;
+    } else {
+      await removeLike(tweetid, token);
+      setIsLiked(false);
+      newLikedAmount--;
+    }
+    setTweetData({ ...tweetData, likedAmount: newLikedAmount });
+  };
+
+    useEffect(() => {
+    setIsLiked(likes.includes(tweetid));
+    }, [likes, tweetid]);
+
   useEffect(() => {
     const fetchTweetData = async () => {
       try {
@@ -83,7 +108,19 @@ export default function PostTweet({ tweetid }) {
             tweetInfo={tweetData}
           />
         )}
-        <LikeIcon className={styles.likeIcon} width="1em" height="1em" />
+        {isLiked ? (
+              <UnLikeIcon
+                className={styles.likeIcon}
+                onClick={handleLike}
+                style={{ cursor: "pointer" }}
+              />
+            ) : (
+              <LikeIcon
+                className={styles.likeIcon}
+                onClick={handleLike}
+                style={{ cursor: "pointer" }}
+              />
+          )}
       </div>
     </div>
   );

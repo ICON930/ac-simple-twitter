@@ -99,7 +99,7 @@ export default function EditModal ({ isOpen, isClose, userData, onSaveSuccess })
     } 
 
     const updatedInfo = await editPage(token, id, formData);
-
+    
     updateCurrentMember({
       name: updatedInfo.data.user.name,
       avatar: updatedInfo.data.user.avatar,

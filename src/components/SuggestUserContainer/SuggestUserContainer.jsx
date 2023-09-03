@@ -2,13 +2,12 @@ import { useState, useEffect } from "react";
 
 import SuggestUserItem from "../SuggestUserItem/SuggestUserItem.jsx";
 import { getTopUsers } from "../../api/user.js";
-import { AddFollow, UnFollow } from "api/follow.js";
+import { useFollow } from "contexts/FollowContext";
 import styles from "./SuggestUserContainer.module.scss";
 
 export default function SuggestUserContainer() {
   const [users, setUsers] = useState([]);
-  const token = localStorage.getItem("token");
-
+  const { followUser, unfollowUser } = useFollow();
   useEffect(() => {
     const getTopUser = async () => {
       try {
@@ -22,23 +21,6 @@ export default function SuggestUserContainer() {
     };
     getTopUser();
   }, []);
-  useEffect(() => {}, [users]);
-  const handleFollow = async (userId) => {
-    try {
-      await AddFollow(token, userId); // 传递 token 和 userId
-    } catch (error) {
-      console.log("跟随失败", error);
-    }
-  };
-
-  const handleUnfollow = async (userId) => {
-    try {
-      console.log(userId, "124");
-      await UnFollow(token, userId);
-    } catch (error) {
-      console.log("取消跟随失败", error);
-    }
-  };
 
   const topUserList = users.map((user) => {
     return (
@@ -49,8 +31,8 @@ export default function SuggestUserContainer() {
         account={user.account}
         id={user.id}
         isFollowed={user.isFollowed}
-        onFollow={handleFollow}
-        onUnfollow={handleUnfollow}
+        Follow={followUser}
+        Unfollow={unfollowUser}
       />
     );
   });

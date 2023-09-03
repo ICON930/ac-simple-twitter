@@ -23,12 +23,10 @@ export default function FollowerPage({ followerId, followingId }) {
   const [hasNoFollowers, setHasNoFollowers] = useState(false);
   const { followUser, unfollowUser } = useFollow();
   const { id, tab } = useParams();
-  console.log(id, "!!!!!!!!!!!!!!!!!");
 
   useEffect(() => {
     if (isAuthenticated && id !== null && currentMember !== null) {
       const fetchData = async () => {
-        console.log(token);
         try {
           let response;
           if (tab === "follower") {
@@ -97,7 +95,7 @@ export default function FollowerPage({ followerId, followingId }) {
                 })
               )
             ) : hasNoFollowers ? (
-              <p>目前沒有追蹤者</p>
+              <p>目前沒有正在追蹤</p>
             ) : (
               userData.map((item) => {
                 return (

@@ -10,16 +10,25 @@ export default function SuggestUserItem({
   account,
   id,
   isFollowed,
-  onFollow,
-  onUnfollow,
+  Follow,
+  Unfollow,
 }) {
-  const handleFollow = async () => {
-    if (isFollowed) {
-      await onFollow(id);
+  const [isFollower, setIsFollower] = useState(isFollowed);
+  const token = localStorage.getItem("token");
+  const handleClick = async () => {
+    if (isFollower) {
+      const success = await Unfollow(id, token);
+      if (success.message === "取消跟隨成功!") {
+        setIsFollower(false);
+      }
     } else {
-      await onUnfollow(id);
+      const success = await Follow(id, token);
+      if (success.message === "跟隨成功!") {
+        setIsFollower(true);
+      }
     }
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.avatarContainer}>
@@ -37,22 +46,18 @@ export default function SuggestUserItem({
           <p className={styles.userInfoAccount}>@{account}</p>
         </Link>
       </div>
-      <div className={styles.btnFollow} onClick={handleFollow}>
+      <div className={styles.btnFollow}>
         {isFollowed ? (
-          <Button title="正在跟隨" size="middle" isAction />
+          <Button
+            title="正在跟隨"
+            size="middle"
+            onClick={() => handleClick(id)}
+            isAction
+          />
         ) : (
-          <Button title="跟隨" size="small" />
+          <Button title="跟隨" size="small" onClick={() => handleClick(id)} />
         )}
       </div>
     </div>
   );
 }
-// const [isClicked, setIsClicked] = useState(false);
-
-// const handleClick = () => {
-//   if (isClicked === false) {
-//     setIsClicked(true);
-//   } else {
-//     setIsClicked(false);
-//   }
-// };

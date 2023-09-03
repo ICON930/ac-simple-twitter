@@ -14,7 +14,6 @@ export function FollowerList({
   const [isFollower, setIsFollower] = useState(isFollowed);
   const token = localStorage.getItem("token");
   const handleClick = async () => {
-    console.log("Clicked user ID:", followerId);
     if (isFollower) {
       const success = await Unfollow(followerId, token);
       if (success.message === "取消跟隨成功!") {
@@ -69,7 +68,6 @@ export function FollowingList({
   const [isFollower, setIsFollower] = useState(isFollowed);
   const token = localStorage.getItem("token");
   const handleClick = async () => {
-    console.log("Clicked user ID:", followingId);
     if (isFollower) {
       const success = await Unfollow(followingId, token);
       if (success.message === "取消跟隨成功!") {

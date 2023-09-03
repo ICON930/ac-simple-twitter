@@ -30,7 +30,7 @@ export function UserTweetItem({
   const { likes, addLike, removeLike } = useLikes();
   const [isLiked, setIsLiked] = useState(likes.includes(tweet.id));
   const token = localStorage.getItem("token");
-  
+
   const handleLike = async () => {
     if (!isLiked) {
       await addLike(tweet.id, token);

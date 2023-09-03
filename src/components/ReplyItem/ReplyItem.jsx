@@ -9,17 +9,17 @@ import { getUserTweet } from "api/tweet";
 import { useEffect, useState } from "react";
 import ReplyModal from "components/Modal/ReplyModal";
 import { useLikes } from "contexts/LikeContext";
-
+import { Link } from "react-router-dom";
 export default function PostTweet({ tweetid }) {
   const [tweetData, setTweetData] = useState(null);
 
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-    //new
+  //new
   const { likes, addLike, removeLike } = useLikes();
   const [isLiked, setIsLiked] = useState(likes.includes(tweetid));
   const token = localStorage.getItem("token");
-  
+
   const handleLike = async () => {
     let newLikedAmount = likedAmount;
     if (!isLiked) {
@@ -34,9 +34,9 @@ export default function PostTweet({ tweetid }) {
     setTweetData({ ...tweetData, likedAmount: newLikedAmount });
   };
 
-    useEffect(() => {
+  useEffect(() => {
     setIsLiked(likes.includes(tweetid));
-    }, [likes, tweetid]);
+  }, [likes, tweetid]);
 
   useEffect(() => {
     const fetchTweetData = async () => {
@@ -53,7 +53,7 @@ export default function PostTweet({ tweetid }) {
     return null;
   }
   const {
-    User: { name, account, avatar },
+    User: { name, account, avatar, id },
     description,
     createdAtTime,
     createdAtDate,
@@ -72,7 +72,9 @@ export default function PostTweet({ tweetid }) {
       <div className={styles.container}>
         <div className={styles.top}>
           <div className={styles.avatar}>
-            <img src={avatar} alt="avatar" />
+            <Link to={`/user/${id}`}>
+              <img src={avatar} alt="avatar" />
+            </Link>
           </div>
           <div className={styles.nameAndAccount}>
             <h6 className={styles.name}>{name}</h6>
@@ -109,18 +111,18 @@ export default function PostTweet({ tweetid }) {
           />
         )}
         {isLiked ? (
-              <UnLikeIcon
-                className={styles.likeIcon}
-                onClick={handleLike}
-                style={{ cursor: "pointer" }}
-              />
-            ) : (
-              <LikeIcon
-                className={styles.likeIcon}
-                onClick={handleLike}
-                style={{ cursor: "pointer" }}
-              />
-          )}
+          <UnLikeIcon
+            className={styles.likeIcon}
+            onClick={handleLike}
+            style={{ cursor: "pointer" }}
+          />
+        ) : (
+          <LikeIcon
+            className={styles.likeIcon}
+            onClick={handleLike}
+            style={{ cursor: "pointer" }}
+          />
+        )}
       </div>
     </div>
   );

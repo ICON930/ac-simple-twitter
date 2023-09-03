@@ -17,8 +17,6 @@ export function FollowProvider({ children }) {
   const token = localStorage.getItem("token");
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
-
-  console.log("尋找TOKEN", token);
   const fetchFollowers = useCallback(async () => {
     try {
       const response = await getFollower(token);

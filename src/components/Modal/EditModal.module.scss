@@ -1,5 +1,17 @@
 @use "../../assets/styles/color" as color;
 
+.tweetModal {
+  position: fixed;
+  width: 634px;
+  height: 300px;
+  top: 56px;
+  left: calc(50% - 365px);
+  background-color: #FFFFFF;
+  border-radius: 14px;
+  z-index: 100;
+}
+
+
 .overlay {
   position: fixed;
   top: 0;
@@ -11,14 +23,14 @@
 }
 
 .editModalContainer {
-  top: 56px;
-  right: 500px;
   position: fixed;
   width: 634px;
   height: 610px;
+  top: 56px;
+  left: calc(50% - 365px);
   border-radius: 14px;
   background-color: color.$gray-1;
-  z-index: 1000;
+  z-index: 100;
 }
 
 .editHeader {

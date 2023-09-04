@@ -24,7 +24,7 @@ export default function SuggestUserItem({
           position: "top",
           title: "取消推薦跟隨成功！",
           timer: 1000,
-          icon: "error",
+          icon: "success",
           showConfirmButton: false,
         });
         setTimeout(() => {
@@ -39,7 +39,7 @@ export default function SuggestUserItem({
           position: "top",
           title: "推薦跟隨成功！",
           timer: 1000,
-          icon: "error",
+          icon: "success",
           showConfirmButton: false,
         });
         setTimeout(() => {

@@ -38,6 +38,7 @@ export default function FollowerPage({ followerId, followingId }) {
               setUserData([]);
             } else {
               setHasNoFollowers(false);
+              setUserData([]);
             }
           }
           console.log("API response:", response);

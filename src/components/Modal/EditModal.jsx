@@ -137,7 +137,7 @@ export default function EditModal ({ isOpen, isClose, userData, onSaveSuccess })
 
     return (
     <div>
-      <div className={styles.overlay}/>
+      <div className={styles.overlay}>
       <div className={styles.editModalContainer}>
         <header className={styles.editHeader}>
           <img className={styles.closeModal} src={CloseModal} alt='closeModal' onClick={isClose}></img>
@@ -208,6 +208,7 @@ export default function EditModal ({ isOpen, isClose, userData, onSaveSuccess })
               <span>{introduction?.length}/160</span>
             </div>
             {isIntroductionExceeded && <div className={styles.exceededContainer}><span className={styles.exceededStyle}>字數超出上限！</span></div>}
+            </div>
         </div>
       </div>
     </div>

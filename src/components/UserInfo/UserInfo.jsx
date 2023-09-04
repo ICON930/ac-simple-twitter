@@ -12,6 +12,7 @@ import Banner from "../../assets/icons/default-banner.svg";
 import Avatar from "../../assets/icons/default-avatar.svg";
 import EditModal from "components/Modal/EditModal";
 import Ball from "../../assets/icons/noti-Icon.svg";
+import Mail from "../../assets/icons/message-Icon.svg";
 
 export default function UserInfo({
   isOtherUser,
@@ -63,10 +64,10 @@ export default function UserInfo({
         src={userData.avatar || Avatar}
         alt="default-avatar"
       />
-      {isOtherUser && (
-        <img className={styles.ballStyle} src={Ball} alt="ball" />
+      {!isOtherUser && (
+        <img className={styles.ballStyle} src={Mail} alt="Mail" />
       )}
-      {isOtherUser && (
+      {!isOtherUser && (
         <img className={styles.ballStyleTwo} src={Ball} alt="ball" />
       )}
       <div className={styles.buttonContainer}>

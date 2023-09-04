@@ -15,6 +15,9 @@ import styles from "./FollowerPage.module.scss";
 import { getFollower, getFollowing } from "api/follow";
 import { useAuth } from "contexts/AuthContext";
 import { useFollow } from "contexts/FollowContext";
+
+import { useLocation } from "react-router-dom";
+
 export default function FollowerPage({ followerId, followingId }) {
   console.log('followerId::::', followerId);
   console.log('followingId::::', followingId);
@@ -53,6 +56,9 @@ export default function FollowerPage({ followerId, followingId }) {
       fetchData();
     }
   }, [isAuthenticated, token, id, tab, currentMember]);
+
+  const location = useLocation()
+
   return (
     <div className={styles.container}>
       <div className={styles.mainContainer}>
@@ -72,7 +78,9 @@ export default function FollowerPage({ followerId, followingId }) {
               <li>
                 <Link
                   to={`/users/${id}/follower`}
-                  className={styles.followLink}
+                  className= {
+                    location.pathname === `/users/${id}/follower` ? styles.followLinkActive : styles.followLink
+                  }
                 >
                   追隨者
                 </Link>
@@ -80,7 +88,9 @@ export default function FollowerPage({ followerId, followingId }) {
               <li>
                 <Link
                   to={`/users/${id}/followings`}
-                  className={styles.followLink}
+                  className= {
+                    location.pathname === `/users/${id}/followings` ? styles.followLinkActive : styles.followLink
+                  }
                 >
                   正在追隨中
                 </Link>

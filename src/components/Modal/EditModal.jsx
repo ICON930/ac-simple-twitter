@@ -10,7 +10,7 @@ import Camera from '../../assets/icons/camera-icon.svg'
 import Cross from '../../assets/icons/cross-white.svg'
 
 //hook
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useAuth } from 'contexts/AuthContext'
 
 //api
@@ -69,6 +69,11 @@ export default function EditModal ({ isOpen, isClose, userData, onSaveSuccess })
     setExceeded(exceeded)
     setFormValid(!isNameExceeded && !isIntroductionExceeded)
   } 
+
+    useEffect(() => {
+    setFormValid(!isNameExceeded && !isIntroductionExceeded);
+  }, [isNameExceeded, isIntroductionExceeded]);
+
 
   const handleSave = async () => {
   try {
@@ -186,7 +191,7 @@ export default function EditModal ({ isOpen, isClose, userData, onSaveSuccess })
                 onFocus={() => setIsNameFocused(true)} 
                 onBlur={() => setIsNameFocused(false)}  
                 placeholder="請輸入名稱..." 
-                onChange={(e) => handleTextChange(e, setName, setNameExceeded, 50)} 
+                onChange={(e) => handleTextChange(e, setName, setNameExceeded, 51)} 
                 className={styles.nameTextArea}/>
             </label>
                 <div className={styles.nameLength}>
@@ -202,7 +207,7 @@ export default function EditModal ({ isOpen, isClose, userData, onSaveSuccess })
               onFocus={() => setIsIntroFocused(true)}
               onBlur={() => setIsIntroFocused(false)}  
               placeholder="請輸入自我介紹..." 
-              onChange={(e) => handleTextChange(e, setIntroduction, setIsIntroductionExceeded, 160)} className={styles.introductionTextArea}/>
+              onChange={(e) => handleTextChange(e, setIntroduction, setIsIntroductionExceeded, 161)} className={styles.introductionTextArea}/>
             </label>
             <div className={styles.introductionLength}>
               <span>{introduction?.length}/160</span>

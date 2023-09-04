@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Button from "../Button/Button.jsx";
 import logo from "../../assets/icons/default-avatar.svg";
 import styles from "./SuggestUserItem.module.scss";
-
+import Swal from "sweetalert2";
 export default function SuggestUserItem({
   avatar,
   name,
@@ -20,17 +20,37 @@ export default function SuggestUserItem({
       const success = await Unfollow(id, token);
       if (success.message === "取消跟隨成功!") {
         setIsFollower(false);
+        Swal.fire({
+          position: "top",
+          title: "取消推薦跟隨成功！",
+          timer: 1000,
+          icon: "error",
+          showConfirmButton: false,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       }
     } else {
       const success = await Follow(id, token);
       if (success.message === "跟隨成功!") {
         setIsFollower(true);
+        Swal.fire({
+          position: "top",
+          title: "推薦跟隨成功！",
+          timer: 1000,
+          icon: "error",
+          showConfirmButton: false,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       }
     }
   };
   useEffect(() => {
-  setIsFollower(isFollowed);
-}, [isFollowed]);
+    setIsFollower(isFollowed);
+  }, [isFollowed]);
 
   return (
     <div className={styles.container}>

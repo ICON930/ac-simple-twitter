@@ -1,5 +1,7 @@
 # AC-Simple-Twitter
 
+https://icon930.github.io/ac-simple-twitter
+
 ### `安裝說明`
 
 1. 請先確認有安裝 node.js 與 npm。
@@ -31,3 +33,30 @@
    ```bash
    ctrl + c
    ```
+
+### `開發套件版本`
+
+- Node.js @14.18.1
+- react @18.2.0
+- react-dom @18.2.0
+- react-router-dom @6.4.1
+- react-scripts @4.0.3
+- sass @1.56.2
+- styled-components @5.3.5
+- clsx @1.2.1
+- axios @1.4.0
+- gh-pages @4.0.0
+- json-server @0.17.3
+- jsonwebtoken @8.5.1
+- sweetalert2 @11.6.4
+- web-vitals @2.1.4
+
+### `前端專案開發人員`
+
+- [aray](https://github.com/aray81205)
+- [Keely](https://github.com/Keely1112)
+- [ICON](https://github.com/ICON930)
+
+### `後端repo`
+
+https://github.com/Nilney/twitter-api-2020

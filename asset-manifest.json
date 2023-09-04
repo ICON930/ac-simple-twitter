@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/ac-simple-twitter/static/css/main.4252edb6.chunk.css",
-    "main.js": "/ac-simple-twitter/static/js/main.a7f3851d.chunk.js",
-    "main.js.map": "/ac-simple-twitter/static/js/main.a7f3851d.chunk.js.map",
+    "main.css": "/ac-simple-twitter/static/css/main.8fb39a28.chunk.css",
+    "main.js": "/ac-simple-twitter/static/js/main.f59ed6d2.chunk.js",
+    "main.js.map": "/ac-simple-twitter/static/js/main.f59ed6d2.chunk.js.map",
     "runtime-main.js": "/ac-simple-twitter/static/js/runtime-main.78165268.js",
     "runtime-main.js.map": "/ac-simple-twitter/static/js/runtime-main.78165268.js.map",
-    "static/js/2.bbc8ab1d.chunk.js": "/ac-simple-twitter/static/js/2.bbc8ab1d.chunk.js",
-    "static/js/2.bbc8ab1d.chunk.js.map": "/ac-simple-twitter/static/js/2.bbc8ab1d.chunk.js.map",
+    "static/js/2.3e1aecb6.chunk.js": "/ac-simple-twitter/static/js/2.3e1aecb6.chunk.js",
+    "static/js/2.3e1aecb6.chunk.js.map": "/ac-simple-twitter/static/js/2.3e1aecb6.chunk.js.map",
     "static/js/3.8342dd99.chunk.js": "/ac-simple-twitter/static/js/3.8342dd99.chunk.js",
     "static/js/3.8342dd99.chunk.js.map": "/ac-simple-twitter/static/js/3.8342dd99.chunk.js.map",
     "index.html": "/ac-simple-twitter/index.html",
-    "static/css/main.4252edb6.chunk.css.map": "/ac-simple-twitter/static/css/main.4252edb6.chunk.css.map",
-    "static/js/2.bbc8ab1d.chunk.js.LICENSE.txt": "/ac-simple-twitter/static/js/2.bbc8ab1d.chunk.js.LICENSE.txt",
+    "static/css/main.8fb39a28.chunk.css.map": "/ac-simple-twitter/static/css/main.8fb39a28.chunk.css.map",
+    "static/js/2.3e1aecb6.chunk.js.LICENSE.txt": "/ac-simple-twitter/static/js/2.3e1aecb6.chunk.js.LICENSE.txt",
     "static/media/back-arrow-icon.c45ed6a2.svg": "/ac-simple-twitter/static/media/back-arrow-icon.c45ed6a2.svg",
     "static/media/camera-icon.6da3794d.svg": "/ac-simple-twitter/static/media/camera-icon.6da3794d.svg",
     "static/media/cross-gray.c2283cfb.svg": "/ac-simple-twitter/static/media/cross-gray.c2283cfb.svg",
@@ -24,6 +24,7 @@
     "static/media/logo-Icon.684e310b.svg": "/ac-simple-twitter/static/media/logo-Icon.684e310b.svg",
     "static/media/NavContainer.module.scss": "/ac-simple-twitter/static/media/logout-Icon-active.a203d624.svg",
     "static/media/logout-Icon.8d8a59b8.svg": "/ac-simple-twitter/static/media/logout-Icon.8d8a59b8.svg",
+    "static/media/message-Icon.ed78cd9f.svg": "/ac-simple-twitter/static/media/message-Icon.ed78cd9f.svg",
     "static/media/noti-Icon.b663346e.svg": "/ac-simple-twitter/static/media/noti-Icon.b663346e.svg",
     "static/media/noti-fail.d3c6db8d.svg": "/ac-simple-twitter/static/media/noti-fail.d3c6db8d.svg",
     "static/media/reply-icon.c9038fc2.svg": "/ac-simple-twitter/static/media/reply-icon.c9038fc2.svg",
@@ -31,8 +32,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.78165268.js",
-    "static/js/2.bbc8ab1d.chunk.js",
-    "static/css/main.4252edb6.chunk.css",
-    "static/js/main.a7f3851d.chunk.js"
+    "static/js/2.3e1aecb6.chunk.js",
+    "static/css/main.8fb39a28.chunk.css",
+    "static/js/main.f59ed6d2.chunk.js"
   ]
 }

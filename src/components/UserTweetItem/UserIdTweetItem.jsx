@@ -21,6 +21,7 @@ export function UserIdTweetItem({ userId, updateTweetCount }) {
   const [isLoading, setIsLoading] = useState(true);
   const token = localStorage.getItem("token");
   const { likes, addLike, removeLike } = useLikes();
+  const [selectedTweet, setSelectedTweet] = useState(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
   useEffect(() => {
     const fetchTweets = async () => {
@@ -82,7 +83,8 @@ export function UserIdTweetItem({ userId, updateTweetCount }) {
     return <p>使用者無推文</p>;
   }
 
-  const openModal = () => {
+  const openModal = (tweet) => {
+    setSelectedTweet(tweet); // 存储选定的推文信息
     setIsOpenModal(true);
   };
   const closeModal = () => {
@@ -123,7 +125,7 @@ export function UserIdTweetItem({ userId, updateTweetCount }) {
                   <ReplyModal
                     isOpen={isOpenModal}
                     onClose={closeModal}
-                    tweetInfo={tweet}
+                    tweetInfo={selectedTweet} // 传递选定的推文信息给 ReplyModal
                   />
                 )}
                 <h6 className={styles.replyCount}>{tweet.repliedAmount}</h6>
@@ -235,6 +237,7 @@ export function UserIdLikeItem({ userId }) {
   const token = localStorage.getItem("token");
   const { addLike, removeLike } = useLikes();
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [selectedTweet, setSelectedTweet] = useState(null);
   useEffect(() => {
     const fetchUserLikeData = async () => {
       try {
@@ -267,7 +270,8 @@ export function UserIdLikeItem({ userId }) {
   if (userLikeData.length === 0) {
     return <p>使用者無喜歡的內容</p>;
   }
-  const openModal = () => {
+  const openModal = (tweet) => {
+    setSelectedTweet(tweet); // 存储选定的推文信息
     setIsOpenModal(true);
   };
   const closeModal = () => {
@@ -312,8 +316,9 @@ export function UserIdLikeItem({ userId }) {
                   <ReplyModal
                     isOpen={isOpenModal}
                     onClose={closeModal}
-                    tweetInfo={like.Tweet}
+                    tweetInfo={selectedTweet} // 传递选定的推文信息给 ReplyModal
                   />
+                )}
                 )}
                 <h6 className={styles.replyCount}>{like.repliedAmount}</h6>
               </div>

@@ -67,10 +67,20 @@ export default function FollowerPage({ followerId, followingId }) {
           <div className={styles.followTable}>
             <ul>
               <li>
-                <Link to={`/users/${id}/follower`} className={styles.followLink}>追隨者</Link>
+                <Link
+                  to={`/users/${id}/follower`}
+                  className={styles.followLink}
+                >
+                  追隨者
+                </Link>
               </li>
               <li>
-                <Link to={`/users/${id}/followings`} className={styles.followLink}>正在追隨中</Link>
+                <Link
+                  to={`/users/${id}/followings`}
+                  className={styles.followLink}
+                >
+                  正在追隨中
+                </Link>
               </li>
             </ul>
           </div>

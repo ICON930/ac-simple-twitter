@@ -27,6 +27,21 @@
 ul{
     display: flex;
 }
+
+.followLinkActive {
+    font-family: Noto Sans TC;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 22px;
+    width: 130px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid color.$brand-color;
+    color: color.$brand-color;
+}
+
 .followLink{
     font-family: Noto Sans TC;
     font-size: 15px;
@@ -40,7 +55,7 @@ ul{
     color:#657786;
     ;
     &:hover {
-        border-bottom: 2px solid color.$brand-color;
+        font-size: medium;
         color:color.$brand-color;
     }
 }

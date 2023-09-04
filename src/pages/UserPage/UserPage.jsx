@@ -13,7 +13,7 @@ import { useAuth } from "contexts/AuthContext";
 import styles from "pages/UserPage/UserPage.module.scss";
 
 //react-router-dom
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   UserIdLikeItem,
   UserIdReplyItem,
@@ -23,6 +23,7 @@ import {
 //api
 import { getUserInfo } from "api/setting";
 import { useFollow } from "contexts/FollowContext";
+
 export default function UserPage() {
   const { id, tab } = useParams();
   const { isAuthenticated, currentMember } = useAuth();
@@ -32,10 +33,7 @@ export default function UserPage() {
   const [shouldReload, setShouldReload] = useState(false);
   const [tweetCount, setTweetCount] = useState(0);
   const { followUser, unfollowUser } = useFollow();
-  const [tweetLinkClassName, setTweetLinkClassName] = useState(styles.userLink);
-  const [replyLinkClassName, setReplyLinkClassName] = useState(styles.userLink);
-  const [likeLinkClassName, setLikeLinkClassName] = useState(styles.userLink);
-  
+
   const handleSaveSuccess = () => {
     setShouldReload((prevState) => !prevState);
   };
@@ -59,22 +57,6 @@ export default function UserPage() {
       fetchData();
     }
   }, [id, isAuthenticated, shouldReload, tab]);
-
-  useEffect(() => {
-    if (tab === 'reply') {
-      setTweetLinkClassName(styles.userLink);
-      setReplyLinkClassName(styles.userSetClass);
-      setLikeLinkClassName(styles.userLink);
-    } else if (tab === 'like') {
-      setTweetLinkClassName(styles.userLink);
-      setReplyLinkClassName(styles.userLink);
-      setLikeLinkClassName(styles.userSetClass);
-    } else {
-      setTweetLinkClassName(styles.userSetClass);
-      setReplyLinkClassName(styles.userLink);
-      setLikeLinkClassName(styles.userLink);
-    }
-  }, [tab]);
 
   let content;
   switch (tab) {
@@ -104,6 +86,8 @@ export default function UserPage() {
       );
   }
 
+  const location = useLocation()
+
   return (
     <div className={styles.container}>
       <div className={styles.navContainer}>
@@ -129,13 +113,13 @@ export default function UserPage() {
         )}
         <ul className={styles.link}>
           <li>
-            <Link to={`/user/${id}`} className={tweetLinkClassName}>推文</Link>
+            <Link to={`/user/${id}`} className={location.pathname === `/user/${id}` ? styles.userLinkActive : styles.userLink}>推文</Link>
           </li>
           <li>
-            <Link to={`/user/${id}/reply`} className={replyLinkClassName}>回覆</Link>
+            <Link to={`/user/${id}/reply`} className={location.pathname === `/user/${id}/reply` ? styles.userLinkActive : styles.userLink}>回覆</Link>
           </li>
           <li>
-            <Link to={`/user/${id}/like`} className={likeLinkClassName}>喜歡的內容</Link>
+            <Link to={`/user/${id}/like`} className={location.pathname === `/user/${id}/like` ? styles.userLinkActive : styles.userLink}>喜歡的內容</Link>
           </li>
         </ul>
         {content}

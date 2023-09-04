@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../Button/Button.jsx";
 import logo from "../../assets/icons/default-avatar.svg";
@@ -28,6 +28,9 @@ export default function SuggestUserItem({
       }
     }
   };
+  useEffect(() => {
+  setIsFollower(isFollowed);
+}, [isFollowed]);
 
   return (
     <div className={styles.container}>
@@ -47,7 +50,7 @@ export default function SuggestUserItem({
         </Link>
       </div>
       <div className={styles.btnFollow}>
-        {isFollowed ? (
+        {isFollower ? (
           <Button
             title="正在跟隨"
             size="middle"

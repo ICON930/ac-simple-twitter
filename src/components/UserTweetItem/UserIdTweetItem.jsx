@@ -319,7 +319,7 @@ export function UserIdLikeItem({ userId }) {
                     tweetInfo={selectedTweet} // 传递选定的推文信息给 ReplyModal
                   />
                 )}
-                )}
+
                 <h6 className={styles.replyCount}>{like.repliedAmount}</h6>
               </div>
               <div className={styles.likeEffect}>

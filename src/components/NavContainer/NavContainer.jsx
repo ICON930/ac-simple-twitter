@@ -1,5 +1,5 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
 import NavItem from "../NavItem/NavItem.jsx";
 import Button from "../Button/Button.jsx";
 import TweetModal from "../Modal/TweetModal.jsx";
@@ -14,8 +14,7 @@ import styles from "./NavContainer.module.scss";
 export default function NavContainer({ page }) {
   const { currentMember } = useAuth();
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const navigate = useNavigate();
-  const { logout, isAuthenticated } = useAuth();
+  const { logout } = useAuth();
   const openModal = () => {
     console.log("Modal is opening");
     setIsOpenModal(true);
@@ -29,12 +28,6 @@ export default function NavContainer({ page }) {
 
   const id = currentMember?.id;
 
-  // useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     navigate("/login");
-  //   }
-  // }, [navigate, isAuthenticated]);
-
   return (
     <div className={styles.container}>
       <img className={styles.logoImg} src={logo} alt="logo" />
@@ -45,7 +38,7 @@ export default function NavContainer({ page }) {
               <NavLink to="/main">
                 <NavItem iconStyle={"iconHome"} altName="main" title="首頁" />
               </NavLink>
-              <NavLink to={`/user/${id}`} className={styles.btnLink} >
+              <NavLink to={`/user/${id}`} className={styles.btnLink}>
                 <NavItem
                   iconStyle={"iconUser"}
                   altName="user"

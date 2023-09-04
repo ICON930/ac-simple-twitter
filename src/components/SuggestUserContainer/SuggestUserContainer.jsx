@@ -3,11 +3,13 @@ import { useState, useEffect } from "react";
 import SuggestUserItem from "../SuggestUserItem/SuggestUserItem.jsx";
 import { getTopUsers } from "../../api/user.js";
 import { useFollow } from "contexts/FollowContext";
+
 import styles from "./SuggestUserContainer.module.scss";
 
 export default function SuggestUserContainer() {
   const [users, setUsers] = useState([]);
   const { followUser, unfollowUser } = useFollow();
+
   useEffect(() => {
     const getTopUser = async () => {
       try {
@@ -20,7 +22,7 @@ export default function SuggestUserContainer() {
       }
     };
     getTopUser();
-  }, []);
+  }, [users]);
 
   const topUserList = users.map((user) => {
     return (

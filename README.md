@@ -2,7 +2,9 @@
 
 https://icon930.github.io/ac-simple-twitter
 
+### AC-Simple-Twitter首頁截圖
 
+![image](https://github.com/ICON930/ac-simple-twitter/assets/137260995/8c187b7b-a4c6-4064-b492-23310f263544)
 
 ### `安裝說明`
 

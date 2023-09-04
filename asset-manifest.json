@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/ac-simple-twitter/static/css/main.47f70b19.chunk.css",
-    "main.js": "/ac-simple-twitter/static/js/main.debdee01.chunk.js",
-    "main.js.map": "/ac-simple-twitter/static/js/main.debdee01.chunk.js.map",
+    "main.css": "/ac-simple-twitter/static/css/main.f8eb9e14.chunk.css",
+    "main.js": "/ac-simple-twitter/static/js/main.bfd9d2cd.chunk.js",
+    "main.js.map": "/ac-simple-twitter/static/js/main.bfd9d2cd.chunk.js.map",
     "runtime-main.js": "/ac-simple-twitter/static/js/runtime-main.78165268.js",
     "runtime-main.js.map": "/ac-simple-twitter/static/js/runtime-main.78165268.js.map",
-    "static/js/2.eecaa45c.chunk.js": "/ac-simple-twitter/static/js/2.eecaa45c.chunk.js",
-    "static/js/2.eecaa45c.chunk.js.map": "/ac-simple-twitter/static/js/2.eecaa45c.chunk.js.map",
+    "static/js/2.ee7da702.chunk.js": "/ac-simple-twitter/static/js/2.ee7da702.chunk.js",
+    "static/js/2.ee7da702.chunk.js.map": "/ac-simple-twitter/static/js/2.ee7da702.chunk.js.map",
     "static/js/3.8342dd99.chunk.js": "/ac-simple-twitter/static/js/3.8342dd99.chunk.js",
     "static/js/3.8342dd99.chunk.js.map": "/ac-simple-twitter/static/js/3.8342dd99.chunk.js.map",
     "index.html": "/ac-simple-twitter/index.html",
-    "static/css/main.47f70b19.chunk.css.map": "/ac-simple-twitter/static/css/main.47f70b19.chunk.css.map",
-    "static/js/2.eecaa45c.chunk.js.LICENSE.txt": "/ac-simple-twitter/static/js/2.eecaa45c.chunk.js.LICENSE.txt",
+    "static/css/main.f8eb9e14.chunk.css.map": "/ac-simple-twitter/static/css/main.f8eb9e14.chunk.css.map",
+    "static/js/2.ee7da702.chunk.js.LICENSE.txt": "/ac-simple-twitter/static/js/2.ee7da702.chunk.js.LICENSE.txt",
     "static/media/back-arrow-icon.c45ed6a2.svg": "/ac-simple-twitter/static/media/back-arrow-icon.c45ed6a2.svg",
     "static/media/camera-icon.6da3794d.svg": "/ac-simple-twitter/static/media/camera-icon.6da3794d.svg",
     "static/media/cross-gray.c2283cfb.svg": "/ac-simple-twitter/static/media/cross-gray.c2283cfb.svg",
@@ -32,8 +32,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.78165268.js",
-    "static/js/2.eecaa45c.chunk.js",
-    "static/css/main.47f70b19.chunk.css",
-    "static/js/main.debdee01.chunk.js"
+    "static/js/2.ee7da702.chunk.js",
+    "static/css/main.f8eb9e14.chunk.css",
+    "static/js/main.bfd9d2cd.chunk.js"
   ]
 }

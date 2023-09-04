@@ -32,6 +32,7 @@ export default function UserPage() {
   const [shouldReload, setShouldReload] = useState(false);
   const [tweetCount, setTweetCount] = useState(0);
   const { followUser, unfollowUser } = useFollow();
+  
   const handleSaveSuccess = () => {
     setShouldReload((prevState) => !prevState);
   };
@@ -109,13 +110,13 @@ export default function UserPage() {
         )}
         <ul className={styles.link}>
           <li>
-            <Link to={`/user/${id}`}>推文</Link>
+            <Link to={`/user/${id}`} className={styles.userLink}>推文</Link>
           </li>
           <li>
-            <Link to={`/user/${id}/reply`}>回覆</Link>
+            <Link to={`/user/${id}/reply`} className={styles.userLink}>回覆</Link>
           </li>
           <li>
-            <Link to={`/user/${id}/like`}>喜歡的內容</Link>
+            <Link to={`/user/${id}/like`} className={styles.userLink}>喜歡的內容</Link>
           </li>
         </ul>
         {content}

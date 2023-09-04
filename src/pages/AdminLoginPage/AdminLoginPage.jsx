@@ -64,9 +64,19 @@ export default function LoginPage () {
           setAccountNotFound("");
         }}
       notification={accountNotFound ? "帳號不存在！" : "字數超出上限!"} wordsLimit={50}
+      onKeyUp={(event) => {
+        if (event.key === 'Enter'){
+          handleClick()
+        }
+      }}
       />
       <AuthInput label="密碼" value={password} type="password" placeholder="請輸入密碼" onChange={(passwordInputValue) => setPassword(passwordInputValue)}
       notification="字數超出上限!" wordsLimit={20}
+      onKeyUp={(event) => {
+        if (event.key === 'Enter'){
+          handleClick()
+        }
+      }}
       />
       <Button title="登入" size="large" isAction onClick={handleClick}></Button>
       <div className={styles.link}>

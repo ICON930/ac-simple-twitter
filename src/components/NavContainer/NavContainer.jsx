@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useState } from "react";
 import NavItem from "../NavItem/NavItem.jsx";
 import Button from "../Button/Button.jsx";
@@ -28,6 +28,8 @@ export default function NavContainer({ page }) {
 
   const id = currentMember?.id;
 
+  const location = useLocation()
+
   return (
     <div className={styles.container}>
       <img className={styles.logoImg} src={logo} alt="logo" />
@@ -36,20 +38,22 @@ export default function NavContainer({ page }) {
           <>
             <div className={styles.menu}>
               <NavLink to="/main">
-                <NavItem iconStyle={"iconHome"} altName="main" title="首頁" />
+                <NavItem iconStyle={"iconHome"} altName="main" title="首頁" isActive={location.pathname === "/main"} />
               </NavLink>
-              <NavLink to={`/user/${id}`} className={styles.btnLink}>
+              <NavLink to={`/user/${id}`}>
                 <NavItem
                   iconStyle={"iconUser"}
                   altName="user"
                   title="個人資料"
+                  isActive={location.pathname === `/user/${id}`} 
                 />
               </NavLink>
-              <NavLink to="/setting" className={styles.btnLink}>
+              <NavLink to="/setting">
                 <NavItem
                   iconStyle={"iconSetting"}
                   altName="setting"
                   title="設定"
+                  isActive={location.pathname === '/setting'} 
                 />
               </NavLink>
             </div>
@@ -69,13 +73,14 @@ export default function NavContainer({ page }) {
         {page === "admin" && (
           <div className={styles.menu}>
             <NavLink to="/admin/main">
-              <NavItem iconStyle={"iconHome"} altName="main" title="推文清單" />
+              <NavItem iconStyle={"iconHome"} altName="main" title="推文清單" isActive={location.pathname === "/admin/main"} />
             </NavLink>
             <NavLink to="/admin/users">
               <NavItem
                 iconStyle={"iconUser"}
                 altName="user"
                 title="使用者列表"
+                isActive={location.pathname === "/admin/users"}
               />
             </NavLink>
           </div>

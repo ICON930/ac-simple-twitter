@@ -89,6 +89,11 @@ export default function RegisterPage() {
           accountDuplication ? "Error: account已重複註冊！" : "字數超出上限!"
         }
         wordsLimit={50}
+        onKeyUp={(event) => {
+        if (event.key === 'Enter') {
+          handleClick();
+        }
+        }}
       />
       <AuthInput
         label="名稱"
@@ -97,6 +102,11 @@ export default function RegisterPage() {
         onChange={(nameInputValue) => setName(nameInputValue)}
         notification="字數超出上限!"
         wordsLimit={50}
+        onKeyUp={(event) => {
+        if (event.key === 'Enter') {
+          handleClick();
+        }
+        }}
       />
       <AuthInput
         label="Email"
@@ -107,8 +117,12 @@ export default function RegisterPage() {
           setEmailDuplication("");
         }}
         notification={emailDuplication ? "Error: email已重複註冊！" : "字數超出上限!"}
-
         wordsLimit={100}
+        onKeyUp={(event) => {
+        if (event.key === 'Enter') {
+          handleClick();
+        }
+        }}
       />
       <AuthInput
         label="密碼"
@@ -118,6 +132,11 @@ export default function RegisterPage() {
         onChange={(passwordInputValue) => setPassword(passwordInputValue)}
         notification="字數超出上限!"
         wordsLimit={20}
+        onKeyUp={(event) => {
+        if (event.key === 'Enter') {
+          handleClick();
+        }
+        }}
       />
       <AuthInput
         label="密碼確認"
@@ -129,6 +148,11 @@ export default function RegisterPage() {
         }
         notification="字數超出上限!"
         wordsLimit={20}
+        onKeyUp={(event) => {
+        if (event.key === 'Enter') {
+          handleClick();
+        }
+        }}
       />
       <Button title="註冊" size="large" isAction onClick={handleClick}></Button>
       <div className={styles.link}>

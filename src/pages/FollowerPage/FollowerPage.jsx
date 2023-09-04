@@ -16,6 +16,8 @@ import { getFollower, getFollowing } from "api/follow";
 import { useAuth } from "contexts/AuthContext";
 import { useFollow } from "contexts/FollowContext";
 export default function FollowerPage({ followerId, followingId }) {
+  console.log('followerId::::', followerId);
+  console.log('followingId::::', followingId);
   const { isAuthenticated, currentMember } = useAuth();
   const token = localStorage.getItem("token");
 

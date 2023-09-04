@@ -9,6 +9,7 @@ export default function AuthInput({
   onChange,
   notification,
   wordsLimit,
+  onKeyUp,
 }) {
   return (
     <>
@@ -26,6 +27,7 @@ export default function AuthInput({
           value={value}
           placeholder={placeholder}
           onChange={(event) => onChange?.(event.target.value)}
+          onKeyUp={onKeyUp}
         />
       </div>
       <div className={styles.noteBox}>

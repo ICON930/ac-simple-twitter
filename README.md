@@ -2,6 +2,8 @@
 
 https://icon930.github.io/ac-simple-twitter
 
+
+
 ### `安裝說明`
 
 1. 請先確認有安裝 node.js 與 npm。
@@ -60,3 +62,11 @@ https://icon930.github.io/ac-simple-twitter
 ### `後端repo`
 
 https://github.com/Nilney/twitter-api-2020
+
+### `前台測試帳號密碼`
+帳號:user1
+密碼:12345678
+
+### `後台測試帳號密碼`
+帳號:root
+密碼:12345678

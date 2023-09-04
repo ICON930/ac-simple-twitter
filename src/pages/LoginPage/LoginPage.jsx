@@ -65,6 +65,11 @@ export default function LoginPage() {
         label="帳號"
         value={account}
         placeholder="請輸入帳號"
+        onKeyUp={(event) => {
+        if (event.key === 'Enter') {
+          handleClick();
+        }
+        }}
         onChange={(accountInputValue) => {
           setAccount(accountInputValue);
           setAccountNotFound("");
@@ -77,6 +82,11 @@ export default function LoginPage() {
         value={password}
         type="password"
         placeholder="請輸入密碼"
+        onKeyUp={(event) => {
+        if (event.key === 'Enter') {
+          handleClick();
+        }
+        }}
         onChange={(passwordInputValue) => setPassword(passwordInputValue)}
         notification="字數超出上限!"
         wordsLimit={20}

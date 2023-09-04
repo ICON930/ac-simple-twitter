@@ -32,6 +32,9 @@ export default function UserPage() {
   const [shouldReload, setShouldReload] = useState(false);
   const [tweetCount, setTweetCount] = useState(0);
   const { followUser, unfollowUser } = useFollow();
+  const [tweetLinkClassName, setTweetLinkClassName] = useState(styles.userLink);
+  const [replyLinkClassName, setReplyLinkClassName] = useState(styles.userLink);
+  const [likeLinkClassName, setLikeLinkClassName] = useState(styles.userLink);
   
   const handleSaveSuccess = () => {
     setShouldReload((prevState) => !prevState);
@@ -56,6 +59,22 @@ export default function UserPage() {
       fetchData();
     }
   }, [id, isAuthenticated, shouldReload, tab]);
+
+  useEffect(() => {
+    if (tab === 'reply') {
+      setTweetLinkClassName(styles.userLink);
+      setReplyLinkClassName(styles.userSetClass);
+      setLikeLinkClassName(styles.userLink);
+    } else if (tab === 'like') {
+      setTweetLinkClassName(styles.userLink);
+      setReplyLinkClassName(styles.userLink);
+      setLikeLinkClassName(styles.userSetClass);
+    } else {
+      setTweetLinkClassName(styles.userSetClass);
+      setReplyLinkClassName(styles.userLink);
+      setLikeLinkClassName(styles.userLink);
+    }
+  }, [tab]);
 
   let content;
   switch (tab) {
@@ -110,13 +129,13 @@ export default function UserPage() {
         )}
         <ul className={styles.link}>
           <li>
-            <Link to={`/user/${id}`} className={styles.userLink}>推文</Link>
+            <Link to={`/user/${id}`} className={tweetLinkClassName}>推文</Link>
           </li>
           <li>
-            <Link to={`/user/${id}/reply`} className={styles.userLink}>回覆</Link>
+            <Link to={`/user/${id}/reply`} className={replyLinkClassName}>回覆</Link>
           </li>
           <li>
-            <Link to={`/user/${id}/like`} className={styles.userLink}>喜歡的內容</Link>
+            <Link to={`/user/${id}/like`} className={likeLinkClassName}>喜歡的內容</Link>
           </li>
         </ul>
         {content}

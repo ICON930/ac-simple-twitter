@@ -19,8 +19,6 @@ import { useFollow } from "contexts/FollowContext";
 import { useLocation } from "react-router-dom";
 
 export default function FollowerPage({ followerId, followingId }) {
-  console.log('followerId::::', followerId);
-  console.log('followingId::::', followingId);
   const { isAuthenticated, currentMember } = useAuth();
   const token = localStorage.getItem("token");
 
@@ -57,7 +55,7 @@ export default function FollowerPage({ followerId, followingId }) {
     }
   }, [isAuthenticated, token, id, tab, currentMember]);
 
-  const location = useLocation()
+  const location = useLocation();
 
   return (
     <div className={styles.container}>
@@ -78,8 +76,10 @@ export default function FollowerPage({ followerId, followingId }) {
               <li>
                 <Link
                   to={`/users/${id}/follower`}
-                  className= {
-                    location.pathname === `/users/${id}/follower` ? styles.followLinkActive : styles.followLink
+                  className={
+                    location.pathname === `/users/${id}/follower`
+                      ? styles.followLinkActive
+                      : styles.followLink
                   }
                 >
                   追隨者
@@ -88,8 +88,10 @@ export default function FollowerPage({ followerId, followingId }) {
               <li>
                 <Link
                   to={`/users/${id}/followings`}
-                  className= {
-                    location.pathname === `/users/${id}/followings` ? styles.followLinkActive : styles.followLink
+                  className={
+                    location.pathname === `/users/${id}/followings`
+                      ? styles.followLinkActive
+                      : styles.followLink
                   }
                 >
                   正在追隨中

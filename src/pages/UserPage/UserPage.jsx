@@ -24,6 +24,8 @@ import {
 import { getUserInfo } from "api/setting";
 import { useFollow } from "contexts/FollowContext";
 
+import Icon from '../../assets/icons/messageImage_1693886221605.jpg'
+
 export default function UserPage() {
   const { id, tab } = useParams();
   const { isAuthenticated, currentMember } = useAuth();
@@ -95,12 +97,12 @@ export default function UserPage() {
       </div>
       <div className={styles.middleContainer}>
         {isLoading ? (
-          "Loading..."
+          <p></p>
         ) : (
           <Header title={userData.name} arrow tweetCount={tweetCount} />
         )}
         {isLoading ? (
-          "Loading..."
+          <img className={styles.loadingStyle} src={Icon} alt="icon"/>
         ) : (
           <UserInfo
             onSaveSuccess={handleSaveSuccess}

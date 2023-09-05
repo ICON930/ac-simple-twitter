@@ -1,11 +1,12 @@
 @use "src/assets/styles/color" as color;
 
 .container {
+  position: fiex;
   display: flex;
   justify-content: center;
   height: 100vh;
   overflow: hidden;
-
+  margin-left: 290px;
   .cardContainer {
     width: 1075px;
     border-left: 1px solid color.$assistant-gray; 

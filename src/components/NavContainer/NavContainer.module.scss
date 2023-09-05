@@ -6,6 +6,8 @@
   align-items: flex-start;
   margin-right: 24px;
   width: 178px;
+  left: calc(50% - 550px);
+  position: fixed;
 
   .logoImg {
     width: 50px;

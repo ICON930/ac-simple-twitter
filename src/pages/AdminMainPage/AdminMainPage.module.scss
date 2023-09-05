@@ -3,10 +3,10 @@
 .container {
   display: flex;
   justify-content: center;
-  margin-right: 130px;
+  // margin-right: 130px;
   height: 100vh;
   overflow: hidden;
-  
+  margin-left: 140px;
   .listContainer {
     width: 937px;
     border-left: 1px solid color.$assistant-gray;

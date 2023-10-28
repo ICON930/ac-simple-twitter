@@ -6,6 +6,7 @@ import {
   useCallback,
 } from "react";
 import { AddFollow, UnFollow, getFollower, getFollowing } from "api/follow";
+import { useAuth } from "./AuthContext";
 
 const FollowContext = createContext();
 
@@ -17,23 +18,31 @@ export function FollowProvider({ children }) {
   const token = localStorage.getItem("token");
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
-  const fetchFollowers = useCallback(async () => {
-    try {
-      const response = await getFollower(token);
-      setFollowers(response);
-    } catch (error) {
-      console.error("追隨者清單失敗", error);
-    }
-  }, [token]);
+  const { currentMember } = useAuth();
 
-  const fetchFollowing = useCallback(async () => {
-    try {
-      const response = await getFollowing(token);
-      setFollowing(response);
-    } catch (error) {
-      console.error("正在跟隨清單失敗", error);
-    }
-  }, [token]);
+  const fetchFollowers = useCallback(
+    async (id) => {
+      try {
+        const response = await getFollower(token, id);
+        setFollowers(response);
+      } catch (error) {
+        console.error("追隨者清單失敗", error);
+      }
+    },
+    [token]
+  );
+
+  const fetchFollowing = useCallback(
+    async (id) => {
+      try {
+        const response = await getFollowing(token, id);
+        setFollowing(response);
+      } catch (error) {
+        console.error("正在跟隨清單失敗", error);
+      }
+    },
+    [token]
+  );
 
   const followUser = async (id) => {
     try {
@@ -56,9 +65,11 @@ export function FollowProvider({ children }) {
   };
 
   useEffect(() => {
-    fetchFollowers();
-    fetchFollowing();
-  }, [fetchFollowers, fetchFollowing]);
+    if (currentMember) {
+      fetchFollowers(currentMember.id);
+      fetchFollowing(currentMember.id);
+    }
+  }, [fetchFollowers, fetchFollowing, currentMember]);
 
   return (
     <FollowContext.Provider

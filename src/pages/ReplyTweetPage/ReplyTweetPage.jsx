@@ -11,8 +11,10 @@ import styles from "./ReplyTweetPage.module.scss";
 import { useParams } from "react-router";
 import { getTweetReply, getUserTweet } from "api/tweet";
 export default function ReplyTweetPage() {
-  const { tweetid } = useParams(); //取得tweetID
+  const { tweetid: tweetidParam } = useParams(); //取得tweetID
   const [tweetData, setTweetData] = useState(null);
+  // param取得的值是string 需轉回number 型態
+  const tweetid = Number(tweetidParam);
 
   useEffect(() => {
     const fetchTweetData = async () => {

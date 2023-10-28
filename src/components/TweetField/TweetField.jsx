@@ -37,7 +37,7 @@ export default function TweetField({
         onRefresh();
       });
     } catch (error) {
-      console.error("发文失败，错误信息：", error);
+      console.error("發文失败，錯誤信息：", error);
       setError("發文失敗");
       Swal.fire({
         position: "top",

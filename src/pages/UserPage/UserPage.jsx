@@ -24,7 +24,7 @@ import {
 import { getUserInfo } from "api/setting";
 import { useFollow } from "contexts/FollowContext";
 
-import Icon from '../../assets/icons/messageImage_1693886221605.jpg'
+import Icon from "../../assets/icons/messageImage_1693886221605.jpg";
 
 export default function UserPage() {
   const { id, tab } = useParams();
@@ -88,7 +88,7 @@ export default function UserPage() {
       );
   }
 
-  const location = useLocation()
+  const location = useLocation();
 
   return (
     <div className={styles.container}>
@@ -102,7 +102,7 @@ export default function UserPage() {
           <Header title={userData.name} arrow tweetCount={tweetCount} />
         )}
         {isLoading ? (
-          <img className={styles.loadingStyle} src={Icon} alt="icon"/>
+          <img className={styles.loadingStyle} src={Icon} alt="icon" />
         ) : (
           <UserInfo
             onSaveSuccess={handleSaveSuccess}
@@ -115,13 +115,40 @@ export default function UserPage() {
         )}
         <ul className={styles.link}>
           <li>
-            <Link to={`/user/${id}`} className={location.pathname === `/user/${id}` ? styles.userLinkActive : styles.userLink}>推文</Link>
+            <Link
+              to={`/user/${id}`}
+              className={
+                location.pathname === `/user/${id}`
+                  ? styles.userLinkActive
+                  : styles.userLink
+              }
+            >
+              推文
+            </Link>
           </li>
           <li>
-            <Link to={`/user/${id}/reply`} className={location.pathname === `/user/${id}/reply` ? styles.userLinkActive : styles.userLink}>回覆</Link>
+            <Link
+              to={`/user/${id}/reply`}
+              className={
+                location.pathname === `/user/${id}/reply`
+                  ? styles.userLinkActive
+                  : styles.userLink
+              }
+            >
+              回覆
+            </Link>
           </li>
           <li>
-            <Link to={`/user/${id}/like`} className={location.pathname === `/user/${id}/like` ? styles.userLinkActive : styles.userLink}>喜歡的內容</Link>
+            <Link
+              to={`/user/${id}/like`}
+              className={
+                location.pathname === `/user/${id}/like`
+                  ? styles.userLinkActive
+                  : styles.userLink
+              }
+            >
+              喜歡的內容
+            </Link>
           </li>
         </ul>
         {content}

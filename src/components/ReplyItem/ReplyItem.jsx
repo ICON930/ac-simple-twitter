@@ -34,9 +34,10 @@ export default function PostTweet({ tweetid }) {
     setTweetData({ ...tweetData, likedAmount: newLikedAmount });
   };
 
-  useEffect(() => {
-    setIsLiked(likes.includes(tweetid));
-  }, [likes, tweetid]);
+  // 不太確定這邊的用意，先註解
+  // useEffect(() => {
+  //   setIsLiked(likes.includes(tweetid));
+  // }, [likes, tweetid]);
 
   useEffect(() => {
     const fetchTweetData = async () => {

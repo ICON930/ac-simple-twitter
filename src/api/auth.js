@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const authURL = "https://thawing-beach-07124-5fd4697aa480.herokuapp.com/api";
+const authURL =
+  "http://twitter-api-dev.ap-northeast-1.elasticbeanstalk.com/api";
 
 //前台登入
 export const login = async ({ account, password }) => {
@@ -18,31 +19,37 @@ export const login = async ({ account, password }) => {
 
     return data;
   } catch (error) {
-    console.error('[Signin Failed]:', error);
+    console.error("[Signin Failed]:", error);
     return { success: false };
   }
 };
 
 //前台註冊
-export const register = async ({ account, name, email, password, checkPassword }) => {
+export const register = async ({
+  account,
+  name,
+  email,
+  password,
+  checkPassword,
+}) => {
   try {
-    const { data }  = await axios.post(`${authURL}/users`, {
+    const { data } = await axios.post(`${authURL}/users`, {
       account,
       name,
       email,
       password,
       checkPassword,
     });
-  
+
     const { token } = data;
 
     if (token) {
       return { success: true, ...data };
-    } 
+    }
 
     return data;
   } catch (error) {
-    console.error('[Signup Failed]: ', error);
+    console.error("[Signup Failed]: ", error);
     return error;
   }
 };

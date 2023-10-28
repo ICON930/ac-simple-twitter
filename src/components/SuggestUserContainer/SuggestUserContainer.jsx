@@ -22,7 +22,7 @@ export default function SuggestUserContainer() {
       }
     };
     getTopUser();
-  }, [users]);
+  }, []);
 
   const topUserList = users.map((user) => {
     return (
